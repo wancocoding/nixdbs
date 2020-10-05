@@ -6,7 +6,7 @@
 "                                      /____/                        
 "
 " Maintainer:		Cocoding  <https://cocoding.cc>
-" Vim Version:		8.2.1700
+" NeoVim Version:	0.4.4
 " Version:			0.1
 " Created:			2020-10-01
 " Updated:			2020-10-05
@@ -36,15 +36,16 @@
 "*****************************************************************************
 "" Vim-Plug core
 "*****************************************************************************
-let vimplug_exists=expand('~/.vim/autoload/plug.vim')
+
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 if has('win32')&&!has('win64')
   let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
 else
   let curl_exists=expand('curl')
 endif
 
-let g:vim_bootstrap_langs = "c,go"
-let g:vim_bootstrap_editor = "vim"				" nvim or vim
+let g:vim_bootstrap_langs = "go"
+let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 let g:vim_bootstrap_theme = "molokai"
 let g:vim_bootstrap_frams = ""
 
@@ -62,7 +63,7 @@ if !filereadable(vimplug_exists)
 endif
 
 " Required:
-call plug#begin(expand('~/.vim/plugged'))
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 
 "*****************************************************************************
@@ -175,7 +176,7 @@ else
 endif
 
 " session management
-let g:session_directory = "~/.vim/session"
+let g:session_directory = "~/.config/nvim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
@@ -415,7 +416,7 @@ let g:tagbar_autofocus = 1
 " startify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " session
- let g:startify_session_dir = '~/.vim/startify_session'
+ let g:startify_session_dir = '~/.config/nvim/startify_session'
  " auto update session
  let g:startify_session_persistence = 1
 
@@ -471,7 +472,7 @@ let g:UltiSnipsEditSplit="vertical"
 " see https://github.com/jszakmeister/markdown2ctags
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
+    \ 'ctagsbin' : '~/.config/nvim/scripts/markdown2ctags.py',
     \ 'ctagsargs' : '-f - --sort=yes --sro=»',
     \ 'kinds' : [
         \ 's:sections',
