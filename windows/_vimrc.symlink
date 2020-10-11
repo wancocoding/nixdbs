@@ -1,0 +1,254 @@
+"     ______                     ___                _    ___         
+"    / ____/___  _________  ____/ (_)___  ____ _   | |  / (_)___ ___ 
+"   / /   / __ \/ ___/ __ \/ __  / / __ \/ __ `/   | | / / / __ `__ \
+"  / /___/ /_/ / /__/ /_/ / /_/ / / / / / /_/ /    | |/ / / / / / / /
+"  \____/\____/\___/\____/\__,_/_/_/ /_/\__, /     |___/_/_/ /_/ /_/ 
+"                                      /____/                        
+"
+" Maintainer:			Vincent Wancocoding  <https://cocoding.cc>
+" Vim Version:			8.2.1830
+" Version:			0.1
+" Created:			2020-10-01
+" Updated:			2020-10-11
+" OS:				Windows
+"
+" Section:
+"		* Basic Settings
+"		* Appearance(Color , theme , StatusLine)
+"		* Abbreviations
+"		* Commands
+"		* Functions
+"		* Mappings
+"		* PlugSetting NERDTree
+"		* PlugSetting airline
+"		* PlugSetting tagbar
+"		* PlugSetting startify
+"		* PlugSetting vim-go
+"		* PlugSetting UltiSnips
+
+
+"*****************************************************************************
+"" Basic Setup
+"*****************************************************************************"
+
+" Required:
+filetype plugin indent on
+
+"" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,chinese,latin-1
+set ttyfast
+
+if has("win32")
+    set fileencoding=chinese
+else
+    set fileencoding=utf-8
+endif
+
+" With a map leader it's possible to do extra key combinations
+let mapleader = " "
+let g:mapleader = " "
+
+"" Fix backspace indent
+set backspace=indent,eol,start          " allow backspacing over everything in insert mode  ,set bs=2  have the same effect
+
+" tab settings
+set smarttab                            " insert tabs on the start of a line according to context
+set tabstop=4                           " Number of spaces that a <Tab> in the file counts for
+set softtabstop=4                       " Number of spaces that a <Tab> counts for while performing editing operations, like inserting a <Tab> or using <BS>
+set shiftwidth=4                        " Number of spaces to use for each step of (auto)indent
+set shiftround
+
+set autoindent                          " auto indentation
+set smartindent                         " auto indent for c program
+
+set autoread                            " auto read when file is changed from outside
+set wildignore=*.o,*.class,*.pyc        " ignore these files while expanding wild chars
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+
+" set clipboard for system
+set clipboard=unnamed
+
+"" Enable hidden buffers
+set hidden
+
+set showcmd                             " display incomplete commands
+
+"" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" disable sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=1000
+
+" shell setting
+if exists('$SHELL')
+    set shell=$SHELL
+else
+    set shell=/bin/sh
+endif
+
+" session management
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+
+" do not keep a backup file, use versions instead
+set nobackup
+set nowritebackup
+set noswapfile
+
+set history=700                         " keep 700 lines of command line history
+set undolevels=700                      " undo level
+
+
+"" Use modeline overrides
+set modeline
+set modelines=10
+
+"" Set the title
+set title
+set titleold="Terminal"
+set titlestring=%F
+
+
+"*****************************************************************************
+"" Appearance(Color , theme , StatusLine)
+"*****************************************************************************
+
+syntax enable
+syntax on
+
+set ruler                               " show the cursor position all the time
+
+set nu                                  " number line
+" set t_Co=256                            " number of colors
+if has("gui_running")
+  if has("gui_mac") || has("gui_macvim")
+    set guifont=Menlo:h12
+    set transparency=7
+  endif
+else
+  let g:CSApprox_loaded = 1
+
+  " IndentLine
+  let g:indentLine_enabled = 1
+  let g:indentLine_concealcursor = 0
+  let g:indentLine_char = '©ª'
+  let g:indentLine_faster = 1
+
+  
+  if $COLORTERM == 'gnome-terminal'
+    set term=gnome-256color
+  else
+    if $TERM == 'xterm'
+		" Enable true color ÆôÓÃÖÕ¶Ë24Î»É«
+		if exists('+termguicolors')
+			let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+			let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+			set termguicolors
+		else
+			set term=xterm-256color
+		endif
+    endif
+  endif
+endif
+
+" set tw=79                             " Maximum width of text that is being inserted
+set colorcolumn=80                      " display a column line
+
+set list                                " Show tabs as CTRL-I is displayed, display $ after end of line
+" listchar
+set listchars=tab:▸\ ,eol:¬,trail:·,precedes:←,extends:→
+
+let no_buffers_menu=1
+
+set background=dark
+set cursorline
+" let g:gruvbox_contrast_dark="hard"
+" colorscheme gruvbox
+colorscheme badwolf
+
+"*****************************************************************************
+"" Abbreviations
+"*****************************************************************************
+"" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+
+"*****************************************************************************
+"" Commands
+"*****************************************************************************
+" remove trailing whitespaces
+command! FixWhitespace :%s/\s\+$//e
+
+"*****************************************************************************
+"" Functions
+"*****************************************************************************
+if !exists('*s:setupWrapping')
+  function s:setupWrapping()
+    set wrap
+    set wm=2
+    set textwidth=79
+  endfunction
+endif
+
+"*****************************************************************************
+"" Mappings
+"*****************************************************************************
+"" Split
+" noremap <Leader>h :<C-u>split<CR>
+" noremap <Leader>v :<C-u>vsplit<CR>
+
+"" Git
+" noremap <Leader>ga :Gwrite<CR>
+" noremap <Leader>gc :Gcommit<CR>
+" noremap <Leader>gsh :Gpush<CR>
+" noremap <Leader>gll :Gpull<CR>
+" noremap <Leader>gs :Gstatus<CR>
+" noremap <Leader>gb :Gblame<CR>
+" noremap <Leader>gd :Gvdiff<CR>
+" noremap <Leader>gr :Gremove<CR>
+
+" session management
+" nnoremap <leader>so :OpenSession<Space>
+" nnoremap <leader>ss :SaveSession<Space>
+" nnoremap <leader>sd :DeleteSession<CR>
+" nnoremap <leader>sc :CloseSession<CR>
+
+"" Tabs
+" nnoremap <Tab> gt
+" nnoremap <S-Tab> gT
+" nnoremap <silent> <S-t> :tabnew<CR>
+
+"" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+"" Clean search (highlight)
+nnoremap <silent> <leader>nh :noh<CR>
+
+" Better copy & paste
+:set pastetoggle=<F5>
+
+"" Disable arrowkeys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+

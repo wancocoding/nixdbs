@@ -5,7 +5,7 @@
 "  \____/\____/\___/\____/\__,_/_/_/ /_/\__, /     |___/_/_/ /_/ /_/ 
 "                                      /____/                        
 "
-" Maintainer:		Cocoding  <https://cocoding.cc>
+" Maintainer:		Vincent Wancocoding  <https://cocoding.cc>
 " Vim Version:		8.2.1700
 " Version:			0.1
 " Created:			2020-10-01
@@ -16,7 +16,7 @@
 "		* Init Vim-plug
 "		* Plugins
 "		* Basic Settings
-"		* Appearance(Color , theme , StatusLine)¬
+"		* Appearance(Color , theme , StatusLine)
 "		* Abbreviations
 "		* Commands
 "		* Functions
@@ -126,8 +126,14 @@ filetype plugin indent on
 "" Encoding
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=utf-8
+set fileencodings=utf-8,chinese,latin-1
 set ttyfast
+
+if has("win32")
+    set fileencoding=chinese
+else
+    set fileencoding=utf-8
+endif
 
 " With a map leader it's possible to do extra key combinations
 let mapleader = " "
@@ -248,7 +254,8 @@ endif
 set colorcolumn=80                      " display a column line
 
 set list                                " Show tabs as CTRL-I is displayed, display $ after end of line
-set listchars=tab:▸\ ,eol:¬             " listchar
+" listchar
+set listchars=tab:▸\ ,eol:¬,trail:·,precedes:←,extends:→             
 
 let no_buffers_menu=1
 

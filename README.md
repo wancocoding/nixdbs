@@ -2,9 +2,9 @@
 
 
 Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
-Version:		0.2
+Version:		0.3.1
 created:		2020-10-01
-updated:		2020-10-10
+updated:		2020-10-11
 
 
 This project is used to record my develop envrionment on osx win and linux
@@ -13,14 +13,7 @@ This project is used to record my develop envrionment on osx win and linux
 # Content
 
 * [Intro](#intro)
-* [Installation Windows](#installation-windows)
-	- Preparation before installation
-	- 
-	- [Vim](#vim-nvim)
-	- After Installation
-		+ ssh key configuration
-* [Installation Linux](#installation-linux)
-* [Installation OSX](#installation-OSX)
+* [Windows](#windows)
 * [ChangeLog](#changelog)
 
 
@@ -28,47 +21,19 @@ This project is used to record my develop envrionment on osx win and linux
 
 This dotfiles project contains the following content
 
-* OSX
-	- brew
-	- Vim & NeoVim
-	- zsh & oh-my-zsh
-	- git
-	- tmux
-	- node & nvm
-	- python & pyenv
-	- java
-	- go
-* Windows
-	- chocolatey
-	- Vim & NeoVim
-	- git
-* Linux
-
-# Installation Windows
 
 
+# Windows
 
-## VIM-NVIM
-
-
-
-
-## After Install Nvim
-
-
-```
-:call mkdir(stdpath('config'), 'p')
-:exe 'edit '.stdpath('config').'/init.vim'
-```
-
-
-## ZSHRC
-
+Before install, you must install winget first, please download it from [winget github release](https://github.com/microsoft/winget-cli/releases)
 
 
 
 # ChangeLog
-
+* 2020-10-11 v0.3.1
+	- different OS, use different directory
+	- new windows vim config
+	- add windows PowerShell profile
 * 2020-10-10 v0.2
 	- create windows config
 	- nvim and vim use the save config
