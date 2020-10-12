@@ -4,7 +4,7 @@
 Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
 Version:		0.3.1
 created:		2020-10-01
-updated:		2020-10-11
+updated:		2020-10-12
 
 
 This project is used to record my develop envrionment on osx win and linux
