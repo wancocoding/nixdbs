@@ -14,6 +14,7 @@ This project is used to record my develop envrionment on osx win and linux
 
 * [Intro](#intro)
 * [Windows](#windows)
+	[Manual installation](#manual-installation)
 * [ChangeLog](#changelog)
 
 
@@ -27,9 +28,17 @@ This dotfiles project contains the following content
 
 Before install, you must install winget first, please download it from [winget github release](https://github.com/microsoft/winget-cli/releases)
 
+## Manual installation
+
+* python3.8.6
 
 
 # ChangeLog
+* 2020-10-13 v0.3.3
+	- add university ctag for vim
+	- update mardown make tag python script path
+* 2020-10-12 v0.3.2
+	- add powershell script and function
 * 2020-10-11 v0.3.1
 	- different OS, use different directory
 	- new windows vim config
