@@ -70,6 +70,7 @@ scoop install nodejs-lts
 scoop install oraclejdk14
 
 scoop install universal-ctags
+scoop install perl lua
 
 # scoop install aria2 curl grep sed less touch
 # scoop install python ruby go perl

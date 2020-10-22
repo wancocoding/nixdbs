@@ -29,13 +29,14 @@
 "		* PlugSetting Marddown
 "		* PlugSetting coc.nvim
 "		* PlugSetting vim-go
+"		* PlugSetting pi2md
 
 "*****************************************************************************
 "" Vim-Plug core init
 "*****************************************************************************
 
 let vimplug_exists=expand('~/vimfiles/autoload/plug.vim')
-if has('win32')&&!has('win64')
+if has('win32') && !has('win64')
   let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
 else
   let curl_exists=expand('curl')
@@ -46,7 +47,12 @@ endif
 " shell setting
 set shell=powershell
 set shellcmdflag=-command
-
+" if has("win32")
+"     set shell=cmd.exe
+"     set shellcmdflag=/c\ powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
+"     set shellpipe=|
+"     set shellredir=>
+" endif
 
 "*****************************************************************************
 "" Plug install packages
@@ -69,6 +75,10 @@ Plug 'vim-airline/vim-airline-themes'
 " ============  Language Support
 Plug 'majutsushi/tagbar'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
+
+" ============  Git Plugin
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " ============  Completion Support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -236,6 +246,7 @@ endif
 
 " set guifont=Cascadia\ Code\ PL:h12
 set guifont=Source\ Code\ Pro:h12
+" set guifontwide=微软雅黑:h12
 
 " set tw=79                             " Maximum width of text that is being inserted
 set colorcolumn=80                      " display a column line
@@ -630,6 +641,21 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" pi2md config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:pi2mdSettings = {
+  \ 'debug': 1,
+  \ 'storage': 1,
+  \ 'storage_local_position_type': 0,
+  \ 'storage_local_dir_name': 'images',
+  \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
+  \ 'storage_local_prefer_relative_path': 1,
+  \ 'storage_cloud_tool': 'picgo-core',
+  \ 'storage_cloud_picgocore_path': 
+    \ 'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd'
+\ }
 
 
 " vim:set et sts=4 sw=4 ts=4 tw=78:
