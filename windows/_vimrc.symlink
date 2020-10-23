@@ -45,14 +45,16 @@ endif
 " set shellslash
 
 " shell setting
-set shell=powershell
-set shellcmdflag=-command
-" if has("win32")
-"     set shell=cmd.exe
-"     set shellcmdflag=/c\ powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
-"     set shellpipe=|
-"     set shellredir=>
-" endif
+if has("win32")
+  " set shell=cmd.exe
+  " set shellcmdflag=/c\ powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
+  " set shellpipe=|
+  " set shellredir=>
+  set shell=powershell
+  set shellcmdflag=-command
+  set shellquote=\"
+  set shellxquote= 
+endif
 
 "*****************************************************************************
 "" Plug install packages
@@ -146,6 +148,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 " set clipboard for system
 set clipboard=unnamed
+if has('nvim')
+  set clipboard+=unnamedplus
+endif
+
 
 "" Enable hidden buffers
 set hidden
@@ -421,6 +427,10 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
+" fix the command mode in the status line now show in vim"
+if !has('nvim')
+  au CmdLineEnter * redraws
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -654,7 +664,9 @@ let g:pi2mdSettings = {
   \ 'storage_local_prefer_relative_path': 1,
   \ 'storage_cloud_tool': 'picgo-core',
   \ 'storage_cloud_picgocore_path': 
-    \ 'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd'
+    \ 'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
+  \ 'storage_cloud_picgoapp_node_path': 
+    \ 'd:\develop\Scoop\apps\nodejs-lts\current\node.exe'
 \ }
 
 
