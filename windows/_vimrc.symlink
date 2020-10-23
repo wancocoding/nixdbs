@@ -13,23 +13,23 @@
 " OS:				Windows
 "
 " Section:
-"		* Plug Init and Install
-"		* Basic Settings
-"		* Appearance(Color , theme , StatusLine)
-"		* Abbreviations
-"		* Commands
-"		* Functions
-"		* Mappings
-"		* PlugSetting NERDTree
-"		* PlugSetting airline
-"		* PlugSetting tagbar
-"		* PlugSetting startify
-"		* PlugSetting vim-go
-"		* PlugSetting UltiSnips
-"		* PlugSetting Marddown
-"		* PlugSetting coc.nvim
-"		* PlugSetting vim-go
-"		* PlugSetting pi2md
+"   * Plug Init and Install
+"   * Basic Settings
+"   * Appearance(Color , theme , StatusLine)
+"   * Abbreviations
+"   * Commands
+"   * Functions
+"   * Mappings
+"   * PlugSetting NERDTree
+"   * PlugSetting airline
+"   * PlugSetting tagbar
+"   * PlugSetting startify
+"   * PlugSetting vim-go
+"   * PlugSetting UltiSnips
+"   * PlugSetting Marddown
+"   * PlugSetting coc.nvim
+"   * PlugSetting vim-go
+"   * PlugSetting pi2md
 
 "*****************************************************************************
 "" Vim-Plug core init
@@ -63,7 +63,7 @@ endif
 call plug#begin(expand('~/vimfiles/plugged'))
 
 " ============  navigation
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 " ============  theme
 Plug 'tomasr/molokai'
@@ -252,7 +252,6 @@ endif
 
 " set guifont=Cascadia\ Code\ PL:h12
 set guifont=Source\ Code\ Pro:h12
-" set guifontwide=微软雅黑:h12
 
 " set tw=79                             " Maximum width of text that is being inserted
 set colorcolumn=80                      " display a column line
@@ -290,6 +289,14 @@ cnoreabbrev Qall qall
 "*****************************************************************************
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
+
+" Some useful shortcuts
+if has('win32')
+  command! Vimrc e ~\_vimrc
+else
+  command! Vimrc e ~/.vimrc
+endif
+
 
 "*****************************************************************************
 "" Functions
@@ -331,7 +338,7 @@ endif
 " nnoremap <silent> <S-t> :tabnew<CR>
 
 "" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
+nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
 
 "" Clean search (highlight)
 nnoremap <silent> <leader>nh :noh<CR>
@@ -349,6 +356,9 @@ noremap <Right> <Nop>
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
+
+" Use <leader>Esc to leave terminal mode
+tnoremap <leader><Esc> <C-\><C-n>
 
 
 "*****************************************************************************
