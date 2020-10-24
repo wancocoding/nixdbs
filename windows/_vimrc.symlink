@@ -20,6 +20,7 @@
 "   * Commands
 "   * Functions
 "   * Mappings
+"   * Netrw
 "   * PlugSetting NERDTree
 "   * PlugSetting airline
 "   * PlugSetting tagbar
@@ -360,30 +361,68 @@ map! <S-Insert> <MiddleMouse>
 " Use <leader>Esc to leave terminal mode
 tnoremap <leader><Esc> <C-\><C-n>
 
+"*****************************************************************************
+" Netrw
+"*****************************************************************************
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
+
+
+" Toggle Vexplore
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+
+map <silent> <F3> :call ToggleVExplorer()<CR>
+
 
 "*****************************************************************************
-"" Nerdtree
+" Nerdtree (use netrw instead)
 "*****************************************************************************
 " custom ignore
-let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+" let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 
-let g:NERDTreeChDirMode=2
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" show line number
-let NERDTreeShowLineNumbers=0
-" show hidden file
-let NERDTreeShowHidden=0
-" set width
-let NERDTreeWinSize=35
+" let g:NERDTreeChDirMode=2
+" let g:NERDTreeShowBookmarks=1
+" let g:nerdtree_tabs_focus_on_files=1
+" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" " show line number
+" let NERDTreeShowLineNumbers=0
+" " show hidden file
+" let NERDTreeShowHidden=0
+" " set width
+" let NERDTreeWinSize=35
 
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+" nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
-" auto open nerdtree when open a dir
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" " auto open nerdtree when open a dir
+" " autocmd StdinReadPre * let s:std_in=1
+" " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 
 
