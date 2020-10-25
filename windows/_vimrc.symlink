@@ -64,7 +64,7 @@ endif
 call plug#begin(expand('~/vimfiles/plugged'))
 
 " ============  navigation
-" Plug 'preservim/nerdtree'
+Plug 'preservim/nerdtree'
 
 " ============  theme
 Plug 'tomasr/molokai'
@@ -80,8 +80,8 @@ Plug 'majutsushi/tagbar'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
 
 " ============  Git Plugin
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+" Plug 'tpope/vim-fugitive'
+" Plug 'airblade/vim-gitgutter'
 
 " ============  Completion Support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -100,6 +100,8 @@ Plug 'godlygeek/tabular'
 Plug 'mhinz/vim-startify'
 " Comment Plugin
 Plug 'tpope/vim-commentary'
+" parentheses, brackets, quotes, XML tags
+Plug 'tpope/vim-surround'
 " My plugin for paste image from clipboard
 Plug 'wancocoding/pi2md'
 
@@ -219,6 +221,9 @@ if has("gui_running")
   " fix gvim menu can not show chinese on windows 
   source $VIMRUNTIME/delmenu.vim
   source $VIMRUNTIME/menu.vim
+  " set guioptions-=m  " disable menu bar
+  " set guioptions-=T  " disable toolbar
+  " set guioptions-=r  " disable scrollbar
   if has("gui_mac") || has("gui_macvim")
     set guifont=Menlo:h12
     set transparency=7
@@ -268,6 +273,8 @@ set cursorline
 let g:gruvbox_contrast_dark="hard"
 colorscheme gruvbox
 " colorscheme badwolf
+
+
 
 "*****************************************************************************
 "" Abbreviations
@@ -361,12 +368,24 @@ map! <S-Insert> <MiddleMouse>
 " Use <leader>Esc to leave terminal mode
 tnoremap <leader><Esc> <C-\><C-n>
 
+" tab settings
+noremap <A-1> 1gt
+noremap <A-2> 2gt
+noremap <A-3> 3gt
+noremap <A-4> 4gt
+noremap <A-5> 5gt
+noremap <A-6> 6gt
+noremap <A-7> 7gt
+noremap <A-8> 8gt
+noremap <A-9> :tablast<cr>
+noremap <A-0> :tabfirst<cr>
+
 "*****************************************************************************
 " Netrw
 "*****************************************************************************
 
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
@@ -377,48 +396,48 @@ let g:netrw_winsize = 25
 " augroup END
 
 
-" Toggle Vexplore
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
-      let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
+" " Toggle Vexplore
+" function! ToggleVExplorer()
+"   if exists("t:expl_buf_num")
+"       let expl_win_num = bufwinnr(t:expl_buf_num)
+"       if expl_win_num != -1
+"           let cur_win_nr = winnr()
+"           exec expl_win_num . 'wincmd w'
+"           close
+"           exec cur_win_nr . 'wincmd w'
+"           unlet t:expl_buf_num
+"       else
+"           unlet t:expl_buf_num
+"       endif
+"   else
+"       exec '1wincmd w'
+"       Vexplore
+"       let t:expl_buf_num = bufnr("%")
+"   endif
+" endfunction
 
-map <silent> <F3> :call ToggleVExplorer()<CR>
+" map <silent> <F3> :call ToggleVExplorer()<CR>
 
 
 "*****************************************************************************
 " Nerdtree (use netrw instead)
 "*****************************************************************************
 " custom ignore
-" let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 
-" let g:NERDTreeChDirMode=2
-" let g:NERDTreeShowBookmarks=1
-" let g:nerdtree_tabs_focus_on_files=1
-" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" " show line number
-" let NERDTreeShowLineNumbers=0
-" " show hidden file
-" let NERDTreeShowHidden=0
-" " set width
-" let NERDTreeWinSize=35
+let g:NERDTreeChDirMode=2
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" show line number
+let NERDTreeShowLineNumbers=0
+" show hidden file
+let NERDTreeShowHidden=0
+" set width
+let NERDTreeWinSize=35
 
-" nnoremap <silent> <F2> :NERDTreeFind<CR>
-" nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " " auto open nerdtree when open a dir
 " " autocmd StdinReadPre * let s:std_in=1
@@ -494,7 +513,12 @@ let g:tagbar_autofocus = 1
 " startify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " session
-let g:startify_session_dir = '~/.vim/startify_session'
+if has('win32')
+  let g:startify_session_dir = '~\vimfiles/startify_session'
+else
+  let g:startify_session_dir = '~/.vim/startify_session'
+endif
+
 " auto update session
 let g:startify_session_persistence = 1
 
@@ -505,12 +529,22 @@ let g:startify_lists = [
          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
          \ ]
 
-let g:startify_bookmarks = [
-           \ { 'i': '~/_vimrc' },
-           \ { 'z': '~/.zshrc' },
-           \ { 'd': 'd:\develop\workspace'},
-           \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
-           \ ]
+if has('win32')
+  let g:startify_bookmarks = [
+    \ { 'i': '~/_vimrc' },
+    \ { 'z': '~/.zshrc' },
+    \ { 'd': 'd:\develop\workspace'},
+    \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
+    \ ]
+else
+  let g:startify_bookmarks = [
+    \ { 'i': '~/.vimrc' },
+    \ { 'z': '~/.zshrc' },
+    \ { 'd': '~/develop/workspace'},
+    \ { 'n': '~/\Dropbox/docs/md/notes' },
+    \ ]
+endif
+
 
 
 
@@ -719,4 +753,5 @@ let g:pi2mdSettings = {
 \ }
 
 
-" vim:set et sts=4 sw=4 ts=4 tw=78:
+
+" vim:set et sts=4 sw=4 ts=4 tw=78 ft=vim:
