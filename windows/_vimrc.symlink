@@ -64,7 +64,7 @@ endif
 call plug#begin(expand('~/vimfiles/plugged'))
 
 " ============  navigation
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 " ============  theme
 Plug 'tomasr/molokai'
@@ -97,7 +97,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 " Comment Plugin
 Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
@@ -196,14 +196,33 @@ set history=700                         " keep 700 lines of command line history
 set undolevels=700                      " undo level
 
 
-"" Use modeline overrides
+" Use modeline overrides
 set modeline
 set modelines=10
 
-"" Set the title
+" Set the title
 set title
 set titleold="Terminal"
 set titlestring=%F
+
+
+" command completion like zsh
+set wildmenu
+set wildmode=full
+
+
+" set dictionary
+set complete+=k
+if has('win32')
+  set dictionary+=c:\Users\oherg\vimfiles\dictionary\words.txt
+else
+
+  set dictionary+=/usr/share/dict/words
+endif
+
+" shortmess, the default is filnxtToOIcS, see :h shortmess
+set shm-=S
+
 
 
 "*****************************************************************************
@@ -422,22 +441,22 @@ let g:netrw_winsize = 25
 "*****************************************************************************
 " Nerdtree (use netrw instead)
 "*****************************************************************************
-" custom ignore
-let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+" " custom ignore
+" let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 
-let g:NERDTreeChDirMode=2
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" show line number
-let NERDTreeShowLineNumbers=0
-" show hidden file
-let NERDTreeShowHidden=0
-" set width
-let NERDTreeWinSize=35
+" let g:NERDTreeChDirMode=2
+" let g:NERDTreeShowBookmarks=1
+" let g:nerdtree_tabs_focus_on_files=1
+" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" " show line number
+" let NERDTreeShowLineNumbers=0
+" " show hidden file
+" let NERDTreeShowHidden=0
+" " set width
+" let NERDTreeWinSize=35
 
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+" nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " " auto open nerdtree when open a dir
 " " autocmd StdinReadPre * let s:std_in=1
@@ -512,38 +531,38 @@ let g:tagbar_autofocus = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " startify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" session
-if has('win32')
-  let g:startify_session_dir = '~\vimfiles/startify_session'
-else
-  let g:startify_session_dir = '~/.vim/startify_session'
-endif
+" " session
+" if has('win32')
+"   let g:startify_session_dir = '~\vimfiles/startify_session'
+" else
+"   let g:startify_session_dir = '~/.vim/startify_session'
+" endif
 
-" auto update session
-let g:startify_session_persistence = 1
+" " auto update session
+" let g:startify_session_persistence = 1
 
-let g:startify_lists = [
-         \ { 'type': 'files',     'header': ['   Files']            },
-         \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-         \ { 'type': 'sessions',  'header': ['   Sessions']       },
-         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-         \ ]
+" let g:startify_lists = [
+"          \ { 'type': 'files',     'header': ['   Files']            },
+"          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+"          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+"          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+"          \ ]
 
-if has('win32')
-  let g:startify_bookmarks = [
-    \ { 'i': '~/_vimrc' },
-    \ { 'z': '~/.zshrc' },
-    \ { 'd': 'd:\develop\workspace'},
-    \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
-    \ ]
-else
-  let g:startify_bookmarks = [
-    \ { 'i': '~/.vimrc' },
-    \ { 'z': '~/.zshrc' },
-    \ { 'd': '~/develop/workspace'},
-    \ { 'n': '~/\Dropbox/docs/md/notes' },
-    \ ]
-endif
+" if has('win32')
+"   let g:startify_bookmarks = [
+"     \ { 'i': '~\_vimrc' },
+"     \ { 'z': '~\.zshrc' },
+"     \ { 'd': 'd:\develop\workspace'},
+"     \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
+"     \ ]
+" else
+"   let g:startify_bookmarks = [
+"     \ { 'i': '~/.vimrc' },
+"     \ { 'z': '~/.zshrc' },
+"     \ { 'd': '~/develop/workspace'},
+"     \ { 'n': '~/Dropbox/docs/md/notes' },
+"     \ ]
+" endif
 
 
 
@@ -560,7 +579,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Markdown
+" Markdown for CTag
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Add support for markdown files in tagbar.
