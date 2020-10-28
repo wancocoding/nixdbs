@@ -97,11 +97,11 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
-" Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 " Comment Plugin
 Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 " My plugin for paste image from clipboard
 Plug 'wancocoding/pi2md'
 
@@ -121,6 +121,9 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
 set ttyfast
+
+" path
+set path+=**
 
 " if has("win32")
 "     set fileencoding=chinese
@@ -399,6 +402,12 @@ noremap <A-8> 8gt
 noremap <A-9> :tablast<cr>
 noremap <A-0> :tabfirst<cr>
 
+" windows resize
+:nnoremap <silent> <Up> :resize -1<CR>
+:nnoremap <silent> <Down> :resize +1<CR>
+:nnoremap <silent> <left> :vertical resize -1<CR>
+:nnoremap <silent> <right> :vertical resize +1<CR>
+
 "*****************************************************************************
 " Netrw
 "*****************************************************************************
@@ -407,7 +416,7 @@ let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
-let g:netrw_winsize = 25
+let g:netrw_winsize = 20
 
 " augroup ProjectDrawer
 "   autocmd!
@@ -531,38 +540,38 @@ let g:tagbar_autofocus = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " startify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" " session
-" if has('win32')
-"   let g:startify_session_dir = '~\vimfiles/startify_session'
-" else
-"   let g:startify_session_dir = '~/.vim/startify_session'
-" endif
+" session
+if has('win32')
+  let g:startify_session_dir = '~\vimfiles/startify_session'
+else
+  let g:startify_session_dir = '~/.vim/startify_session'
+endif
 
-" " auto update session
-" let g:startify_session_persistence = 1
+" auto update session
+let g:startify_session_persistence = 1
 
-" let g:startify_lists = [
-"          \ { 'type': 'files',     'header': ['   Files']            },
-"          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-"          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-"          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-"          \ ]
+let g:startify_lists = [
+         \ { 'type': 'files',     'header': ['   Files']            },
+         \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+         \ { 'type': 'sessions',  'header': ['   Sessions']       },
+         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+         \ ]
 
-" if has('win32')
-"   let g:startify_bookmarks = [
-"     \ { 'i': '~\_vimrc' },
-"     \ { 'z': '~\.zshrc' },
-"     \ { 'd': 'd:\develop\workspace'},
-"     \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
-"     \ ]
-" else
-"   let g:startify_bookmarks = [
-"     \ { 'i': '~/.vimrc' },
-"     \ { 'z': '~/.zshrc' },
-"     \ { 'd': '~/develop/workspace'},
-"     \ { 'n': '~/Dropbox/docs/md/notes' },
-"     \ ]
-" endif
+if has('win32')
+  let g:startify_bookmarks = [
+    \ { 'i': '~\_vimrc' },
+    \ { 'z': '~\.zshrc' },
+    \ { 'd': 'd:\develop\workspace'},
+    \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
+    \ ]
+else
+  let g:startify_bookmarks = [
+    \ { 'i': '~/.vimrc' },
+    \ { 'z': '~/.zshrc' },
+    \ { 'd': '~/develop/workspace'},
+    \ { 'n': '~/Dropbox/docs/md/notes' },
+    \ ]
+endif
 
 
 
