@@ -7,9 +7,9 @@
 "
 " Maintainer:			Vincent Wancocoding  <https://cocoding.cc>
 " Vim Version:			8.2.1830
-" Version:			0.1
+" Version:			0.2
 " Created:			2020-10-01
-" Updated:			2020-10-11
+" Updated:			2020-10-28
 " OS:				Windows
 "
 " Section:
@@ -21,15 +21,16 @@
 "   * Functions
 "   * Mappings
 "   * Netrw
-"   * PlugSetting NERDTree
+"   * PlugSetting NERDTree(disable, use netrw)
 "   * PlugSetting airline
 "   * PlugSetting tagbar
 "   * PlugSetting startify
-"   * PlugSetting vim-go
 "   * PlugSetting UltiSnips
-"   * PlugSetting Marddown
+"   * PlugSetting Markdown
 "   * PlugSetting coc.nvim
 "   * PlugSetting vim-go
+"   * PlugSetting LanguageClient-neovim(disable)
+"   * PlugSetting deoplete(disable)
 "   * PlugSetting pi2md
 
 "*****************************************************************************
@@ -46,16 +47,16 @@ endif
 " set shellslash
 
 " shell setting
-if has("win32")
-  " set shell=cmd.exe
-  " set shellcmdflag=/c\ powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
-  " set shellpipe=|
-  " set shellredir=>
-  set shell=powershell
-  set shellcmdflag=-command
-  set shellquote=\"
-  set shellxquote= 
-endif
+" if has("win32")
+"   " set shell=cmd.exe
+"   " set shellcmdflag=/c\ powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
+"   " set shellpipe=|
+"   " set shellredir=>
+  " set shell=powershell
+  " set shellcmdflag=-command
+  " set shellquote=\"
+  " set shellxquote= 
+" endif
 
 "*****************************************************************************
 "" Plug install packages
@@ -84,7 +85,19 @@ Plug 'majutsushi/tagbar'
 " Plug 'airblade/vim-gitgutter'
 
 " ============  Completion Support
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 " ============  Snippets Support
 Plug 'honza/vim-snippets'
@@ -701,7 +714,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Golang config (vim-go & coc-go)
+" Golang config 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " run :GoBuild or :GoTestCompile based on the go file
@@ -715,7 +728,9 @@ function! s:build_go_files()
 endfunction
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+
 autocmd BufWritePre *.go :call CocAction('organizeImport')
+
 " shortcuts for golang
 augroup vim-go
 	au!
@@ -762,6 +777,54 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LanguageClient-neovim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" " Required for operations modifying multiple buffers like rename.
+" set hidden
+
+" let g:LanguageClient_serverCommands = {
+"       \ 'python' : ['pyls']
+"     \ }
+" " \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+" " \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+" " \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+" " \ 'python': ['/usr/local/bin/pyls'],
+" " \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" set omnifunc=LanguageClient#complete
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Deoplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" set pyxversion=3
+
+" if has('win32')
+"   let g:python3_host_prog = 'd:\develop\env\Python\Python38\python.exe'
+" endif
+
+" " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" call deoplete#custom#source('LanguageClient',
+"   \ 'min_pattern_length',
+"   \ 2)
+
+" call deoplete#custom#option({
+"   \ 'enable_at_startup': 1,
+"   \ 'enable_smart_case': 1,
+"   \ 'auto_complete_delay': 200,
+"   \ 'smart_case': v:true,
+"   \ })
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " pi2md config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -773,7 +836,7 @@ let g:pi2mdSettings = {
   \ 'storage_local_dir_name': 'images',
   \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
   \ 'storage_local_prefer_relative_path': 1,
-  \ 'storage_cloud_tool': 'picgo-core',
+  \ 'storage_cloud_tool': 'picgo',
   \ 'storage_cloud_picgocore_path': 
     \ 'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
   \ 'storage_cloud_picgoapp_node_path': 
