@@ -81,8 +81,8 @@ Plug 'majutsushi/tagbar'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
 
 " ============  Git Plugin
-" Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " ============  Completion Support
 " Plug 'autozimu/LanguageClient-neovim', {
@@ -486,6 +486,7 @@ let g:netrw_winsize = 20
 
 
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -786,19 +787,28 @@ let g:tagbar_type_go = {
 " set hidden
 
 " let g:LanguageClient_serverCommands = {
-"       \ 'python' : ['pyls']
+"     \ 'python' : ['pyls'],
+"     \ 'vim': ['d:\develop\Scoop\apps\nodejs-lts\current\bin\vim-language-server.cmd', '--stdio'],
 "     \ }
+
+
+" let g:LanguageClient_settingsPath = '~\vimfiles\lsc-settings.json'
+" let g:LanguageClient_loadSettings = 1
+" let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+"     " \ 'vim': ['d:\develop\Scoop\apps\nodejs-lts\current\bin\node_modules\vim-language-server\bin\index.js', 
+"     "     \ '--node-ipc']
 " " \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
 " " \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
 " " \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
 " " \ 'python': ['/usr/local/bin/pyls'],
 " " \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
 
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" " nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" set omnifunc=LanguageClient#complete
+" " set omnifunc=LanguageClient#complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Deoplete
@@ -806,19 +816,19 @@ let g:tagbar_type_go = {
 
 " set pyxversion=3
 
+" let g:deoplete#enable_at_startup = 1
+
 " if has('win32')
 "   let g:python3_host_prog = 'd:\develop\env\Python\Python38\python.exe'
 " endif
 
 " " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" call deoplete#custom#source('LanguageClient',
-"   \ 'min_pattern_length',
-"   \ 2)
+" " call deoplete#custom#source('LanguageClient',
+" "   \ 'min_pattern_length',
+"   " \ 2)
 
 " call deoplete#custom#option({
-"   \ 'enable_at_startup': 1,
-"   \ 'enable_smart_case': 1,
 "   \ 'auto_complete_delay': 200,
 "   \ 'smart_case': v:true,
 "   \ })
@@ -830,18 +840,23 @@ let g:tagbar_type_go = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:pi2mdSettings = {
-  \ 'debug': 1,
-  \ 'storage': 1,
-  \ 'storage_local_position_type': 0,
-  \ 'storage_local_dir_name': 'images',
-  \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
-  \ 'storage_local_prefer_relative_path': 1,
-  \ 'storage_cloud_tool': 'picgo',
-  \ 'storage_cloud_picgocore_path': 
-    \ 'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
-  \ 'storage_cloud_picgoapp_node_path': 
-    \ 'd:\develop\Scoop\apps\nodejs-lts\current\node.exe'
-\ }
+    \ 'debug': 1,
+    \ 'storage': 1,
+    \ 'storage_local_position_type': 0,
+    \ 'storage_local_dir_name': 'images',
+    \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
+    \ 'storage_local_prefer_relative_path': 1,
+    \ 'storage_cloud_tool': 'picgo',
+    \ 'storage_cloud_picgocore_path': 
+    \     'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
+    \ 'storage_cloud_picgoapp_node_path': 
+    \     'd:\develop\Scoop\apps\nodejs-lts\current\node.exe',
+    \ 'storage_cloud_picgoapp_api_server_port': '36678'
+  \ }
+
+
+
+
 
 
 
