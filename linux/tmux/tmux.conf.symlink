@@ -1,0 +1,6 @@
+# vim:set ft=tmux noet sts=4 sw=4 ts=4 tw=78:
+
+# remap prefix to Control + space
+set -g prefix C-Space
+bind C-Space send-prefix
+unbind C-b

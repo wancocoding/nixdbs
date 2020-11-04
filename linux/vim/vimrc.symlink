@@ -1,0 +1,522 @@
+"     ______                     ___                _    ___         
+"    / ____/___  _________  ____/ (_)___  ____ _   | |  / (_)___ ___ 
+"   / /   / __ \/ ___/ __ \/ __  / / __ \/ __ `/   | | / / / __ `__ \
+"  / /___/ /_/ / /__/ /_/ / /_/ / / / / / /_/ /    | |/ / / / / / / /
+"  \____/\____/\___/\____/\__,_/_/_/ /_/\__, /     |___/_/_/ /_/ /_/ 
+"                                      /____/                        
+"
+" Maintainer:			Vincent Wancocoding  <https://cocoding.cc>
+" Vim Version:			8.1.2269
+" Version:				0.1
+" Created:				2020-11-04
+" Updated:				2020-11-04
+" OS:					Linux
+
+
+"*****************************************************************************
+"" Plug install packages
+"*****************************************************************************
+" Required:
+call plug#begin(expand('~/.vim/plugged'))
+
+" ============  navigation
+" Plug 'preservim/nerdtree'
+
+" ============  theme
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
+
+" ============  status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" ============  Language Support
+Plug 'majutsushi/tagbar'
+" Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
+
+" ============  Git Plugin
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" ============  Completion Support
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" ============  Snippets Support
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
+" ============  Golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" ============  Misc 
+" align tools
+Plug 'godlygeek/tabular'   
+" Start Screen for vim
+Plug 'mhinz/vim-startify'
+" Comment Plugin
+Plug 'tpope/vim-commentary'
+" parentheses, brackets, quotes, XML tags
+" Plug 'tpope/vim-surround'
+" My plugin for paste image from clipboard
+" Plug 'wancocoding/pi2md'
+
+
+call plug#end()
+
+
+"*****************************************************************************
+"" Basic Setup
+"*****************************************************************************
+
+" Required:
+filetype plugin indent on
+
+" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
+set ttyfast
+
+" path
+" set path+=**
+
+" set clipboard
+set clipboard+=unnamed
+
+" set leader
+let mapleader = " "
+let g:mapleader = " "
+
+" Use modeline overrides
+set modeline
+set modelines=5
+
+" do not keep a backup file, use versions instead
+set nobackup
+set nowritebackup
+set noswapfile
+
+" undo and history
+set history=700
+set undolevels=700
+
+" tab settings
+set smarttab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+
+" indent settings
+set autoindent
+set smartindent
+
+" auto read when file is changed from outside
+set autoread
+set wildignore=*.o,*.class,*.pyc
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" disable sound on errors
+if has("gui_running")
+	" Disable visualbell
+	set noerrorbells visualbell t_vb=
+	if has('autocmd')
+		autocmd GUIEnter * set visualbell t_vb=
+	endif
+endif
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=1000
+
+" set dictionary
+set complete+=k
+if has('win32')
+  set dictionary+=c:\Users\oherg\vimfiles\dictionary\words.txt
+else
+
+  set dictionary+=/usr/share/dict/words
+endif
+
+" shortmess, the default is filnxtToOIcS, see :h shortmess
+set shm-=S
+
+" Enable hidden buffers
+set hidden
+
+" display incomplete commands
+set showcmd
+
+
+"*****************************************************************************
+"" Appearance(Color , theme , StatusLine)
+"*****************************************************************************
+
+syntax enable
+syntax on
+"
+" Maximum width of text that is being inserted
+set tw=79
+" display a column line
+set colorcolumn=80
+" Show tabs as CTRL-I is displayed, display $ after end of line
+set list
+" listchar
+set listchars=tab:▸\ ,eol:¬,trail:·,precedes:←,extends:→
+
+" show the cursor position all the time
+set ruler
+
+" set nu                                  " number line
+let no_buffers_menu=1
+
+" colorscheme
+set background=dark
+set cursorline
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
+
+if has("gui_running")
+	" hide menu and toolbar
+	set guioptions-=m
+	set guioptions-=T
+	" fix cursor on linux gvim
+	set guioptions-=l
+	set guioptions-=L
+	set guioptions-=r
+	set guioptions-=R
+endif
+
+"*****************************************************************************
+"" Abbreviations
+"*****************************************************************************
+"" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+
+"*****************************************************************************
+"" Mappings
+"*****************************************************************************
+"" Split
+" noremap <Leader>h :<C-u>split<CR>
+" noremap <Leader>v :<C-u>vsplit<CR>
+
+"" Git
+" noremap <Leader>ga :Gwrite<CR>
+" noremap <Leader>gc :Gcommit<CR>
+" noremap <Leader>gsh :Gpush<CR>
+" noremap <Leader>gll :Gpull<CR>
+" noremap <Leader>gs :Gstatus<CR>
+" noremap <Leader>gb :Gblame<CR>
+" noremap <Leader>gd :Gvdiff<CR>
+" noremap <Leader>gr :Gremove<CR>
+
+" session management
+" nnoremap <leader>so :OpenSession<Space>
+" nnoremap <leader>ss :SaveSession<Space>
+" nnoremap <leader>sd :DeleteSession<CR>
+" nnoremap <leader>sc :CloseSession<CR>
+
+"" Tabs
+" nnoremap <Tab> gt
+" nnoremap <S-Tab> gT
+" nnoremap <silent> <S-t> :tabnew<CR>
+
+"" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
+
+"" Clean search (highlight)
+nnoremap <silent> <leader>nh :noh<CR>
+
+" Better copy & paste
+:set pastetoggle=<F5>
+
+"" Disable arrowkeys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" Make shift-insert work like in Xterm
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+
+
+" Use <leader>Esc to leave terminal mode
+tnoremap <leader><Esc> <C-\><C-n>
+
+" tab settings
+noremap <A-1> 1gt
+noremap <A-2> 2gt
+noremap <A-3> 3gt
+noremap <A-4> 4gt
+noremap <A-5> 5gt
+noremap <A-6> 6gt
+noremap <A-7> 7gt
+noremap <A-8> 8gt
+noremap <A-9> :tablast<cr>
+noremap <A-0> :tabfirst<cr>
+
+" windows resize
+:nnoremap <silent> <Up> :resize -1<CR>
+:nnoremap <silent> <Down> :resize +1<CR>
+:nnoremap <silent> <left> :vertical resize -1<CR>
+:nnoremap <silent> <right> :vertical resize +1<CR>
+
+"*****************************************************************************
+" Netrw
+"*****************************************************************************
+
+let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" airline settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" airline theme
+" let g:airline_theme='gruvbox'
+
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
+
+
+" vim-airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+if !exists('g:airline_powerline_fonts')
+  let g:airline#extensions#tabline#left_sep = ' '
+  let g:airline#extensions#tabline#left_alt_sep = '|'
+  let g:airline_left_sep          = '▶'
+  let g:airline_left_alt_sep      = '»'
+  let g:airline_right_sep         = '◀'
+  let g:airline_right_alt_sep     = '«'
+  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#linecolumn#prefix = '¶'
+  let g:airline#extensions#paste#symbol      = 'ρ'
+  let g:airline_symbols.linenr    = '␊'
+  let g:airline_symbols.branch    = '⎇'
+  let g:airline_symbols.paste     = 'ρ'
+  let g:airline_symbols.paste     = 'Þ'
+  let g:airline_symbols.paste     = '∥'
+  let g:airline_symbols.whitespace = 'Ξ'
+else
+  let g:airline#extensions#tabline#left_sep = ''
+  let g:airline#extensions#tabline#left_alt_sep = ''
+
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+endif
+
+" fix the command mode in the status line now show in vim"
+if !has('nvim')
+  au CmdLineEnter * redraws
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" startify
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" session
+if has('win32')
+  let g:startify_session_dir = '~\vimfiles/startify_session'
+else
+  let g:startify_session_dir = '~/.vim/startify_session'
+endif
+
+" auto update session
+let g:startify_session_persistence = 1
+
+let g:startify_lists = [
+         \ { 'type': 'files',     'header': ['   Files']            },
+         \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+         \ { 'type': 'sessions',  'header': ['   Sessions']       },
+         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+         \ ]
+
+if has('win32')
+  let g:startify_bookmarks = [
+    \ { 'i': '~\_vimrc' },
+    \ { 'z': '~\.zshrc' },
+    \ { 'd': 'd:\develop\workspace'},
+    \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
+    \ ]
+else
+  let g:startify_bookmarks = [
+    \ { 'i': '~/.vimrc' },
+    \ { 'z': '~/.zshrc' },
+    \ { 'd': '~/develop/workspace'},
+    \ { 'n': '~/Dropbox/docs/md/notes' },
+    \ ]
+endif
+
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Markdown for CTag
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Add support for markdown files in tagbar.
+" see https://github.com/jszakmeister/markdown2ctags
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '~/vimfiles/scripts/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes --sro=»',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '»',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => statusline bar
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " 颜色参考 http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+" function! HasPaste()
+"     if &paste
+"          return '[PASTE]'
+"     else
+"         return ''
+"     endif
+" endfunction
+" 
+" function! CurDir()
+"     let curdir = substitute(getcwd(), $HOME, "~", "")
+"     return curdir
+" endfunction
+" 
+" 
+" 
+" set laststatus=2                        " 始终显示状态栏
+" 
+" hi StatusLine ctermbg=236 ctermfg=250   cterm=NONE
+" 
+" set statusline=                         " start
+" set statusline+=%1*%{HasPaste()}         " paste
+" set statusline+=%3*\[%{mode()}\]        " mode
+" set statusline+=%*
+" set statusline+=\ 
+" set statusline+=%y                            " filetype
+" set statusline+=\                             " blank space
+" set statusline+=%m%r%h                        " modified flag [+] [RO] [help]
+" set statusline+=\                             " blank space
+" set statusline+=\[%<%-10.60(%F%)\]%w
+" 
+" set statusline+=%=                            " right-align from now on
+" 
+" " set statusline+=%3*
+" set statusline+=\[%{getcwd()}\]                   " show current work dir
+" set statusline+=\[%{&fileformat}/%{&encoding}]             " os and filetype
+" set statusline+=\[
+" set statusline+=%v                            " column number
+" set statusline+=\,                            " colon separator
+" set statusline+=%l                            " row number
+" set statusline+=\] 
+" set statusline+=\                             " blank space
+" set statusline+=%p%%                          " percent
+" set statusline+=\-                            " slash separator
+" set statusline+=%L                            " total number of rows
+" set statusline+=%*
+" set statusline+=\                             " blank space
+" set statusline+=%{winnr()}                    " buffer number
+" 
+" " set statusline=\ \ (%f) \ \ \ %m
+" " set statusline=\ %1*%{HasPaste()}%*%<%-15.25(%f%)
+" " set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \
+" " set statusline+=\ \ \ [%{&ff}/%Y]
+" " set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\
+" " set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
+" 
+" 
+" 
+" 
+" hi User1 ctermbg=196 ctermfg=015        " 粘贴模式的颜色
+" hi User2 ctermbg=236 ctermfg=255
+" hi User3 ctermbg=010 ctermfg=255
+" hi User4 ctermfg=008
+" hi User5 ctermfg=008
+" hi User7 ctermfg=008
+" hi User8 ctermfg=008
+" hi User9 ctermfg=007
+" 
+" " 另一个方案
+" " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" pi2md config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:pi2mdSettings = {
+    \ 'debug': 1,
+    \ 'storage': 1,
+    \ 'storage_local_position_type': 0,
+    \ 'storage_local_dir_name': 'images',
+    \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
+    \ 'storage_local_prefer_relative_path': 1,
+    \ 'storage_cloud_tool': 'picgo',
+    \ 'storage_cloud_picgocore_path': 
+    \     'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
+    \ 'storage_cloud_picgoapp_node_path': 
+    \     'd:\develop\Scoop\apps\nodejs-lts\current\node.exe',
+    \ 'storage_cloud_picgoapp_api_server_port': '36678'
+  \ }
+
+"*****************************************************************************
+" Some temp settings example
+"*****************************************************************************
+" autocmd FileType sh setlocal ts=2 sts=2 sw=2
+" autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+" autocmd FileType javascript setlocal ts=4 sts=4 sw=4
+
+" vim:set ft=vim noet sts=4 ts=4 sw=4 tw=78:

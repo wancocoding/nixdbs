@@ -1,0 +1,9 @@
+[submodule "linux/vim/vimfiles.symlink/pack/colors/start/gruvbox"]
+	path = linux/vim/vimfiles.symlink/pack/colors/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "linux/vim/vimfiles.symlink/pack/default/start/vim-snippets"]
+	path = linux/vim/vimfiles.symlink/pack/default/start/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule "linux/vim/vimfiles.symlink/pack/default/start/ultisnips"]
+	path = linux/vim/vimfiles.symlink/pack/default/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
