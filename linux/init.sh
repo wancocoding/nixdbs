@@ -11,6 +11,9 @@ if [ "$_osname" == "linux" ]; then
 
 # """""""""""""""""" Basic settings """"""""""""""""""
 
+# base
+	source ./base/install.sh
+
 # zsh
 	source ./zsh/install.sh
 

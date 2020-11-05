@@ -101,7 +101,4 @@ source $ZSH/oh-my-zsh.sh
 
 
 # ============ 2020-11-03 ============
-
-export PATH=$PATH:$HOME/bin
 export EDITOR="vim"
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

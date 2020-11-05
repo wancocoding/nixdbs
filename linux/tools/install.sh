@@ -11,7 +11,7 @@ echo "======> install git"
 if [[ -e "/home/linuxbrew/.linuxbrew/bin/git" ]]; then
 	echo "git already installed!"
 else
-	sudo apt install git
+	sudo apt remove git
 	brew install git
 fi
 

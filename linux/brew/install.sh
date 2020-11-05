@@ -25,16 +25,17 @@ sudo apt-get install build-essential -y
 
 echo "======> setup brew for zsh"
 
-if [ -e "$HOME/.zshrc" ]; then
-	if cat $HOME/.zshrc|grep -i "linuxbrew" >/dev/null 2>&1; then
-		echo "brew already setup to your zshrc"
+if [ -e "$HOME/.profile" ]; then
+	if cat $HOME/.profile|grep -i "linuxbrew" >/dev/null 2>&1; then
+		echo "brew already setup to your profile"
 	else
 		echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
-			$HOME/.zshrc
+			$HOME/.profile
 		eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 	fi
 else
-	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> $HOME/.zshrc
+	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
+		$HOME/.profile
 	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
