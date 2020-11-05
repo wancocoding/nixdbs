@@ -1,0 +1,12 @@
+[submodule "linux/tmux/tmux.symlink/plugins/tpm"]
+	path = linux/tmux/tmux.symlink/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "linux/tmux/tmux.symlink/plugins/tmux-themepack"]
+	path = linux/tmux/tmux.symlink/plugins/tmux-themepack
+	url = https://github.com/jimeh/tmux-themepack.git
+[submodule "linux/tmux/tmux.symlink/plugins/tmux-continuum"]
+	path = linux/tmux/tmux.symlink/plugins/tmux-continuum
+	url = git@github.com:tmux-plugins/tmux-continuum.git
+[submodule "linux/tmux/tmux.symlink/plugins/tmux-resurrect"]
+	path = linux/tmux/tmux.symlink/plugins/tmux-resurrect
+	url = git@github.com:tmux-plugins/tmux-resurrect.git

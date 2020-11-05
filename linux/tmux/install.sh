@@ -16,11 +16,11 @@ else
 fi
 
 
-echo "======> config tmux"
-
-git config --global user.email "ergal@163.com"
-git config --global user.name "wancocoding"
-
+echo "======> link tmux config"
+rm -rf $HOME/.tmux.conf >/dev/null 2>&1
+ln -s $(pwd)/tmux/tmux.conf.symlink $HOME/.tmux.conf
+rm -rf $HOME/.tmux >/dev/null 2>&1
+ln -s $(pwd)/tmux/tmux.symlink $HOME/.tmux
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

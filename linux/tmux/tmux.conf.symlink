@@ -1,6 +1,58 @@
 # vim:set ft=tmux noet sts=4 sw=4 ts=4 tw=78:
 
+# utf8 is on
+set -g utf8 on
+set -g status-utf8 on
+
+# address vim mode switching delay (http://superuser.com/a/252717/65504)
+set -s escape-time 0
+
+# increase scrollback buffer size
+set -g history-limit 50000
+
+# tmux messages are displayed for 4 seconds
+set -g display-time 4000
+
+# refresh 'status-left' and 'status-right' more often
+set -g status-interval 5
+
+# upgrade $TERM
+set -g default-terminal "screen-256color"
+
+# focus events enabled for terminals that support them
+set -g focus-events on
+
+# super useful when using "grouped sessions" and multi-monitor setup
+setw -g aggressive-resize on
+
 # remap prefix to Control + space
 set -g prefix C-Space
 bind C-Space send-prefix
 unbind C-b
+
+# ------ Plugin Settings ------
+
+# resurrect
+# set -g @resurrect-dir '/some/path'
+set -g @resurrect-save-bash-history 'on'
+set -g @resurrect-capture-pane-contents 'on'
+# for vim
+set -g @resurrect-strategy-vim 'session'
+
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '0'
+
+set -g @themepack 'powerline/default/green'
+
+# see: https://stackoverflow.com/questions/36815879/tmux-copy-mouse-selected-text-to-clipboard-automatically-on-mouse-release
+# use option(alt) key to select by mouse
+# unbind -T copy-mode MouseDragEnd1Pane
+# bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+
+# Plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'jimeh/tmux-themepack'
+
+run '~/.tmux/plugins/tpm/tpm'

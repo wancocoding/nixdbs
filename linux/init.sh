@@ -23,6 +23,9 @@ if [ "$_osname" == "linux" ]; then
 # develop tools
 	source ./tools/install.sh
 
+# Tmux
+	source ./tmux/install.sh
+
 # vim
 	source ./vim/install.sh
 
