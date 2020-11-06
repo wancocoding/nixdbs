@@ -2,6 +2,7 @@
 
 echo "============ Installing dotfiles start! ============"
 
+WORKSPACEDIR=$(pwd)
 
 source ./base.sh
 
