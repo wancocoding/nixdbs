@@ -14,47 +14,56 @@ echo "======> install vim"
 sudo apt remove vim vim-gtk3
 brew uninstall vim
 
-echo "======> compiling a vim for myself!"
 
 
-echo "install dependence"
+_vim_installed=$(detect_cmd vim)
 
-sudo apt install libx11-dev libxtst-dev libxt-dev libsm-dev libxpm-dev -y
+if (($_vim_installed)); then
+	echo "Vim already installed"
+else
+    echo "======> compiling a vim for myself!"
 
-echo "======> download vim source!"
 
-mkdir -p $(pwd)/temp/ >/dev/null 2>&1
+    echo "install dependence"
 
-cd ./temp
+    sudo apt install libx11-dev libxtst-dev libxt-dev libsm-dev libxpm-dev -y
 
-echo $_DOWNLOAD_URL
-curl $_DOWNLOAD_URL -o vim.tar.gz
+    echo "======> download vim source!"
 
-tar xvzf vim.tar.gz
-cd vim-${_VIM_VERSION}
+    mkdir -p $(pwd)/temp/ >/dev/null 2>&1
 
-./configure --with-features=huge \
-            --with-tlib=ncurses \
-            --enable-multibyte \
-            --enable-rubyinterp=yes \
-            --enable-python3interp=yes \
-            --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-perlinterp=yes \
-            --enable-luainterp=yes \
-            --enable-gtk3-check \
-            --enable-gui=gtk3 \
-            --enable-terminal \
-            --enable-cscope \
-            --with-x \
-            --enable-gnome-check \
-            --with-gnome \
-            --prefix=$HOME/apps
+    cd ./temp
 
-make
-make install
+    echo $_DOWNLOAD_URL
+    curl $_DOWNLOAD_URL -o vim.tar.gz
 
-rm -rf ${WORKSPACEDIR}/temp/ >/dev/null 2>&1
-cd $WORKSPACEDIR
+    tar xvzf vim.tar.gz
+    cd vim-${_VIM_VERSION}
+
+    ./configure --with-features=huge \
+                --with-tlib=ncurses \
+                --enable-multibyte \
+                --enable-rubyinterp=yes \
+                --enable-python3interp=yes \
+                --with-python3-config-dir=$(python3-config --configdir) \
+                --enable-perlinterp=yes \
+                --enable-luainterp=yes \
+                --enable-gtk3-check \
+                --enable-gui=gtk3 \
+                --enable-terminal \
+                --enable-cscope \
+                --with-x \
+                --enable-gnome-check \
+                --with-gnome \
+                --prefix=$HOME/apps
+
+    make
+    make install
+
+    rm -rf ${WORKSPACEDIR}/temp/ >/dev/null 2>&1
+    cd $WORKSPACEDIR
+fi
+
 
 echo "======> linking vimrc file"
 

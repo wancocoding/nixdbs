@@ -24,7 +24,7 @@ git config --global user.name "wancocoding"
 
 
 echo "======> install some tools"
-brew install htop screenfetch tree
+brew install htop screenfetch tree ctags xclip
 
 
 

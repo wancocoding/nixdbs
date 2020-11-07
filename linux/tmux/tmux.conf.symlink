@@ -36,7 +36,7 @@ set -g @resurrect-strategy-vim 'session'
 set -g @continuum-restore 'on'
 set -g @continuum-save-interval '0'
 
-set -g @themepack 'powerline/default/yellow'
+set -g @themepack 'powerline/default/cyan'
 
 # see: https://stackoverflow.com/questions/36815879/tmux-copy-mouse-selected-text-to-clipboard-automatically-on-mouse-release
 # use option(alt) key to select by mouse

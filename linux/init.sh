@@ -33,6 +33,8 @@ if [ "$_osname" == "linux" ]; then
 # font
 	source ./font/install.sh
 
+# nodejs
+	source ./node/install.sh
 else
 	echo "this is not a linUx system, quit!"
 	return

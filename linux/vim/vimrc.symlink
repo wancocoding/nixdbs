@@ -60,7 +60,7 @@ Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
 " Plug 'tpope/vim-surround'
 " My plugin for paste image from clipboard
-" Plug 'wancocoding/pi2md'
+Plug 'wancocoding/pi2md'
 
 
 call plug#end()
@@ -88,6 +88,9 @@ set clipboard+=unnamed
 " set leader
 let mapleader = " "
 let g:mapleader = " "
+
+" Fix backspace indent
+set backspace=indent,eol,start          " allow backspacing over everything in insert mode  ,set bs=2  have the same effect
 
 " Use modeline overrides
 set modeline
@@ -137,12 +140,15 @@ set novisualbell
 set t_vb=
 set tm=1000
 
+" command completion like zsh
+set wildmenu
+set wildmode=full
+
 " set dictionary
 set complete+=k
 if has('win32')
   set dictionary+=c:\Users\oherg\vimfiles\dictionary\words.txt
 else
-
   set dictionary+=/usr/share/dict/words
 endif
 
@@ -154,6 +160,7 @@ set hidden
 
 " display incomplete commands
 set showcmd
+
 
 
 "*****************************************************************************
@@ -348,6 +355,13 @@ if !has('nvim')
   au CmdLineEnter * redraws
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tagbar settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " startify
@@ -407,7 +421,7 @@ let g:UltiSnipsEditSplit="vertical"
 " see https://github.com/jszakmeister/markdown2ctags
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '~/vimfiles/scripts/markdown2ctags.py',
+    \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
     \ 'ctagsargs' : '-f - --sort=yes --sro=»',
     \ 'kinds' : [
         \ 's:sections',
@@ -502,7 +516,7 @@ let g:tagbar_type_markdown = {
 
 let g:pi2mdSettings = {
     \ 'debug': 1,
-    \ 'storage': 1,
+    \ 'storage': 0,
     \ 'storage_local_position_type': 0,
     \ 'storage_local_dir_name': 'images',
     \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
@@ -510,8 +524,6 @@ let g:pi2mdSettings = {
     \ 'storage_cloud_tool': 'picgo',
     \ 'storage_cloud_picgocore_path': 
     \     'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
-    \ 'storage_cloud_picgoapp_node_path': 
-    \     'd:\develop\Scoop\apps\nodejs-lts\current\node.exe',
     \ 'storage_cloud_picgoapp_api_server_port': '36678'
   \ }
 
@@ -522,4 +534,4 @@ let g:pi2mdSettings = {
 " autocmd FileType ruby setlocal ts=2 sts=2 sw=2
 " autocmd FileType javascript setlocal ts=4 sts=4 sw=4
 
-" vim:set ft=vim noet sts=4 ts=4 sw=4 tw=78:
+" vim:set ft=vim et sts=4 ts=4 sw=4 tw=78:
