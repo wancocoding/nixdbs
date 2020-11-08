@@ -36,6 +36,7 @@ fi
 
 # set mirrors
 
+echo "======> set nvm mirror"
 if cat $HOME/.profile|grep -i "export NVM_NODEJS_ORG_MIRROR" >/dev/null 2>&1; then
 	echo 'nvm mirror already setup'
 else
@@ -54,6 +55,8 @@ nvm install  --lts=erbium
 
 nvm use default
 
+
+echo "======> set npm mirror"
 npm config set registry https://registry.npm.taobao.org
 
 nvm ls
