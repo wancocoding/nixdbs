@@ -19,26 +19,19 @@ else
 fi
 
 
-echo "======> install build-essential"
-
-sudo apt-get install build-essential -y
 
 echo "======> setup brew for zsh"
 
-if [ -e "$HOME/.profile" ]; then
-	if cat $HOME/.profile|grep -i "linuxbrew" >/dev/null 2>&1; then
-		echo "brew already setup to your profile"
-	else
-		echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
-			$HOME/.profile
-		eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-	fi
+if grep -iq "linuxbrew" $HOME/.profile >/dev/null 2>&1; then
+	echo "brew already setup to your profile"
 else
 	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
 		$HOME/.profile
-	eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
+		$HOME/.zshrc
 fi
 
+source $HOME/.profile
 
 echo "======> install gcc"
 
@@ -53,5 +46,7 @@ if (($_brew_installed)); then
 	fi
 fi
 
+echo "======> upgrade brew packages"
+brew upgrade
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

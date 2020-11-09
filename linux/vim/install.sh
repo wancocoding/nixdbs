@@ -102,13 +102,11 @@ else
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-
-if cat ~/.profile|grep -i 'export PATH=$HOME/apps/bin:$PATH' >/dev/null 2>&1; then
+if grep -iq 'export PATH=$HOME/apps/bin:$PATH' $HOME/.profile >/dev/null 2>&1; then
     echo "apps bin path already setup to your profile"
 else
-    echo 'export PATH=$HOME/apps/bin:$PATH' >> \
-        $HOME/.profile
-    export PATH=$HOME/apps/bin:$PATH
+    echo 'export PATH=$HOME/apps/bin:$PATH' >> $HOME/.profile
+    echo 'export PATH=$HOME/apps/bin:$PATH' >> $HOME/.zshrc
 fi
 
 $HOME/apps/bin/vim +PlugInstall +qall!

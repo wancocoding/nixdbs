@@ -11,6 +11,7 @@ echo "======> install Nvm"
 
 _NVM_ENV_LINE1='export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' 
 _NVM_ENV_LINE2='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+_NVM_ENV_LINE3='[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
 
 if [[ -d "$HOME/.nvm" ]]; then
 	echo "Nvm already installed"
@@ -19,19 +20,23 @@ else
 	source ./node/nvm-install.sh
 fi
 
-
-
-# check nvm envrionment
-if [ -e "$HOME/.profile" ]; then
-	if cat $HOME/.profile|grep -i "export NVM_DIR" >/dev/null 2>&1; then
-		echo "nvm already setup to your profile"
-	else
-		echo $_NVM_ENV_LINE1 >> $HOME/.profile
-		echo $_NVM_ENV_LINE2 >> $HOME/.profile
-	fi
-else
+function set_nvm_env {
+	echo "# ====== NVM settings ======" >> $HOME/.profile
 	echo $_NVM_ENV_LINE1 >> $HOME/.profile
 	echo $_NVM_ENV_LINE2 >> $HOME/.profile
+	echo $_NVM_ENV_LINE3 >> $HOME/.profile
+
+	echo "# ====== NVM settings ======" >> $HOME/.zshrc
+	echo $_NVM_ENV_LINE1 >> $HOME/.zshrc
+	echo $_NVM_ENV_LINE2 >> $HOME/.zshrc
+	echo $_NVM_ENV_LINE3 >> $HOME/.zshrc
+}
+
+# check nvm envrionment
+if grep -i "export NVM_DIR" $HOME/.profile >/dev/null 2>&1; then
+	echo "nvm already setup to your profile"
+else
+	set_nvm_env
 fi
 
 # set mirrors
@@ -40,13 +45,13 @@ echo "======> set nvm mirror"
 if cat $HOME/.profile|grep -i "export NVM_NODEJS_ORG_MIRROR" >/dev/null 2>&1; then
 	echo 'nvm mirror already setup'
 else
-	echo 'export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node' >> $HOME/.profile
+	echo 'export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node' >> \
+		$HOME/.profile
+	echo 'export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node' >> \
+		$HOME/.zshrc
 fi
 
-# refresh envrionment
 source $HOME/.profile
-
-
 
 echo "======> install node versions"
 

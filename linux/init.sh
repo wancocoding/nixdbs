@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# if [ -z "$PS1" ]; then
+#         echo This shell is not interactive
+# else
+#         echo This shell is interactive
+# fi
+
+# printenv
+
 echo "============ Installing dotfiles start! ============"
 
 WORKSPACEDIR=$(pwd)
@@ -35,8 +43,14 @@ if [ "$_osname" == "linux" ]; then
 
 # nodejs
 	source ./node/install.sh
+
+# python
+	source ./python/install.sh
+
+# after all
+	sudo apt autoremove
 else
-	echo "this is not a linUx system, quit!"
+	echo "this is not a linux system, quit!"
 	return
 fi
 
