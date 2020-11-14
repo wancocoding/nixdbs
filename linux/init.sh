@@ -47,6 +47,12 @@ if [ "$_osname" == "linux" ]; then
 # python
 	source ./python/install.sh
 
+# Go
+	source ./go/install.sh
+
+# Java
+	source ./java/install.sh
+
 # after all
 	sudo apt autoremove
 else

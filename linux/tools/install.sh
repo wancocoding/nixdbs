@@ -26,7 +26,14 @@ git config --global user.name "wancocoding"
 echo "======> install some tools"
 echo "htop screenfetch tree ctags xclip ... etc"
 brew install htop screenfetch tree ctags xclip
+echo "======> install hugo"
+brew install hugo
 
+
+echo "======> install peek for record screen"
+sudo add-apt-repository ppa:peek-developers/stable
+sudo apt update
+sudo apt install peek -y
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

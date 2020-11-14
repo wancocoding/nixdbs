@@ -46,7 +46,7 @@ if (($_brew_installed)); then
 	fi
 fi
 
-echo "======> upgrade brew packages"
-brew upgrade
+# echo "======> upgrade brew packages"
+# brew upgrade
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

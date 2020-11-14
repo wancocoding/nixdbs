@@ -59,6 +59,9 @@ Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
 " Plug 'tpope/vim-surround'
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
 " My plugin for paste image from clipboard
 Plug 'wancocoding/pi2md'
 
@@ -516,15 +519,15 @@ let g:tagbar_type_markdown = {
 
 let g:pi2mdSettings = {
     \ 'debug': 1,
-    \ 'storage': 0,
+    \ 'storage': 1,
     \ 'storage_local_position_type': 0,
     \ 'storage_local_dir_name': 'images',
-    \ 'storage_local_absolute_path': '/User/yourname/your_images_path',
+    \ 'storage_local_absolute_path': '/home/vincent/temp/imgs',
     \ 'storage_local_prefer_relative_path': 1,
-    \ 'storage_cloud_tool': 'picgo',
+    \ 'storage_cloud_tool': 'picgo-core',
     \ 'storage_cloud_picgocore_path': 
-    \     'd:\develop\Scoop\apps\nodejs-lts\current\bin\picgo.cmd',
-    \ 'storage_cloud_picgoapp_api_server_port': '36678'
+    \     '/home/vincent/.nvm/versions/node/v12.19.0/lib/node_modules/picgo/bin/picgo',
+    \ 'storage_cloud_picgoapp_api_server_port': '36677'
   \ }
 
 "*****************************************************************************
