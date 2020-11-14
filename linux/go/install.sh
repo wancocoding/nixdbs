@@ -16,13 +16,13 @@ if grep -iq 'export GOPATH' $HOME/.profile >/dev/null 2>&1; then
 else
 	echo "# ====== golang settings ======" >> $HOME/.profile
 	echo 'export GOPATH=$HOME/develop/Go' >> $HOME/.profile
-	echo 'export GO111MODULE=auto' >> $HOME/.profile
+	echo 'export GO111MODULE=on' >> $HOME/.profile
 	echo 'export GOPROXY=https://goproxy.cn,direct' >> $HOME/.profile
 	echo 'export PATH="$PATH:$GOPATH/bin"' >> $HOME/.profile
 	
 	echo "# ====== golang settings ======" >> $HOME/.zshrc
 	echo 'export GOPATH=$HOME/develop/Go' >> $HOME/.zshrc
-	echo 'export GO111MODULE=auto' >> $HOME/.zshrc
+	echo 'export GO111MODULE=on' >> $HOME/.zshrc
 	echo 'export GOPROXY=https://goproxy.cn,direct' >> $HOME/.zshrc
 	echo 'export PATH="$PATH:$GOPATH/bin"' >> $HOME/.zshrc
 fi
