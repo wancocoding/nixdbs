@@ -43,7 +43,7 @@ go version
 
 echo "======> install Go modules"
 
-mkdir -p $HOME/develop/go >/dev/null 2>&1
+mkdir -p $HOME/develop/Go >/dev/null 2>&1
 
 go get -u google.golang.org/grpc
 go get -u github.com/gin-gonic/gin
