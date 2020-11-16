@@ -21,7 +21,6 @@ _jdk_installed=$(detect_cmd java)
 
 if (($_jdk_installed)); then
 	echo "Java already installed"
-	java --version
 else
     mkdir -p $(pwd)/temp/ >/dev/null 2>&1
     cd ./temp
@@ -62,7 +61,6 @@ _gradle_installed=$(detect_cmd gradle)
 
 if (($_gradle_installed)); then
 	echo "Gradle already installed"
-	gradle --version
 else
     mkdir -p $(pwd)/temp/ >/dev/null 2>&1
     cd ./temp

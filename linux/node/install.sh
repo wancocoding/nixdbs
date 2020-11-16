@@ -67,6 +67,7 @@ npm config set registry https://registry.npm.taobao.org
 nvm ls
 
 npm install -g yarn
+npm install -g neovim
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

@@ -8,7 +8,16 @@ echo "===================================================="
 
 echo "======> install Go"
 
-brew install go
+_go_installed=$(detect_cmd go)
+
+
+if (($_go_installed)); then
+	echo "Golang already installed!"
+	echo "try to upgrade golang!"
+	brew upgrade go
+else
+	brew install go
+fi
 
 
 if grep -iq 'export GOPATH' $HOME/.profile >/dev/null 2>&1; then
@@ -29,13 +38,15 @@ fi
 
 source $HOME/.profile
 
+go version
+
 
 echo "======> install Go modules"
 
 mkdir -p $HOME/develop/go >/dev/null 2>&1
 
-# go get -u google.golang.org/grpc
-# go get -u github.com/gin-gonic/gin
+go get -u google.golang.org/grpc
+go get -u github.com/gin-gonic/gin
 
 
 

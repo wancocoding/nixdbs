@@ -6,14 +6,14 @@ echo "===================================================="
 echo "            Installing Dev Tools!                   "
 echo "===================================================="
 
-echo "======> install git"
+# echo "======> install git"
 
-if [[ -e "/home/linuxbrew/.linuxbrew/bin/git" ]]; then
-	echo "git already installed!"
-else
-	sudo apt remove git
-	brew install git
-fi
+# if [[ -e "/home/linuxbrew/.linuxbrew/bin/git" ]]; then
+# 	echo "git already installed!"
+# else
+# 	sudo apt remove git
+# 	brew install git
+# fi
 
 
 echo "======> config git"
@@ -27,8 +27,15 @@ echo "======> install some tools"
 echo "htop screenfetch tree ctags xclip ... etc"
 brew install htop screenfetch tree ctags xclip
 echo "======> install hugo"
-brew install hugo
+_hugo_installed=$(detect_cmd hugo)
 
+
+if (($_hugo_installed)); then
+	echo "hugo already installed, try to upgradle!"
+	brew upgrade hugo
+else
+	brew install hugo
+fi
 
 echo "======> install peek for record screen"
 sudo add-apt-repository ppa:peek-developers/stable

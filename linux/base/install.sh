@@ -7,7 +7,7 @@ echo "===================================================="
 
 
 
-sudo apt install git curl wget file unzip
+sudo apt install git gcc make curl wget file unzip -y
 
 echo "======> install build-essential"
 

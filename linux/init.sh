@@ -41,17 +41,20 @@ if [ "$_osname" == "linux" ]; then
 # font
 	source ./font/install.sh
 
-# nodejs
+# Node and NVM
 	source ./node/install.sh
 
-# python
+# Python and pyenv
 	source ./python/install.sh
 
 # Go
 	source ./go/install.sh
 
-# Java
+# Java and Gradle
 	source ./java/install.sh
+
+# Ruby and RVM
+	source ./ruby/install.sh
 
 # after all
 	sudo apt autoremove

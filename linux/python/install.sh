@@ -77,5 +77,21 @@ else
     echo $_PYENV_VIRTUALENV_ENV >> $HOME/.zshrc
 fi
 
+source $HOME/.profile
+
+
+
+echo "======> create virualenv for Neovim"
+pyenv virtualenv 3.8.6 neovim
+
+pyenv activate neovim
+
+pip3 install -U pip
+pip3 install pynvim
+
+source deactivate
+
+
+
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

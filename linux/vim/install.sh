@@ -109,7 +109,9 @@ else
     echo 'export PATH=$HOME/apps/bin:$PATH' >> $HOME/.zshrc
 fi
 
-$HOME/apps/bin/vim +PlugInstall +qall!
+$HOME/apps/bin/vim +PlugInstall
+$HOME/apps/bin/vim -c ":CocInstall coc-tsserver coc-eslint coc-json \
+coc-prettier coc-css coc-vimlsp coc-go"
 
 # upgrade plugins
 # git submodule update --remote --merge
