@@ -25,7 +25,10 @@ git config --global user.name "wancocoding"
 
 echo "======> install some tools"
 echo "htop screenfetch tree ctags xclip ... etc"
-brew install htop screenfetch tree ctags xclip
+brew install htop screenfetch tree ctags xclip fzf ripgrep
+
+$(brew --prefix)/opt/fzf/install
+
 echo "======> install hugo"
 _hugo_installed=$(detect_cmd hugo)
 
