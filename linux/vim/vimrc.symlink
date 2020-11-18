@@ -51,6 +51,9 @@ Plug 'SirVer/ultisnips'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " ============  Misc 
+" fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
@@ -592,6 +595,14 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" fzf settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

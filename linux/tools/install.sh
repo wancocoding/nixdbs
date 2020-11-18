@@ -25,21 +25,25 @@ git config --global user.name "wancocoding"
 
 echo "======> install some tools"
 echo "htop screenfetch tree ctags xclip ... etc"
-brew install htop screenfetch tree ctags xclip fzf \
-	ripgrep fd the_sliver_searcher
+brew install htop screenfetch tree xclip fzf \
+	ripgrep fd the_silver_searcher \
+	hugo
+# universal-catgs required
+brew install python@3.8
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 $(brew --prefix)/opt/fzf/install
 
-echo "======> install hugo"
-_hugo_installed=$(detect_cmd hugo)
+# echo "======> install hugo"
+# _hugo_installed=$(detect_cmd hugo)
 
 
-if (($_hugo_installed)); then
-	echo "hugo already installed, try to upgradle!"
-	brew upgrade hugo
-else
-	brew install hugo
-fi
+# if (($_hugo_installed)); then
+# 	echo "hugo already installed, try to upgradle!"
+# 	brew upgrade hugo
+# else
+# 	brew install hugo
+# fi
 
 echo "======> install peek for record screen"
 sudo add-apt-repository ppa:peek-developers/stable
