@@ -22,17 +22,27 @@ git config --global user.email "ergal@163.com"
 git config --global user.name "wancocoding"
 
 
+echo "======> install peek for record screen"
+sudo add-apt-repository ppa:peek-developers/stable
+sudo apt update
+sudo apt install peek -y
 
-echo "======> install some tools"
+echo "======> install some tools by brew"
 echo "htop screenfetch tree ctags xclip ... etc"
-brew install htop screenfetch tree xclip fzf \
+brew install htop glances screenfetch tree xclip bat fzf \
 	ripgrep fd the_silver_searcher \
+	ranger \
+	neovim \
 	hugo
 # universal-catgs required
 brew install python@3.8
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
+echo "======> Set these tools installed by brew"
+# fzf init
 $(brew --prefix)/opt/fzf/install
+# ranger init
+ranger --copy-config=all
 
 # echo "======> install hugo"
 # _hugo_installed=$(detect_cmd hugo)
@@ -44,11 +54,6 @@ $(brew --prefix)/opt/fzf/install
 # else
 # 	brew install hugo
 # fi
-
-echo "======> install peek for record screen"
-sudo add-apt-repository ppa:peek-developers/stable
-sudo apt update
-sudo apt install peek -y
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

@@ -17,6 +17,8 @@ echo "======> link zshrc"
 
 ln -s $(pwd)/zsh/zshrc.symlink $HOME/.zshrc
 
+# install zsh plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting 
 
 
 

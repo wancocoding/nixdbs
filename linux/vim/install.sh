@@ -116,4 +116,18 @@ coc-prettier coc-css coc-vimlsp coc-go"
 # upgrade plugins
 # git submodule update --remote --merge
 
+
+echo "======> Install Neovim"
+
+brew install neovim
+/home/vincent/.config/nvim/init.vim
+
+mkdir -p $HOME/.config/nvim
+
+if [[ -e "$HOME/.config/nvim/init.vim" ]]; then
+	rm -rf$HOME/.config/nvim/init.vim
+fi
+ln -s $(pwd)/vim/init.vim.symlink $HOME/.config/nvim/init.vim
+
+
 # vim:set ft=sh et sts=4 ts=4 sw=4 tw=78:
