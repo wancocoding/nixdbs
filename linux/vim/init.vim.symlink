@@ -1,0 +1,10 @@
+
+"*****************************************************************************
+" Neovim
+"*****************************************************************************
+let g:python3_host_prog='/home/vincent/.pyenv/versions/neovim/bin/python3'
+let g:ruby_host_prog='/home/vincent/.rvm/rubies/ruby-2.7.2/bin/ruby'
+
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
