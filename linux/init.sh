@@ -35,9 +35,6 @@ if [ "$_osname" == "linux" ]; then
 # Tmux
 	source ./tmux/install.sh
 
-# vim
-	source ./vim/install.sh
-
 # font
 	source ./font/install.sh
 
@@ -55,6 +52,9 @@ if [ "$_osname" == "linux" ]; then
 
 # Ruby and RVM
 	source ./ruby/install.sh
+
+# vim
+	source ./vim/install.sh
 
 # after all
 	sudo apt autoremove

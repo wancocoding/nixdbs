@@ -47,16 +47,12 @@ $(brew --prefix)/opt/fzf/install
 # ranger init
 ranger --copy-config=all
 
-# echo "======> install hugo"
-# _hugo_installed=$(detect_cmd hugo)
 
-
-# if (($_hugo_installed)); then
-# 	echo "hugo already installed, try to upgradle!"
-# 	brew upgrade hugo
-# else
-# 	brew install hugo
-# fi
+echo "======> install ossutil"
+_OSSUTIL_DOWNLOAD_URL="http://gosspublic.alicdn.com/ossutil/1.6.19/ossutil64"
+curl $_OSSUTIL_DOWNLOAD_URL -o $HOME/apps/bin/ossutil
+chmod 755 $HOME/apps/bin/ossutil
+$HOME/apps/ossutl update
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

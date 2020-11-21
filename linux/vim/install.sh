@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_VIM_VERSION="8.2.1961"
+_VIM_VERSION="8.2.2020"
 _DOWNLOAD_URL="http://files.static.tiqiua.com/cocoding/dl/softs/vim-${_VIM_VERSION}.tar.gz"
 
 echo "===================================================="
@@ -24,6 +24,7 @@ else
     echo "======> compiling a vim for myself!"
 
 
+    rvm use 2.7.2@neovim
     echo "install dependence"
 
     sudo apt install libx11-dev libxtst-dev libxt-dev libsm-dev libxpm-dev -y
@@ -45,7 +46,6 @@ else
                 --enable-multibyte \
                 --enable-rubyinterp=yes \
                 --enable-python3interp=yes \
-                --with-python3-config-dir=$(python3-config --configdir) \
                 --enable-perlinterp=yes \
                 --enable-luainterp=yes \
                 --enable-gtk3-check \
@@ -105,7 +105,7 @@ fi
 
 $HOME/apps/bin/vim +PlugInstall
 $HOME/apps/bin/vim -c ":CocInstall coc-tsserver coc-eslint coc-json \
-coc-prettier coc-css coc-vimlsp coc-go"
+coc-prettier coc-css coc-vimlsp coc-go coc-python"
 
 # upgrade plugins
 # git submodule update --remote --merge
@@ -114,12 +114,11 @@ coc-prettier coc-css coc-vimlsp coc-go"
 echo "======> Install Neovim"
 
 brew install neovim
-/home/vincent/.config/nvim/init.vim
 
-mkdir -p $HOME/.config/nvim
+mkdir -p $HOME/.config/nvim 2>/dev/null
 
 if [[ -e "$HOME/.config/nvim/init.vim" ]]; then
-	rm -rf$HOME/.config/nvim/init.vim
+	rm -rf $HOME/.config/nvim/init.vim
 fi
 ln -s $(pwd)/vim/init.vim.symlink $HOME/.config/nvim/init.vim
 

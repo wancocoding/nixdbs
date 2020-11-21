@@ -37,12 +37,12 @@ rvm use 2.7.2 --default
 
 echo "======> install gemset"
 
-# rvm gemset create neovim
+rvm gemset create neovim
 
-rvm use 2.7.2
+rvm use 2.7.2@neovim
 
-gem sources –r https://rubygems.org/
-gem sources -a https://gems.ruby-china.com/
+gem sources -–remove https://rubygems.org/
+gem sources --add https://gems.ruby-china.com/
 # gem sources -a http://ruby.taobao.org/
 gem source -l
 
