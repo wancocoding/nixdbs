@@ -20,7 +20,10 @@ echo "======> config git"
 
 git config --global user.email "ergal@163.com"
 git config --global user.name "wancocoding"
-
+git config --global diff.tool vimdiff
+git config --global alias.d difftool
+git config --global difftool.prompt false
+git config --global difftool.trustExitCode true
 
 echo "======> install peek for record screen"
 sudo add-apt-repository ppa:peek-developers/stable
