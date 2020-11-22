@@ -36,14 +36,16 @@ if [ -e $HOME/.zshrc ]; then
 	fi
 fi
 
-if grep -iq 'export PATH=$HOME/apps/bin:$PATH' $HOME/.profile >/dev/null 2>&1; then
+if grep -iq 'user apps path settings' $HOME/.profile >/dev/null 2>&1; then
     echo "apps bin path already setup to your profile"
 else
+    echo '====== user apps path settings ======' >> $HOME/.profile
     echo 'export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH' >> $HOME/.profile
+    echo '====== user apps path settings ======' >> $HOME/.zshrc
     echo 'export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH' >> $HOME/.zshrc
 fi
 
-source $HOME/.zshrc
+source $HOME/.profile
 
 # install zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting 
