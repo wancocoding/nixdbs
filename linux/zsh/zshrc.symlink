@@ -150,3 +150,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="rg --sort-files --files --null 2>/dev/null | xargs -0 dirname | uniq"
 
 export BAT_PAGER="less -R"
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH

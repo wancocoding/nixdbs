@@ -37,9 +37,11 @@ brew install htop glances screenfetch tree xclip bat fzf \
 	ranger \
 	neovim \
 	hugo
+
 # universal-catgs required
-brew install python@3.8
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+# Deprecated, not use ctags any more, use LSP instead
+# brew install python@3.8
+# brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 echo "======> Set these tools installed by brew"
 # fzf init

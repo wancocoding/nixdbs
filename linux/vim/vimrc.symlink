@@ -6,10 +6,10 @@
 "                                      /____/                        
 "
 " Maintainer:			Vincent Wancocoding  <https://cocoding.cc>
-" Vim Version:			8.1.2269
-" Version:				0.1
+" Vim Version:			8.2.2020
+" Version:				0.1.1
 " Created:				2020-11-04
-" Updated:				2020-11-20
+" Updated:				2020-11-22
 " OS:					Linux
 
 
@@ -32,7 +32,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " ============  Language Support
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
 
 " ============  Git Plugin
@@ -57,11 +57,11 @@ Plug 'junegunn/fzf.vim'
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 " Comment Plugin
 Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " markdown preview
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
@@ -445,20 +445,20 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Add support for markdown files in tagbar.
 " see https://github.com/jszakmeister/markdown2ctags
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
-    \ 'ctagsargs' : '-f - --sort=yes --sro=»',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '»',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
+" let g:tagbar_type_markdown = {
+"     \ 'ctagstype': 'markdown',
+"     \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
+"     \ 'ctagsargs' : '-f - --sort=yes --sro=»',
+"     \ 'kinds' : [
+"         \ 's:sections',
+"         \ 'i:images'
+"     \ ],
+"     \ 'sro' : '»',
+"     \ 'kind2scope' : {
+"         \ 's' : 'section',
+"     \ },
+"     \ 'sort': 0,
+" \ }
 
 " }}}
 
