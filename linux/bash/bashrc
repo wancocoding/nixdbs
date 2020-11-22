@@ -1,0 +1,51 @@
+# ============ 2020-11-03 ============
+export EDITOR="vim"
+
+# ====== My Environment ======
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# ====== user apps path settings ======
+export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
+
+
+# ====== NVM settings ======
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
+# ====== pyenv settings ======
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+# ====== golang settings ======
+export GOPATH=$HOME/develop/Go
+export GO111MODULE=auto
+export GOPROXY=https://goproxy.cn,direct
+export PATH="$PATH:$GOPATH/bin"
+# ====== java settings ======
+export JAVA_HOME=/home/vincent/apps/jdk-15.0.1
+export PATH=$PATH:$JAVA_HOME/bin
+# ====== gradle settings ======
+export GRADLE_HOME=/home/vincent/apps/gradle-6.7
+export PATH=$PATH:$GRADLE_HOME/bin
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# ================= fzf =================
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# ================= FZF Settings =================
+# export FZF_BASE=$(brew --prefix)/opt/fzf
+# fd settings
+export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+# -1 auto select the only match
+export FZF_DEFAULT_OPTS="--no-mouse --border --height 50% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300' --preview-window='right:hidden:wrap' --bind='f3:execute(bat --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-a:select-all+accept,ctrl-y:execute-silent(echo {+} | xclip -i -sel clip)'"
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!{.git,node_modules}/*" 2>/dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="rg --sort-files --files --null 2>/dev/null | xargs -0 dirname | uniq"
+
+export BAT_PAGER="less -R"

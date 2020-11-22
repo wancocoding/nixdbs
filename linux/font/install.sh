@@ -15,6 +15,4 @@ mkdir -p $HOME/.local/share/fonts >/dev/null 2>&1
 sudo apt install fonts-firacode
 
 
-
-
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

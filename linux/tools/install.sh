@@ -32,11 +32,13 @@ sudo apt install peek -y
 
 echo "======> install some tools by brew"
 echo "htop screenfetch tree ctags xclip ... etc"
-brew install htop glances screenfetch tree xclip bat fzf \
-	ripgrep fd the_silver_searcher \
-	ranger \
-	neovim \
-	hugo
+# brew install glances 
+brew install htop screenfetch tree xclip bat
+brew install fzf
+brew install ripgrep fd the_silver_searcher
+# brew install ranger
+brew install neovim
+brew install hugo
 
 # universal-catgs required
 # Deprecated, not use ctags any more, use LSP instead
@@ -52,9 +54,14 @@ ranger --copy-config=all
 
 echo "======> install ossutil"
 _OSSUTIL_DOWNLOAD_URL="http://gosspublic.alicdn.com/ossutil/1.6.19/ossutil64"
-curl $_OSSUTIL_DOWNLOAD_URL -o $HOME/apps/bin/ossutil
-chmod 755 $HOME/apps/bin/ossutil
-$HOME/apps/ossutl update
+if [[ -e $HOME/apps/bin/ossutil ]]; then
+    echo "ossutil already installed! try to upgrade!"
+else
+
+    curl $_OSSUTIL_DOWNLOAD_URL -o $HOME/apps/bin/ossutil
+    chmod 755 $HOME/apps/bin/ossutil
+fi
+$HOME/apps/bin/ossutil update
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

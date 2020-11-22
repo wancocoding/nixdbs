@@ -22,16 +22,14 @@ fi
 
 echo "======> setup brew for zsh"
 
-if grep -iq "linuxbrew" $HOME/.profile >/dev/null 2>&1; then
+if grep -iq "linuxbrew" $HOME/.zshrc >/dev/null 2>&1; then
 	echo "brew already setup to your profile"
 else
-	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
-		$HOME/.profile
 	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
 		$HOME/.zshrc
 fi
 
-source $HOME/.profile
+source $HOME/.bashrc
 
 echo "======> install gcc"
 

@@ -18,11 +18,11 @@ fi
 
 # pyenv envrionment
 function set_pyenv_env {
-	echo "set pyenv to your startup file"
-	echo "# ====== pyenv settings ======" >> $HOME/.profile
-	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.profile
-	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $HOME/.profile
-	echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> $HOME/.profile
+	# echo "set pyenv to your startup file"
+	# echo "# ====== pyenv settings ======" >> $HOME/.profile
+	# echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.profile
+	# echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $HOME/.profile
+	# echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> $HOME/.profile
 
 	echo "# ====== pyenv settings ======" >> $HOME/.zshrc
 	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.zshrc
@@ -30,13 +30,13 @@ function set_pyenv_env {
 	echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> $HOME/.zshrc
 }
 
-if grep -qi "pyenv settings" $HOME/.profile >/dev/null 2>&1; then
+if grep -qi "pyenv settings" $HOME/.zshrc >/dev/null 2>&1; then
 	echo "pyenv already setup to your startup file"
 else
 	set_pyenv_env
 fi
 
-source $HOME/.profile
+source $HOME/.bashrc
 
 echo "======> install Python Dependance"
 _PY_DEPENDANCE='libssl-dev zlib1g-dev libbz2-dev '
@@ -58,8 +58,6 @@ else
 	pyenv install $_DOWNLOAD_PY_VERSION
 fi
 
-# list install versions
-pyenv versions
 
 echo "======> Change pip mirror"
 mkdir -p $HOME/.pip >/dev/null 2>&1
@@ -70,28 +68,27 @@ echo "======> Install python virualenv"
 brew install pyenv-virtualenv
 
 _PYENV_VIRTUALENV_ENV='if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi'
-if grep -i "pyenv-virtualenv-init" $HOME/.profile >/dev/null 2>&1; then
+if grep -i "pyenv-virtualenv-init" $HOME/.zshrc >/dev/null 2>&1; then
 	echo "pyenv-virtualenv already setup to your rcfile"
 else
-    echo $_PYENV_VIRTUALENV_ENV >> $HOME/.profile
     echo $_PYENV_VIRTUALENV_ENV >> $HOME/.zshrc
 fi
 
-source $HOME/.profile
+source $HOME/.bashrc
 
 
-
-echo "======> create virualenv for Neovim"
-pyenv virtualenv 3.8.6 neovim
-
-pyenv activate neovim
-
-pip3 install -U pip
-pip3 install pynvim
-
-source deactivate
+echo "======> Setup python envrionment for system"
+_PY_GLOBAL_ENV_NAME="global${_DOWNLOAD_PY_VERSION}"
+_PY_GLOBAL_PREFIX="${HOME}/.pyenv/versions/${_PY_GLOBAL_ENV_NAME}"
+_PY_GLOBAL_PIP3=$_PY_GLOBAL_PREFIX/bin/pip3
+pyenv virtualenv $_DOWNLOAD_PY_VERSION $_PY_GLOBAL_ENV_NAME
+pyenv global $_PY_GLOBAL_ENV_NAME
 
 
+$_PY_GLOBAL_PIP3 install -U pip
+$_PY_GLOBAL_PIP3 install pynvim
 
+# list install versions
+pyenv versions
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

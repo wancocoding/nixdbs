@@ -105,6 +105,7 @@ export EDITOR="vim"
 
 # ====== My Environment ======
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# ====== user apps path settings ======
 export PATH=$HOME/apps/bin:$HOME/.dotfiles/sbin:$PATH
 
 
