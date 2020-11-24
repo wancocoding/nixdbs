@@ -21,40 +21,40 @@ if [ "$_osname" == "linux" ]; then
 # """""""""""""""""" Basic settings """"""""""""""""""
 
 # base
-	# source ./base/install.sh
+	source ./base/install.sh
 
 # zsh
-	# source ./zsh/install.sh
+	source ./zsh/install.sh
 
 # homebrew
-	# source ./brew/install.sh
+	source ./brew/install.sh
 
-# develop tools
-	# source ./tools/install.sh
+# Tmux
+	source ./tmux/install.sh
+
+# font
+	source ./font/install.sh
 
 # Python and pyenv
 	source ./python/install.sh
 
-# Tmux
-	# source ./tmux/install.sh
-
-# font
-	# source ./font/install.sh
-
 # Node and NVM
-	# source ./node/install.sh
+	source ./node/install.sh
+
+# develop tools
+	source ./tools/install.sh
+
+# Ruby and RVM
+	source ./ruby/install.sh
+
+# vim
+	source ./vim/install.sh
 
 # Go
 	# source ./go/install.sh
 
 # Java and Gradle
 	# source ./java/install.sh
-
-# Ruby and RVM
-	# source ./ruby/install.sh
-
-# vim
-	# source ./vim/install.sh
 
 # after all
 	sudo apt autoremove

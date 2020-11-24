@@ -5,7 +5,9 @@ echo "===================================================="
 echo "            Installing Base Dependence              "
 echo "===================================================="
 
-
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo cp -uv base/apt-sources.list /etc/apt/sources.list
+sudo apt update
 
 sudo apt install git gcc make curl wget file unzip -y
 

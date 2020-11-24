@@ -37,7 +37,6 @@ brew install htop screenfetch tree xclip bat
 brew install fzf
 brew install ripgrep fd the_silver_searcher
 # brew install ranger
-brew install neovim
 brew install hugo
 
 # universal-catgs required
@@ -49,7 +48,7 @@ echo "======> Set these tools installed by brew"
 # fzf init
 $(brew --prefix)/opt/fzf/install
 # ranger init
-ranger --copy-config=all
+# ranger --copy-config=all
 
 
 echo "======> install ossutil"
@@ -62,6 +61,13 @@ else
     chmod 755 $HOME/apps/bin/ossutil
 fi
 $HOME/apps/bin/ossutil update
+
+# ranger setup
+echo "======> install and setup ranger file manager"
+HOMEBREW_PREFIX="$(brew --prefix)"
+$HOMEBREW_PREFIX/bin/pip3 install ranger-fm
+
+ranger --copy-config=all
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

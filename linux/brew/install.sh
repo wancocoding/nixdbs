@@ -27,6 +27,9 @@ if grep -iq "linuxbrew" $HOME/.zshrc >/dev/null 2>&1; then
 else
 	echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >> \
 		$HOME/.zshrc
+	cat zsh/brew-completion >> $HOME/.zshrc
+	echo 'export HOMEBREW_AUTO_UPDATE_SECS=3600' >> $HOME/.zshrc
+	echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/linuxbrew-bottles' $HOME/.zshrc
 fi
 
 source $HOME/.bashrc

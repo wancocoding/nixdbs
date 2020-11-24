@@ -16,15 +16,17 @@ brew uninstall vim
 
 
 
-_vim_installed=$(detect_cmd vim)
+# _vim_installed=$(detect_cmd vim)
 
-if (($_vim_installed)); then
+if [ -s $HOME/apps/bin/vim ]; then
 	echo "Vim already installed"
 else
     echo "======> compiling a vim for myself!"
 
+    source $HOME/.bashrc
+    # source $HOME/.rvm/scripts/rvm
+    # rvm use 2.7.2 --default
 
-    rvm use 2.7.2@neovim
     echo "install dependence"
 
     sudo apt install libx11-dev libxtst-dev libxt-dev libsm-dev libxpm-dev -y
@@ -41,6 +43,8 @@ else
     tar xvzf vim.tar.gz
     cd vim-${_VIM_VERSION}
 
+    # export CFLAGS="-I$HOME/.pyenv/versions/3.8.6/include/python3.8 -I${HOME}/.rvm/rubies/ruby-2.7.2/include/ruby-2.7.0"
+    # export LDFLAGS="-L${HOME}/.rvm/rubies/ruby-2.7.2/lib"
     ./configure --with-features=huge \
                 --with-tlib=ncurses \
                 --enable-multibyte \
@@ -56,6 +60,9 @@ else
                 --enable-gnome-check \
                 --with-gnome \
                 --prefix=$HOME/apps
+
+		# --with-python3-command=$HOME/.pyenv/versions/global3.8.6/bin/python3 \
+		# --with-ruby-command=$HOME/.rvm/rubies/ruby-2.7.2/bin/ruby \
 
     make
     make install
@@ -104,6 +111,8 @@ fi
 
 
 $HOME/apps/bin/vim +PlugInstall
+
+
 $HOME/apps/bin/vim -c ":CocInstall coc-tsserver coc-eslint coc-json \
 coc-prettier coc-css coc-vimlsp coc-go coc-python"
 
@@ -112,6 +121,12 @@ coc-prettier coc-css coc-vimlsp coc-go coc-python"
 
 
 echo "======> Install Neovim"
+
+HOMEBREW_PREFIX="$(brew --prefix)"
+echo "======> install pynvim(py) neovim(rb) for Neovim"
+$HOMEBREW_PREFIX/bin/pip3 install pynvim
+$HOMEBREW_PREFIX/bin/gem install neovim
+$HOMEBREW_PREFIX/bin/npm install -g neovim
 
 brew install neovim
 

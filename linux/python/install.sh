@@ -5,6 +5,18 @@ echo "===================================================="
 echo "            Installing pyenv and python!            "
 echo "===================================================="
 
+echo "======> install python3.9 by brew"
+
+HOMEBREW_PREFIX="$(brew --prefix)"
+if [ -e $HOMEBREW_PREFIX/bin/python3.9 ]; then
+	brew upgrade python@3.9
+else
+	brew install python@3.9
+fi
+
+HOMEBREW_PREFIX="$(brew --prefix)"
+$HOMEBREW_PREFIX/bin/pip3 install -U pip
+
 # see more: https://github.com/pyenv/pyenv
 
 echo "======> install Pyenv"
@@ -45,7 +57,7 @@ _PY_DEPENDANCE+='libncurses5-dev libncursesw5-dev '
 _PY_DEPENDANCE+='xz-utils tk-dev libffi-dev liblzma-dev python-openssl'
 sudo apt install $_PY_DEPENDANCE -y
 
-echo "======> install Python version"
+echo "======> install Python version by pyenv"
 
 _DOWNLOAD_PY_VERSION="3.8.6"
 _DOWNLOAD_PY_URL="https://npm.taobao.org/mirrors/python"
@@ -74,21 +86,27 @@ else
     echo $_PYENV_VIRTUALENV_ENV >> $HOME/.zshrc
 fi
 
+
 source $HOME/.bashrc
 
-
-echo "======> Setup python envrionment for system"
-_PY_GLOBAL_ENV_NAME="global${_DOWNLOAD_PY_VERSION}"
-_PY_GLOBAL_PREFIX="${HOME}/.pyenv/versions/${_PY_GLOBAL_ENV_NAME}"
-_PY_GLOBAL_PIP3=$_PY_GLOBAL_PREFIX/bin/pip3
-pyenv virtualenv $_DOWNLOAD_PY_VERSION $_PY_GLOBAL_ENV_NAME
-pyenv global $_PY_GLOBAL_ENV_NAME
-
-
-$_PY_GLOBAL_PIP3 install -U pip
-$_PY_GLOBAL_PIP3 install pynvim
-
-# list install versions
 pyenv versions
+
+# echo "======> Setup python envrionment for system"
+# # the custome global virtual environment for neovim and system
+# _PY_GLOBAL_ENV_NAME="global${_DOWNLOAD_PY_VERSION}"
+# _PY_GLOBAL_PREFIX="${HOME}/.pyenv/versions/${_PY_GLOBAL_ENV_NAME}"
+# _PY_GLOBAL_PIP3=$_PY_GLOBAL_PREFIX/bin/pip3
+# pyenv virtualenv $_DOWNLOAD_PY_VERSION $_PY_GLOBAL_ENV_NAME
+# pyenv global $_PY_GLOBAL_ENV_NAME
+# 
+# 
+# $_PY_GLOBAL_PIP3 install -U pip
+# $_PY_GLOBAL_PIP3 install pynvim
+# # ranger file management
+# $_PY_GLOBAL_PIP3 install ranger-fm
+# 
+# # list install versions
+# pyenv versions
+
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:
