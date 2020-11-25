@@ -20,30 +20,34 @@ else
 fi
 
 
-if grep -iq 'export GOPATH' $HOME/.profile >/dev/null 2>&1; then
+if grep -iq 'export GOPATH' $HOME/.bashrc >/dev/null 2>&1; then
 	echo "go path already setup!"
 else
-	echo "# ====== golang settings ======" >> $HOME/.profile
-	echo 'export GOPATH=$HOME/develop/Go' >> $HOME/.profile
-	echo 'export GO111MODULE=on' >> $HOME/.profile
-	echo 'export GOPROXY=https://goproxy.cn,direct' >> $HOME/.profile
-	echo 'export PATH="$PATH:$GOPATH/bin"' >> $HOME/.profile
+	# echo "# ====== golang settings ======" >> $HOME/.profile
+	# echo 'export GOPATH=$HOME/develop/Go' >> $HOME/.profile
+	# echo 'export GO111MODULE=on' >> $HOME/.profile
+	# echo 'export GOPROXY=https://goproxy.cn,direct' >> $HOME/.profile
+	# echo 'export PATH="$PATH:$GOPATH/bin"' >> $HOME/.profile
 	
 	echo "# ====== golang settings ======" >> $HOME/.zshrc
 	echo 'export GOPATH=$HOME/develop/Go' >> $HOME/.zshrc
 	echo 'export GO111MODULE=on' >> $HOME/.zshrc
-	echo 'export GOPROXY=https://goproxy.cn,direct' >> $HOME/.zshrc
+	echo 'export GOPROXY=https://goproxy.cn' >> $HOME/.zshrc
 	echo 'export PATH="$PATH:$GOPATH/bin"' >> $HOME/.zshrc
 fi
 
-source $HOME/.profile
 
 go version
 
 
 echo "======> install Go modules"
 
-mkdir -p $HOME/develop/Go >/dev/null 2>&1
+mkdir -p $HOME/develop/Go &>/dev/null
+
+export GOPATH=$HOME/develop/Go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+export PATH=$PATH:$GOPATH/bin
 
 go get -u google.golang.org/grpc
 go get -u github.com/gin-gonic/gin

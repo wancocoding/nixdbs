@@ -1,3 +1,15 @@
+## Notice
+
+if brew fail when install packages, like following
+
+```
+tar: /home/vincent/.cache/Homebrew/downloads/cfbf06524f7ea66e6023b765982938fa20659554b67b68b7fb8a157cf294
+2d7--rust-1.47.0.x86_64_linux.bottle.tar.gz: Cannot open: No such file or directory
+```
+To fix that, run it manually, like this `brew install cmake`
+
+
+
 ### after install python
 
 ```
@@ -17,17 +29,3 @@ They will install into the site-package directory
 See: https://docs.brew.sh/Homebrew-and-Python
 ```
 
-### after install node@14
-
-```
-==> node@14
-node@14 is keg-only, which means it was not symlinked into /home/linuxbrew/.linuxbrew,
-because this is an alternate version of another formula.
-
-If you need to have node@14 first in your PATH run:
-  echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/node@14/bin:$PATH"' >> ~/.zshrc
-
-For compilers to find node@14 you may need to set:
-  export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/node@14/lib"
-  export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/node@14/include"
-```

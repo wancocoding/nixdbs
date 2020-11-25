@@ -51,10 +51,10 @@ if [ "$_osname" == "linux" ]; then
 	source ./vim/install.sh
 
 # Go
-	# source ./go/install.sh
+	source ./go/install.sh
 
 # Java and Gradle
-	# source ./java/install.sh
+	source ./java/install.sh
 
 # after all
 	sudo apt autoremove

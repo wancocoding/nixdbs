@@ -48,7 +48,9 @@ else
 	set_pyenv_env
 fi
 
-source $HOME/.bashrc
+# 
+eval "$(pyenv init -)"
+
 
 echo "======> install Python Dependance"
 _PY_DEPENDANCE='libssl-dev zlib1g-dev libbz2-dev '
@@ -87,8 +89,9 @@ else
 fi
 
 
-source $HOME/.bashrc
+eval "$(pyenv virtualenv-init -)"
 
+# pyenv global system
 pyenv versions
 
 # echo "======> Setup python envrionment for system"

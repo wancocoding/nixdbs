@@ -36,19 +36,20 @@ else
 fi
 
 
-if grep -iq 'export JAVA_HOME' $HOME/.profile >/dev/null 2>&1; then
+if grep -iq 'export JAVA_HOME' $HOME/.bashrc >/dev/null 2>&1; then
 	echo "java path already setup!"
 else
-	echo "# ====== java settings ======" >> $HOME/.profile
-	echo "export JAVA_HOME=$HOME/apps/${_JDK_FOLDER}" >> $HOME/.profile
-	echo 'export PATH=$PATH:$JAVA_HOME/bin' >> $HOME/.profile
+	# echo "# ====== java settings ======" >> $HOME/.profile
+	# echo "export JAVA_HOME=$HOME/apps/${_JDK_FOLDER}" >> $HOME/.profile
+	# echo 'export PATH=$PATH:$JAVA_HOME/bin' >> $HOME/.profile
 	
 	echo "# ====== java settings ======" >> $HOME/.zshrc
 	echo "export JAVA_HOME=$HOME/apps/${_JDK_FOLDER}" >> $HOME/.zshrc
 	echo 'export PATH=$PATH:$JAVA_HOME/bin' >> $HOME/.zshrc
 fi
 
-source $HOME/.profile
+export JAVA_HOME=$HOME/apps/${_JDK_FOLDER}
+export PATH=$PATH:$JAVA_HOME/bin
 
 java --version
 
@@ -74,19 +75,20 @@ else
     cd $WORKSPACEDIR
 fi
 
-if grep -iq 'export GRADLE_HOME' $HOME/.profile >/dev/null 2>&1; then
+if grep -iq 'export GRADLE_HOME' $HOME/.bashrc >/dev/null 2>&1; then
 	echo "gradle path already setup!"
 else
-	echo "# ====== gradle settings ======" >> $HOME/.profile
-	echo "export GRADLE_HOME=$HOME/apps/${_GRADLE_FOLDER}" >> $HOME/.profile
-	echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> $HOME/.profile
+	# echo "# ====== gradle settings ======" >> $HOME/.profile
+	# echo "export GRADLE_HOME=$HOME/apps/${_GRADLE_FOLDER}" >> $HOME/.profile
+	# echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> $HOME/.profile
 	
 	echo "# ====== gradle settings ======" >> $HOME/.zshrc
 	echo "export GRADLE_HOME=$HOME/apps/${_GRADLE_FOLDER}" >> $HOME/.zshrc
 	echo 'export PATH=$PATH:$GRADLE_HOME/bin' >> $HOME/.zshrc
 fi
 
-source ~/.profile
+export GRADLE_HOME=$HOME/apps/${_GRADLE_FOLDER}
+export PATH=$PATH:$GRADLE_HOME/bin
 
 gradle --version
 

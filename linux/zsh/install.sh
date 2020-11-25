@@ -49,7 +49,6 @@ else
     cat bash/bashrc >> $HOME/.bashrc
 fi
 
-source $HOME/.bashrc
 
 # install zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting 

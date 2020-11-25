@@ -32,7 +32,6 @@ else
 	echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/linuxbrew-bottles' $HOME/.zshrc
 fi
 
-source $HOME/.bashrc
 
 echo "======> install gcc"
 

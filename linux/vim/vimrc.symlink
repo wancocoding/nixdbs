@@ -57,6 +57,8 @@ Plug 'junegunn/fzf.vim'
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
+" Markdown support
+Plug 'plasticboy/vim-markdown'
 " Plug 'mhinz/vim-startify'
 " Comment Plugin
 Plug 'tpope/vim-commentary'
@@ -440,7 +442,7 @@ let g:UltiSnipsEditSplit="vertical"
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Markdown for CTag {{{
+" Markdown Settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Add support for markdown files in tagbar.
@@ -461,6 +463,16 @@ let g:UltiSnipsEditSplit="vertical"
 " \ }
 
 " }}}
+
+
+" The following settings is used for plugin vim-markdown
+" folding setting
+let g:vim_markdown_folding_disable = 0
+
+" Set header folding level
+let g:vim_markdown_folding_level = 1
+
+let g:vim_markdown_toc_autofit = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim config {{{
@@ -622,7 +634,9 @@ let g:tagbar_type_go = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number 
+    \ --no-heading --color=always --smart-case " .
+    \ <q-args>, 1, <bang>0)
 nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>p :Buffers<CR>
 nnoremap <Leader>h :History<CR>

@@ -38,17 +38,19 @@ else
 	echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"' >> $HOME/.zshrc
 fi
 
-source $HOME/.bashrc
 
-rvm -v
 
 echo "======> install ruby version"
 
 # sed -i 's!ftp.ruby-lang.org/pub/ruby!ruby.taobao.org/mirrors/ruby!' $HOME/.rvm/config/db
 sed -i 's!cache.ruby-lang.org/pub/ruby!cache.ruby-china.com/pub/ruby!' $HOME/.rvm/config/db
+
 source $HOME/.rvm/scripts/rvm
+rvm -v
 rvm install "$_RB_DEFAULT_VERSION"
 rvm list
+
+rvm use system --default
 
 # rvm use "$_RB_DEFAULT_VERSION" --default
 # 

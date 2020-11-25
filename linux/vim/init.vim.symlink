@@ -3,8 +3,8 @@
 " Neovim
 "*****************************************************************************
 let g:python3_host_prog='/home/linuxbrew/.linuxbrew/bin/python3'
-let g:ruby_host_prog='/home/linuxbrew/.linuxbrew/bin/ruby'
-let g:node_host_prog='/home/linuxbrew/.linuxbrew/bin/node'
+let g:ruby_host_prog='/home/vincent/.rvm/rubies/ruby-2.7.2/bin/ruby'
+let g:node_host_prog='/home/linuxbrew/.linuxbrew/lib/node_modules/neovim/bin/cli.js'
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath

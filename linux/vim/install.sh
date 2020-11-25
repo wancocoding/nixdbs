@@ -3,6 +3,8 @@
 _VIM_VERSION="8.2.2020"
 _DOWNLOAD_URL="http://files.static.tiqiua.com/cocoding/dl/softs/vim-${_VIM_VERSION}.tar.gz"
 
+HOMEBREW_PREFIX="$(brew --prefix)"
+
 echo "===================================================="
 echo "            Installing Vim!                         "
 echo "===================================================="
@@ -23,9 +25,11 @@ if [ -s $HOME/apps/bin/vim ]; then
 else
     echo "======> compiling a vim for myself!"
 
-    source $HOME/.bashrc
     # source $HOME/.rvm/scripts/rvm
     # rvm use 2.7.2 --default
+    # pyenv global system
+    rvm use system
+    nvm use system
 
     echo "install dependence"
 
@@ -122,7 +126,6 @@ coc-prettier coc-css coc-vimlsp coc-go coc-python"
 
 echo "======> Install Neovim"
 
-HOMEBREW_PREFIX="$(brew --prefix)"
 echo "======> install pynvim(py) neovim(rb) for Neovim"
 $HOMEBREW_PREFIX/bin/pip3 install pynvim
 $HOMEBREW_PREFIX/bin/gem install neovim
