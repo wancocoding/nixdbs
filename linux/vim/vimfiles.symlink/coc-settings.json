@@ -1,0 +1,14 @@
+{
+  "suggest.enablePreview": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "80"],
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "go",
+    "css",
+    "sass",
+    "json"
+  ],
+  "python.jediEnabled": false
+}
