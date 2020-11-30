@@ -118,7 +118,7 @@ $HOME/apps/bin/vim +PlugInstall
 
 
 $HOME/apps/bin/vim -c ":CocInstall coc-tsserver coc-eslint coc-json \
-coc-prettier coc-css coc-vimlsp coc-go coc-python"
+coc-prettier coc-css coc-vimlsp coc-go coc-python coc-clangd coc-cmake"
 
 # upgrade plugins
 # git submodule update --remote --merge

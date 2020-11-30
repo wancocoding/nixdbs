@@ -33,6 +33,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 " ============  Language Support
 Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
 
 " ============  Git Plugin
@@ -57,18 +58,22 @@ Plug 'junegunn/fzf.vim'
 " align tools
 Plug 'godlygeek/tabular'   
 " Start Screen for vim
-" Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify'
 " Markdown support
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'masukomi/vim-markdown-folding'
+" markdown preview
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " Comment Plugin
 Plug 'tpope/vim-commentary'
 " parentheses, brackets, quotes, XML tags
 Plug 'tpope/vim-surround'
-" markdown preview
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" Icons for plugins
+" Plug 'ryanoasis/vim-devicons'
 
 " My plugin for paste image from clipboard
 Plug 'wancocoding/pi2md'
+
 
 
 call plug#end()
@@ -326,6 +331,33 @@ let g:netrw_winsize = 20
 
 " }}}
 
+"*****************************************************************************
+" Nerdtree (use netrw instead) {{{
+"*****************************************************************************
+" custom ignore
+let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+
+let g:NERDTreeChDirMode=2
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" show line number
+let NERDTreeShowLineNumbers=0
+" show hidden file
+let NERDTreeShowHidden=0
+" set width
+let NERDTreeWinSize=35
+
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+" auto open nerdtree when open a dir
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+
+" }}}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -447,31 +479,31 @@ let g:UltiSnipsEditSplit="vertical"
 
 " Add support for markdown files in tagbar.
 " see https://github.com/jszakmeister/markdown2ctags
-" let g:tagbar_type_markdown = {
-"     \ 'ctagstype': 'markdown',
-"     \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
-"     \ 'ctagsargs' : '-f - --sort=yes --sro=»',
-"     \ 'kinds' : [
-"         \ 's:sections',
-"         \ 'i:images'
-"     \ ],
-"     \ 'sro' : '»',
-"     \ 'kind2scope' : {
-"         \ 's' : 'section',
-"     \ },
-"     \ 'sort': 0,
-" \ }
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '~/.vim/scripts/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes --sro=»',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '»',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 
 " The following settings is used for plugin vim-markdown
 " folding setting
-let g:vim_markdown_folding_disable = 0
+" let g:vim_markdown_folding_disable = 0
+" let g:vim_markdown_folding_level = 1
+" let g:vim_markdown_toc_autofit = 1
 
-" Set header folding level
-let g:vim_markdown_folding_level = 1
+" set for plugin vim-markdown-folding
+autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
-let g:vim_markdown_toc_autofit = 1
-"
 " }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -584,6 +616,7 @@ endfunction
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
+" install coc.nvim and coc-go first
 autocmd BufWritePre *.go :call CocAction('organizeImport')
 
 " shortcuts for golang

@@ -44,6 +44,21 @@ brew install hugo
 # brew install python@3.8
 # brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
+echo "======> install universal-ctags"
+sudo apt-get install libjansson-dev
+mkdir -p ./temp &>/dev/null
+cd ./temp
+git clone https://github.com/universal-ctags/ctags.git --depth=1
+cd ctags
+./autogen.sh
+./configure --prefix=$HOME/apps
+make
+sudo make install
+
+cd $WORKSPACEDIR
+
+rm -rf ./temp &>/dev/null
+
 echo "======> Set these tools installed by brew"
 # fzf init
 $(brew --prefix)/opt/fzf/install
