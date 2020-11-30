@@ -20,7 +20,16 @@
 call plug#begin(expand('~/.vim/plugged'))
 
 " ============  navigation
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
+" if has('nvim')
+"   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/defx.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" Plug 'kristijanhusak/defx-icons'
+" Plug 'ryanoasis/vim-devicons'
 
 " ============  theme
 Plug 'tomasr/molokai'
@@ -32,7 +41,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " ============  Language Support
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
+" View and search LSP symbols, tags in Vim/NeoVim, replace tagbar
 Plug 'liuchengxu/vista.vim'
 " Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
 
@@ -73,8 +83,6 @@ Plug 'tpope/vim-surround'
 
 " My plugin for paste image from clipboard
 Plug 'wancocoding/pi2md'
-
-
 
 call plug#end()
 
@@ -332,28 +340,113 @@ let g:netrw_winsize = 20
 " }}}
 
 "*****************************************************************************
-" Nerdtree (use netrw instead) {{{
+" Defx {{{
 "*****************************************************************************
-" custom ignore
-let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 
-let g:NERDTreeChDirMode=2
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-" show line number
-let NERDTreeShowLineNumbers=0
-" show hidden file
-let NERDTreeShowHidden=0
-" set width
-let NERDTreeWinSize=35
+" call defx#custom#option('_', {
+"       \ 'winwidth': 40,
+"       \ 'split': 'vertical',
+"       \ 'direction': 'topleft',
+"       \ 'show_ignored_files': 0,
+"       \ 'columns': 'icons:indent:filename:type',
+"       \ 'buffer_name': '',
+"       \ 'toggle': 1,
+"       \ 'resume': 1
+"       \ })
 
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+" nnoremap <silent> <F3> :Defx <cr>
+" autocmd FileType defx call s:defx_my_settings()
 
-" auto open nerdtree when open a dir
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" function! s:defx_my_settings() abort
+"     " Define mappings
+"     nnoremap <silent><buffer><expr> <CR>
+"     \ defx#do_action('open')
+"     nnoremap <silent><buffer><expr> c
+"     \ defx#do_action('copy')
+"     nnoremap <silent><buffer><expr> m
+"     \ defx#do_action('move')
+"     nnoremap <silent><buffer><expr> p
+"     \ defx#do_action('paste')
+"     nnoremap <silent><buffer><expr> l
+"     \ defx#do_action('open')
+"     nnoremap <silent><buffer><expr> E
+"     \ defx#do_action('open', 'vsplit')
+"     nnoremap <silent><buffer><expr> P
+"     \ defx#do_action('preview')
+"     nnoremap <silent><buffer><expr> o
+"     \ defx#do_action('open_tree', 'toggle')
+"     nnoremap <silent><buffer><expr> K
+"     \ defx#do_action('new_directory')
+"     nnoremap <silent><buffer><expr> N
+"     \ defx#do_action('new_file')
+"     nnoremap <silent><buffer><expr> M
+"     \ defx#do_action('new_multiple_files')
+"     nnoremap <silent><buffer><expr> C
+"     \ defx#do_action('toggle_columns',
+"     \                'mark:indent:icon:filename:type:size:time')
+"     nnoremap <silent><buffer><expr> S
+"     \ defx#do_action('toggle_sort', 'time')
+"     nnoremap <silent><buffer><expr> d
+"     \ defx#do_action('remove')
+"     nnoremap <silent><buffer><expr> r
+"     \ defx#do_action('rename')
+"     nnoremap <silent><buffer><expr> !
+"     \ defx#do_action('execute_command')
+"     nnoremap <silent><buffer><expr> x
+"     \ defx#do_action('execute_system')
+"     nnoremap <silent><buffer><expr> yy
+"     \ defx#do_action('yank_path')
+"     nnoremap <silent><buffer><expr> .
+"     \ defx#do_action('toggle_ignored_files')
+"     nnoremap <silent><buffer><expr> ;
+"     \ defx#do_action('repeat')
+"     nnoremap <silent><buffer><expr> h
+"     \ defx#do_action('cd', ['..'])
+"     nnoremap <silent><buffer><expr> ~
+"     \ defx#do_action('cd')
+"     nnoremap <silent><buffer><expr> q
+"     \ defx#do_action('quit')
+"     nnoremap <silent><buffer><expr> <Space>
+"     \ defx#do_action('toggle_select') . 'j'
+"     nnoremap <silent><buffer><expr> *
+"     \ defx#do_action('toggle_select_all')
+"     nnoremap <silent><buffer><expr> j
+"     \ line('.') == line('$') ? 'gg' : 'j'
+"     nnoremap <silent><buffer><expr> k
+"     \ line('.') == 1 ? 'G' : 'k'
+"     nnoremap <silent><buffer><expr> <C-l>
+"     \ defx#do_action('redraw')
+"     nnoremap <silent><buffer><expr> <C-g>
+"     \ defx#do_action('print')
+"     nnoremap <silent><buffer><expr> cd
+"     \ defx#do_action('change_vim_cwd')
+" endfunction
+
+" }}}
+
+"*****************************************************************************
+" Nerdtree(Deprecated)  {{{
+"*****************************************************************************
+" " custom ignore
+" let g:NERDTreeIgnore=['\.class$', '\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+
+" let g:NERDTreeChDirMode=2
+" let g:NERDTreeShowBookmarks=1
+" let g:nerdtree_tabs_focus_on_files=1
+" let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+" " show line number
+" let NERDTreeShowLineNumbers=0
+" " show hidden file
+" let NERDTreeShowHidden=0
+" " set width
+" let NERDTreeWinSize=35
+
+" nnoremap <silent> <F2> :NERDTreeFind<CR>
+" nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+" " auto open nerdtree when open a dir
+" " autocmd StdinReadPre * let s:std_in=1
+" " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 
 " }}}
@@ -419,8 +512,28 @@ endif
 " tagbar settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap <F8> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
+" nmap <F8> :TagbarToggle<CR>
+" let g:tagbar_autofocus = 1
+
+" }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vista settings {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works the LSP executives, doesn't work for `:Vista ctags`.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+nmap <F8> :Vista!!<CR>
 
 " }}}
 

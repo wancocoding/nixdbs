@@ -10,8 +10,9 @@
     "css",
     "sass",
     "json",
-	"c",
-	"cpp"
+    "c",
+    "cpp"
   ],
-  "clangd.path": "/home/vincent/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd"
+  "clangd.path": "/home/vincent/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+  "explorer.icon.enableNerdfont": true
 }
