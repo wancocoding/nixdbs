@@ -53,6 +53,9 @@ if [ "$_osname" == "linux" ]; then
 # Go
 	source ./go/install.sh
 
+# Cpp
+	source ./cpp/install.sh
+
 # Java and Gradle
 	source ./java/install.sh
 

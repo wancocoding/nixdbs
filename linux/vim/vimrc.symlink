@@ -29,7 +29,7 @@ call plug#begin(expand('~/.vim/plugged'))
 "   Plug 'roxma/vim-hug-neovim-rpc'
 " endif
 " Plug 'kristijanhusak/defx-icons'
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
 " ============  theme
 Plug 'tomasr/molokai'
@@ -710,6 +710,53 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
+
+" }}}
+
+"*****************************************************************************
+" coc-explorer {{{
+"*****************************************************************************
+
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+
+" Use preset argument to open it
+nmap <F3> :CocCommand explorer <CR>
+" nmap <space>ef :CocCommand explorer --preset floating<CR>
+
+" List all presets
+nmap <space>el :CocList explPresets
 
 " }}}
 
