@@ -52,6 +52,7 @@ fi
 
 # install zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting 
+git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
 
 
 # vim:set ft=bash noet sts=4 ts=4 sw=4 tw=78:
