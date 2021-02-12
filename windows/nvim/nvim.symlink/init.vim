@@ -1,3 +1,4 @@
+" vim:set et sts=4 sw=4 ts=4 tw=78 fdm=marker ft=vim:
 "     ______                     ___                _    ___         
 "    / ____/___  _________  ____/ (_)___  ____ _   | |  / (_)___ ___ 
 "   / /   / __ \/ ___/ __ \/ __  / / __ \/ __ `/   | | / / / __ `__ \
@@ -30,15 +31,19 @@ let g:node_host_prog='d:\develop\apps\scoop\persist\nodejs-lts\bin\node_modules\
 call plug#begin('~/AppData/Local/nvim/plugged')
 
 " ======  themes ======
-Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+
+" ====== Snippets Support ======
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
 " }}}
 
 "*****************************************************************************
-" Basic Setup {{{
+"" Basic Setup {{{
 "*****************************************************************************
 
 " Required:
@@ -135,7 +140,7 @@ set showcmd
 " }}}
 
 "*****************************************************************************
-" Appearance(Color , theme , StatusLine) {{{
+"" Appearance(Color , theme , StatusLine) {{{
 "*****************************************************************************
 
 syntax enable
@@ -159,8 +164,10 @@ let no_buffers_menu=1
 " colorscheme
 set background=dark
 set cursorline
-let g:gruvbox_contrast_dark="hard"
-colorscheme gruvbox
+
+" let g:gruvbox_contrast_dark="hard"
+" colorscheme gruvbox
+colorscheme molokai
 
 if has("gui_running")
 	" hide menu and toolbar
@@ -179,7 +186,7 @@ endif
 " }}}
 
 "*****************************************************************************
-" Abbreviations {{{
+"" Abbreviations {{{
 "*****************************************************************************
 
 " no one is really happy until you have this shortcuts
@@ -197,7 +204,7 @@ cnoreabbrev Qall qall
 " }}}
 
 "*****************************************************************************
-" Mappings {{{
+"" Mappings {{{
 "*****************************************************************************
 "" Split
 " noremap <Leader>h :<C-u>split<CR>
@@ -277,7 +284,7 @@ noremap <A-0> :tabfirst<cr>
 " }}}
 
 "*****************************************************************************
-" Netrw {{{
+"" Netrw {{{
 "*****************************************************************************
 
 let g:netrw_banner = 0
@@ -287,3 +294,15 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 20
 
 " }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" UltiSnips {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
+
+" }}}
+

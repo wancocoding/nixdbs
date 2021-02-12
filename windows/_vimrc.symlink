@@ -559,7 +559,7 @@ if has('win32')
     \ { 'i': '~\_vimrc' },
     \ { 'z': '~\.zshrc' },
     \ { 'd': 'd:\develop\workspace'},
-    \ { 'n': 'f:\Dropbox\Dropbox\docs\md\notes' },
+    \ { 'n': 'e:\onedrive\docs\notes' },
     \ ]
 else
   let g:startify_bookmarks = [
