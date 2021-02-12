@@ -14,6 +14,11 @@ wget -P ~ https://git.io/.gdbinit
 HOMEBREW_PREFIX="$(brew --prefix)"
 $HOMEBREW_PREFIX/bin/pip3 install pygments
 
+brew install clang-format
+
+HOMEBREW_PREFIX="$(brew --prefix)"
+$HOMEBREW_PREFIX/bin/pip3 install conan
+
 
 
 # vim:set ft=sh noet sts=4 ts=4 sw=4 tw=78:

@@ -111,6 +111,13 @@ source $ZSH/oh-my-zsh.sh
 # ============ 2020-11-03 ============
 export EDITOR="vim"
 
+alias ls='lsd'
+
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
 # ====== My Environment ======
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 if type brew &>/dev/null; then
@@ -172,10 +179,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-# ====== NVM settings ======
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# =======================CPM.cmake cache ==========================
+export export CPM_SOURCE_CACHE=$HOME/.cache/CPM

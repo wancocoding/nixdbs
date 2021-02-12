@@ -195,7 +195,7 @@ syntax on
 " Maximum width of text that is being inserted
 set tw=79
 " display a column line
-set colorcolumn=80
+set colorcolumn=+1
 " Show tabs as CTRL-I is displayed, display $ after end of line
 set list
 " listchar
@@ -709,6 +709,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 
+" auto recognize python workspace
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 
 " }}}

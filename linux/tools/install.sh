@@ -33,7 +33,7 @@ sudo apt install peek -y
 echo "======> install some tools by brew"
 echo "htop screenfetch tree ctags xclip ... etc"
 # brew install glances 
-brew install htop screenfetch tree xclip bat
+brew install htop screenfetch tree xclip bat lsd
 brew install fzf
 brew install ripgrep fd the_silver_searcher
 # brew install ranger
