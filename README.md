@@ -34,6 +34,8 @@ Before install, you must install winget first, please download it from [winget g
 
 
 # ChangeLog
+* 2020-12-16
+	- windows的vim重新修改
 * 2020-10-13 v0.3.3
 	- add university ctag for vim
 	- update mardown make tag python script path

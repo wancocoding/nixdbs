@@ -1,5 +1,4 @@
 # ============ Configuration ============
-$enableChoco = 1
 $enableScoop = 1
 $userLocalBin = "d:\develop\env\bin"
 $scoopUserPath = "D:\develop\Scoop"
@@ -9,8 +8,8 @@ $userGoPath = 'd:\develop\workspace\go'
 $softsHome = "d:\softs"
 
 
-$vimDownloadUrl = "http://files.static.tiqiua.com/cocoding/dl/windows/gvim_8.2.1838_x64_signed.zip"
-$vimHome = $softsHome + "\vim\vim82"
+# $vimDownloadUrl = "http://files.static.tiqiua.com/cocoding/dl/windows/gvim_8.2.1838_x64_signed.zip"
+# $vimHome = $softsHome + "\vim\vim82"
 
 
 # ============ PowerShell Basic Setting ============
@@ -19,9 +18,9 @@ Set-ExecutionPolicy RemoteSigned
 
 # ============ Install packages ============
 
-# install oh-my-posh
-Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
+# # install oh-my-posh
+# Install-Module posh-git -Scope CurrentUser
+# Install-Module oh-my-posh -Scope CurrentUser
 
 # Install Chocolatey
 function InstallChocolatey {
@@ -44,33 +43,33 @@ if ($enableScoop -eq 1) {
 
 # ============ PowerShell Profile ============
 
-$psLocalPath = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
-if (Test-Path -path $psLocalPath) {
-	Remove-Item -Path $psLocalPath
-}
-# mklink /d $vimfilesPath .\vimfiles.symlink
-New-Item -Path $psLocalPath -ItemType SymbolicLink -Value .\ps_profile.ps1
+# $psLocalPath = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+# if (Test-Path -path $psLocalPath) {
+# 	Remove-Item -Path $psLocalPath
+# }
+# # mklink /d $vimfilesPath .\vimfiles.symlink
+# New-Item -Path $psLocalPath -ItemType SymbolicLink -Value .\ps_profile.ps1
 
 
 # ============ Install Applications ============
-
-# choco install fluent-terminal
 
 scoop bucket add java
 scoop bucket add versions
 scoop bucket add extras
 
 scoop install sudo
-sudo scoop install 7zip git --global
+sudo scoop install 7zip git vim
 
 scoop install go
 [Environment]::SetEnvironmentVariable("GOPATH", $userGoPath, 'User')
 
 scoop install nodejs-lts
-scoop install oraclejdk14
+# scoop install oraclejdk14
 
 scoop install universal-ctags
-scoop install perl lua
+# scoop install perl lua
+
+scoop install cmake ninja
 
 # scoop install aria2 curl grep sed less touch
 # scoop install python ruby go perl
