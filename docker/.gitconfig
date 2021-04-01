@@ -1,0 +1,6 @@
+[user]
+	name = wancocoding
+	email = ergal@163.com
+[core]
+	autocrlf = false
+	eol = lf
