@@ -52,7 +52,9 @@ call plug#begin(expand('~/vimfiles/plugged'))
 " ============  theme
 " Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
-" Plug 'ayu-theme/ayu-vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'ghifarit53/tokyonight-vim'
+
 
 " ============  status line
 Plug 'vim-airline/vim-airline'
@@ -60,7 +62,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 " ============  Language Support
 Plug 'majutsushi/tagbar'
-" Plug 'dense-analysis/ale'    " Asynchronous Lint Engine
+Plug 'dense-analysis/ale'
 Plug 'liuchengxu/vista.vim'
 
 " ============  Git Plugin
@@ -286,10 +288,24 @@ let no_buffers_menu=1
 
 set background=dark
 set cursorline
-let g:gruvbox_contrast_dark="hard"
+
 " colorscheme gruvbox
-autocmd vimenter * ++nested colorscheme gruvbox
+
+" let g:gruvbox_contrast_dark="hard"
+" autocmd vimenter * ++nested colorscheme gruvbox
+
 " colorscheme badwolf
+
+" set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+" colorscheme ayu
+
+set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+colorscheme tokyonight
 
 " }}}
 
@@ -454,7 +470,9 @@ let g:netrw_winsize = 20
 " airline theme
 " let g:airline_theme='gruvbox'
 
-let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'powerlineish'
+let g:airline_theme = "tokyonight"
+
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -757,5 +775,19 @@ nmap <space>el :CocList explPresets
 
 " }}}
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE Settings {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+let g:ale_linters = {'vue': ['eslint', 'stylelint']}
+
+let g:ale_fixers = {
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \ 'javascript': ['eslint'],
+  \ 'vue': ['prettier', 'eslint'],
+\}
+
+" }}}
 
 " vim:set et sts=4 sw=4 ts=4 tw=78 fdm=marker ft=vim:

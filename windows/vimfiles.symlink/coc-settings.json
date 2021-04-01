@@ -1,6 +1,5 @@
 {
   "suggest.enablePreview": true,
-  "python.jediEnabled": false,
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": ["--line-length", "80"],
   "coc.preferences.formatOnType": true,
@@ -11,11 +10,15 @@
     "sass",
     "json",
     "c",
-    "cpp"
+    "cpp",
+    "javascript",
+    "vue"
   ],
   "clangd.path": "/home/vincent/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
   "explorer.toggle": true,
   "explorer.position": "left",
   "explorer.width": 40,
-  "explorer.icon.enableNerdfont": true
+  "explorer.icon.enableNerdfont": true,
+  "vetur.validation.style": false,
+  "eslint.run": "onType"
 }
