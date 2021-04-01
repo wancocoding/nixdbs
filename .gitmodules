@@ -10,3 +10,15 @@
 [submodule "linux/tmux/tmux.symlink/plugins/tmux-resurrect"]
 	path = linux/tmux/tmux.symlink/plugins/tmux-resurrect
 	url = git@github.com:tmux-plugins/tmux-resurrect.git
+[submodule "docker/.tmux/plugins/tpm"]
+	path = docker/.tmux/plugins/tpm
+	url = https://hub.fastgit.org/tmux-plugins/tpm
+[submodule "docker/.tmux/plugins/tmux-resurrect"]
+	path = docker/.tmux/plugins/tmux-resurrect
+	url = https://hub.fastgit.org/tmux-plugins/tmux-resurrect.git
+[submodule "docker/.tmux/plugins/tmux-continuum"]
+	path = docker/.tmux/plugins/tmux-continuum
+	url = https://hub.fastgit.org/tmux-plugins/tmux-continuum.git
+[submodule "docker/.tmux/plugins/tmux-themepack"]
+	path = docker/.tmux/plugins/tmux-themepack
+	url = https://hub.fastgit.org/jimeh/tmux-themepack.git
