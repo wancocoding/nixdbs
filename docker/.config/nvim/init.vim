@@ -108,6 +108,7 @@ if has('win32')
   set dictionary+=c:\Users\oherg\vimfiles\dictionary\words.txt
 else
   set dictionary+=/usr/share/dict/words
+  set dictionary+=~/.local/share/dict/words
 endif
 
 " shortmess, the default is filnxtToOIcS, see :h shortmess
