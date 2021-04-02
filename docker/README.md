@@ -10,3 +10,8 @@
 * tmux
 * nvim
 * gitconfig
+
+
+TODO
+
+* [ ] 分离插件配置
