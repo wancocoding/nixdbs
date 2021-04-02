@@ -47,18 +47,73 @@ local on_attach = function(client, bufnr)
 end
 local nvim_lsp = require('lspconfig')
 local util = require 'lspconfig/util'
-nvim_lsp.pyright.setup{
-    -- on_attach=require'completion'.on_attach
-    on_attach=on_attach
-}
+-- nvim_lsp.pyright.setup{
+--     -- on_attach=require'completion'.on_attach
+--     on_attach=on_attach
+-- }
+-- Javascript LSP
 nvim_lsp.tsserver.setup{
+    cmd = { "typescript-language-server", "--stdio" },
 	on_attach = on_attach,
-	root_dir = util.root_pattern("package.json", "tsconfig.json", ".git") or vim.loop.cwd();
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    -- root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+	-- root_dir = util.root_pattern("package.json", "tsconfig.json", ".git") or vim.loop.cwd();
 }
+
+-- Lua LSP
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
+-- ###########################
+-- Lua LSP
+-- ###########################
+
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = '/home/coco/softs/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+
+nvim_lsp.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+  on_attach=on_attach
+}
+
 -- local servers = {'vimls', 'bashls', 'html', 'cssls', 'jsonls', 'pyright' }
--- local servers = { 'tsserver' }
--- for _, lsp in ipairs(servers) do
--- 	nvim_lsp[lsp].setup {
--- 		on_attach = on_attach
--- 	}  
--- end
+local servers = { 'pyright', 'bashls', 'jsonls', }
+for _, lsp in ipairs(servers) do
+	nvim_lsp[lsp].setup {
+		on_attach = on_attach
+    }
+end

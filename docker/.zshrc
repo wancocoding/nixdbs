@@ -213,4 +213,8 @@ export LC_ALL=en_US.UTF-8
 # ======================================
 export PATH=$HOME/.local/bin:$HOME:/.local/sbin:$PATH
 
-
+# ======================================
+# denojs
+# ======================================
+export DENO_INSTALL="/home/coco/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
