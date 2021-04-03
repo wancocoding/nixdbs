@@ -15,6 +15,11 @@ for dotfile in $DOTFILES; do
 	rm -rf "$HOME/${dotfile}"
 	ln -s "$WORKDIR/${dotfile}" "$HOME/${dotfile}"
 done
+
+# update submodule
+cd $WORKDIR
+git submodule update --init --recursive
+
 # rm -rf $HOME/.zshrc 
 # rm -rf $HOME/.gitconfig 
 # rm -rf $HOME/.tmux 
