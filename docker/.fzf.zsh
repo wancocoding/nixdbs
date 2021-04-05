@@ -1,13 +1,13 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/linuxbrew/.linuxbrew/opt/fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/linuxbrew/.linuxbrew/opt/fzf/bin"
+if [[ ! "$PATH" == */home/coco/.local/share/nvim/site/pack/packer/start/fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}/home/coco/.local/share/nvim/site/pack/packer/start/fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/linuxbrew/.linuxbrew/opt/fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "/home/coco/.local/share/nvim/site/pack/packer/start/fzf/shell/completion.zsh" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.zsh"
+source "/home/coco/.local/share/nvim/site/pack/packer/start/fzf/shell/key-bindings.zsh"

@@ -111,7 +111,7 @@ nvim_lsp.sumneko_lua.setup {
 }
 
 -- local servers = {'vimls', 'bashls', 'html', 'cssls', 'jsonls', 'pyright' }
-local servers = { 'pyright', 'bashls', 'jsonls', }
+local servers = { 'pyright', 'bashls', 'jsonls', 'vimls' }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 		on_attach = on_attach
