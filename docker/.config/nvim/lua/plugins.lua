@@ -56,6 +56,9 @@ if ok then
     -- tag
     use 'liuchengxu/vista.vim'
 
+    -- surround
+    use 'tpope/vim-surround'
+
     -- status line
     use {
       'glepnir/galaxyline.nvim',
