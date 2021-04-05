@@ -1,6 +1,9 @@
 -- vim:set ft=lua et sts=4 ts=4 sw=4 tw=78:
 local on_attach = function(client, bufnr)
-    require('completion').on_attach()
+    require('completion').on_attach({
+        completion_enable_snippet = 'UltiSnips',
+        matching_strategy_list = { 'exact', 'substring', 'fuzzy', 'all' },
+    })
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 

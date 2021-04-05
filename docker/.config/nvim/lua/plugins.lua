@@ -40,8 +40,10 @@ if ok then
 	  use {'junegunn/fzf.vim'}
 
     -- snippets
-  use 'honza/vim-snippets'
-  use 'SirVer/ultisnips'
+    use 'honza/vim-snippets'
+    use 'SirVer/ultisnips'
+
+    use 'tpope/vim-commentary'
 
     -- tag
     use 'liuchengxu/vista.vim'

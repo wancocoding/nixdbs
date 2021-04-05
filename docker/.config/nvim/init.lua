@@ -2,7 +2,7 @@
 
 require('plugins')
 -- base settings
-require('base-settings')
+require('core.basic')
 -- LSP settings
 require('plugin.lsp-config')
 require('plugin.fzf')

@@ -64,6 +64,18 @@ _G.packer_plugins = {
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  },
+  ultisnips = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/ultisnips"
+  },
+  ["vim-snippets"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-snippets"
+  },
+  ["vista.vim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vista.vim"
   }
 }
 
