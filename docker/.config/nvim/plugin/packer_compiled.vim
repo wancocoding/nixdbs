@@ -69,6 +69,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/ultisnips"
   },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-commentary"
+  },
   ["vim-snippets"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-snippets"

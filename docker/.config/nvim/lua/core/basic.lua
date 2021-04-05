@@ -2,8 +2,13 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- set background=dark
 -- colorscheme oceanic_material
+
+vim.cmd('syntax enable')
+vim.cmd('syntax on')
+vim.cmd('set tw=79')
 vim.cmd('set background=dark')
 vim.cmd('colorscheme oceanic_material')
+vim.cmd('set termguicolors')
 
 -- LSP Settings
 -- Set completeopt to have a better completion experience

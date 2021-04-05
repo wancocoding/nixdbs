@@ -45,6 +45,14 @@ if ok then
 
     use 'tpope/vim-commentary'
 
+    -- file explorer
+    use 'kyazdani42/nvim-web-devicons'
+    use 'kyazdani42/nvim-tree.lua'
+
+    -- git plugin
+    use 'tpope/vim-fugitive'
+    use 'airblade/vim-gitgutter'
+
     -- tag
     use 'liuchengxu/vista.vim'
 
