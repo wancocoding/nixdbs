@@ -4,3 +4,5 @@
 [core]
 	autocrlf = false
 	eol = lf
+[pull]
+	rebase = true

@@ -19,7 +19,7 @@ which_key_map['H'] = { ':let @/ = ""', 'clear highlight' }
 
 which_key_map['t'] = {
 	name = '+tab/others',
-	["n"] = { 'tabnew', 'new tab' },
+  ["n"] = { 'tabnew', 'new tab' },
 	["c"] = { 'tabclose', 'close tab' },
 	["o"] = { 'tabonly', 'only tab' },
 	["f"] = { 'tabfirst', 'first tab' },
@@ -28,10 +28,14 @@ which_key_map['t'] = {
 }
 
 
--- which_key_map['w'] = {
--- 	name = '+windows',
--- 	["w"] = { '<C-W>w', 'other-window' },
--- }
+ which_key_map['l'] = {
+	name = '+LSP',
+ 	["a"] = 'code action',
+ 	["A"] = 'range code action',
+ 	["f"] = 'format code',
+ 	["l"] = 'lsp finder',
+ 	["I"] = 'LspInfo',
+ }
 
 vim.g.which_key_map = which_key_map
 vim.fn["which_key#register"]("<Space>", "g:which_key_map")

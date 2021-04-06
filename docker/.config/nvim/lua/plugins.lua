@@ -30,6 +30,7 @@ if ok then
     use 'wbthomason/packer.nvim'
     -- LSP base
     use 'neovim/nvim-lspconfig'
+    use 'glepnir/lspsaga.nvim'
     -- use 'nvim-lua/lsp-status.nvim'
     -- completion
     use 'nvim-lua/completion-nvim'

@@ -29,9 +29,9 @@ local on_attach = function(client, bufnr)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+		buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 	elseif client.resolved_capabilities.document_range_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+		buf_set_keymap("n", "<space>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 	end
 
 	-- Set autocommands conditional on server_capabilities
@@ -114,7 +114,7 @@ nvim_lsp.sumneko_lua.setup {
 }
 
 -- local servers = {'vimls', 'bashls', 'html', 'cssls', 'jsonls', 'pyright' }
-local servers = { 'pyright', 'bashls', 'jsonls', 'vimls' }
+local servers = { 'pyright', 'bashls', 'jsonls', 'vimls', 'gopls' }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 		on_attach = on_attach
