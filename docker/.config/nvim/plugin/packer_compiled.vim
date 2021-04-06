@@ -89,6 +89,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-snippets"
   },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-surround"
+  },
   ["vista.vim"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vista.vim"

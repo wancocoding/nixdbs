@@ -1,8 +1,9 @@
+-- vim:set ft=lua et sts=4 ts=4 sw=4 tw=78:
 vim.g.nvim_tree_site = 'left'
 vim.g.nvim_tree_width = 40
 vim.g.nvim_tree_ignore = { '.cache' }
 vim.g.nvim_tree_gitignore = 2
-vim.g.nvim_tree_auto_open = 1
+vim.g.nvim_tree_auto_open = 0
 vim.g.nvim_tree_auto_close = 1
 vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
 vim.g.nvim_tree_quit_on_open = 1

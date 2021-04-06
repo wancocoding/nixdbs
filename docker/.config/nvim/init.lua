@@ -3,6 +3,7 @@
 require('plugins')
 -- base settings
 require('core.basic')
+require('core.appearance')
 
 -- ===========================
 -- Plugin Settings
@@ -10,6 +11,8 @@ require('core.basic')
 
 -- LSP settings
 require('plugin.lsp-config')
+-- completion-nvim
+require('plugin.completion-nvim')
 -- fzf
 require('plugin.fzf')
 -- nvim-tree

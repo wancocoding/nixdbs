@@ -34,7 +34,7 @@ if ok then
     -- completion
     use 'nvim-lua/completion-nvim'
     -- start screen
-    -- use 'glepnir/dashboard-nvim'
+    use 'glepnir/dashboard-nvim'
     -- fzf
 	  use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
 	  use {'junegunn/fzf.vim'}
