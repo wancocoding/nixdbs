@@ -14,8 +14,9 @@
 
 TODO
 + Nvim
-	+ [ ] dashboard 配置
-	+ [ ] Session 和dashboard结合的session配置
-	+ [ ] fzf 配置
-	+ [ ] galaxyline 自定义配置
+	+ [x] dashboard 配置
+	+ [x] Session 和dashboard结合的session配置
+	+ [x] fzf 配置
+	+ [x] galaxyline 自定义配置
 	+ [x] 分离插件配置
+

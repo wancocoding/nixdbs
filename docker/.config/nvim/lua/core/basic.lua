@@ -59,7 +59,7 @@ vim.o.errorbells = false
 vim.o.visualbell = false
 
 -- Time in milliseconds to wait for a mapped sequence to complete.
-vim.o.tm = 1000
+vim.o.tm = 500
 
 -- command completion like zsh
 vim.o.wildmenu = true
@@ -68,7 +68,6 @@ vim.o.wildmode = "full"
 -- completion add dictionary
 vim.cmd("set complete+=k")
 vim.cmd("set dictionary+=/usr/share/dict/words")
-vim.cmd("set dictionary+=~/.local/share/dict/words")
 
 -- hidden ,switch unsaved file witout warnning
 vim.o.hidden = true

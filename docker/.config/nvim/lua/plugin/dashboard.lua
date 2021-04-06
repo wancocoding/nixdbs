@@ -39,3 +39,6 @@ vim.api.nvim_set_keymap('n', '<leader>tc', ':DashboardChangeColorscheme<CR>', { 
 vim.api.nvim_set_keymap('n', '<leader>fa', ':DashboardFindWord<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fb', ':DashboardJumpMark<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>cn', ':DashboardNewFile<CR>', { noremap = true, silent = true })
+
+
+vim.api.nvim_set_keymap('n', '<leader>;', ':Dashboard<CR>', { noremap = true, silent = true })

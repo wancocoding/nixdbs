@@ -7,6 +7,7 @@ require('plugins')
 require('core.basic')
 require('core.appearance')
 require('core.abbreviations')
+require('core.mapping')
 
 -- ===========================
 -- Plugin Settings
@@ -22,3 +23,7 @@ require('plugin.fzf')
 require('plugin.nvim-tree')
 -- dashboard
 require('plugin.dashboard')
+-- hop
+require('plugin.hop')
+-- vim-which-key
+require('plugin.vim-which-key')

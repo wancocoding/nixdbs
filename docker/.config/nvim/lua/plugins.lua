@@ -53,6 +53,8 @@ if ok then
 
     -- tagbar
     use 'liuchengxu/vista.vim'
+    -- float terminal
+    use 'voldikss/vim-floaterm'
 
     -- ===================
     -- Misc
@@ -63,6 +65,18 @@ if ok then
     use 'junegunn/vim-easy-align'
     -- comment tools
     use 'tpope/vim-commentary'
+    -- easy motion like
+    use {
+      'phaazon/hop.nvim',
+      as = 'hop',
+      config = function()
+        -- you can configure Hop the way you like here; see :h hop-config
+        require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      end
+    }
+
+    -- key mapping helper
+    use 'liuchengxu/vim-which-key'
 
     -- status line
     use {
