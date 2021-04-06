@@ -36,6 +36,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/completion-nvim"
   },
+  ["dashboard-nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
+  },
   fzf = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/fzf"
@@ -76,6 +80,10 @@ _G.packer_plugins = {
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-commentary"
+  },
+  ["vim-easy-align"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-easy-align"
   },
   ["vim-fugitive"] = {
     loaded = true,

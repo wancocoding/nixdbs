@@ -1,9 +1,12 @@
 -- vim:set ft=lua et sts=4 ts=4 sw=4 tw=78:
 
 require('plugins')
--- base settings
+-- ===========================
+-- Core Settings
+-- ===========================
 require('core.basic')
 require('core.appearance')
+require('core.abbreviations')
 
 -- ===========================
 -- Plugin Settings
@@ -17,3 +20,5 @@ require('plugin.completion-nvim')
 require('plugin.fzf')
 -- nvim-tree
 require('plugin.nvim-tree')
+-- dashboard
+require('plugin.dashboard')

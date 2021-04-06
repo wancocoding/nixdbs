@@ -43,8 +43,6 @@ if ok then
     use 'honza/vim-snippets'
     use 'SirVer/ultisnips'
 
-    use 'tpope/vim-commentary'
-
     -- file explorer
     use 'kyazdani42/nvim-web-devicons'
     use 'kyazdani42/nvim-tree.lua'
@@ -53,11 +51,18 @@ if ok then
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
 
-    -- tag
+    -- tagbar
     use 'liuchengxu/vista.vim'
 
+    -- ===================
+    -- Misc
+    -- ===================
     -- surround
     use 'tpope/vim-surround'
+    -- auto align
+    use 'junegunn/vim-easy-align'
+    -- comment tools
+    use 'tpope/vim-commentary'
 
     -- status line
     use {
