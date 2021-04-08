@@ -40,6 +40,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/dashboard-nvim"
   },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/formatter.nvim"
+  },
   fzf = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/fzf"

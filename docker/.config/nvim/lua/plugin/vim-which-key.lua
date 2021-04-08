@@ -11,6 +11,7 @@ local which_key_map = { name = "Leader" }
 
 which_key_map['o'] = 'find file'
 which_key_map['p'] = 'find buffer'
+which_key_map['F'] = 'format code'
 
 which_key_map[';'] = { ':Dashboard', 'Start Screen' }
 which_key_map['.'] = 'Change Workroot'
