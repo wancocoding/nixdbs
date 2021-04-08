@@ -9,6 +9,9 @@ vim.g.which_key_sep = '→'
 
 local which_key_map = { name = "Leader" }
 
+which_key_map['o'] = 'find file'
+which_key_map['p'] = 'find buffer'
+
 which_key_map[';'] = { ':Dashboard', 'Start Screen' }
 which_key_map['.'] = 'Change Workroot'
 which_key_map['H'] = { ':let @/ = ""', 'clear highlight' }
@@ -18,7 +21,7 @@ which_key_map['H'] = { ':let @/ = ""', 'clear highlight' }
 -- }
 
 which_key_map['t'] = {
-	name = '+tab/others',
+	name = '+Tab/Terminal',
   ["n"] = { 'tabnew', 'new tab' },
 	["c"] = { 'tabclose', 'close tab' },
 	["o"] = { 'tabonly', 'only tab' },
@@ -35,6 +38,32 @@ which_key_map['t'] = {
  	["f"] = 'format code',
  	["l"] = 'lsp finder',
  	["I"] = 'LspInfo',
+ }
+
+ which_key_map['w'] = {
+	name = '+Workspace',
+ 	["a"] = 'add ws folder',
+ 	["r"] = 'remove ws folder',
+ 	["l"] = 'list ws folders',
+ }
+
+ which_key_map['s'] = {
+	name = '+Session/Search',
+ 	["s"] = 'save session',
+ 	["l"] = 'load session',
+ }
+
+ which_key_map['v'] = {
+	name = '+View/Color',
+ 	["c"] = 'colorschemes',
+ }
+
+ which_key_map['f'] = {
+	name = '+FuzzyFinder',
+ 	["w"] = 'find word',
+ 	["m"] = 'find mark',
+ 	["h"] = 'find history',
+ 	["p"] = 'find maps',
  }
 
 vim.g.which_key_map = which_key_map

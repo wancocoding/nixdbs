@@ -48,8 +48,11 @@ local on_attach = function(client, bufnr)
 		]], false)
 	end
 end
+
+-- local on_attach = require('completion').on_attach
+
 local nvim_lsp = require('lspconfig')
-local util = require 'lspconfig/util'
+-- local util = require 'lspconfig/util'
 -- nvim_lsp.pyright.setup{
 --     -- on_attach=require'completion'.on_attach
 --     on_attach=on_attach
@@ -110,13 +113,13 @@ nvim_lsp.sumneko_lua.setup {
       },
     },
   },
-  on_attach=on_attach
+  -- on_attach=on_attach
 }
 
 -- local servers = {'vimls', 'bashls', 'html', 'cssls', 'jsonls', 'pyright' }
 local servers = { 'pyright', 'bashls', 'jsonls', 'vimls', 'gopls' }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
-		on_attach = on_attach
+		-- on_attach = on_attach
     }
 end

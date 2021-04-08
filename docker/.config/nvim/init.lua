@@ -15,7 +15,7 @@ require('core.mapping')
 
 -- LSP settings
 require('plugin.lsp-config')
-require('plugin.lspsaga')
+-- require('plugin.lspsaga')
 -- completion-nvim
 require('plugin.completion-nvim')
 -- fzf
@@ -28,3 +28,4 @@ require('plugin.dashboard')
 require('plugin.hop')
 -- vim-which-key
 require('plugin.vim-which-key')
+

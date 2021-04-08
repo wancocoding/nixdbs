@@ -14,6 +14,11 @@
 
 TODO
 + Nvim
+	+ [ ] LSP的快捷键重新定义,结合vim-which-key
+		- [x] lsp的快捷键全部移到`<leader>l`里
+	+ [ ] 自定义galaxyline
+	+ [ ] nvim-tree的配置
+	+ [x] dashboard的快捷键要修改
 	+ [x] dashboard 配置
 	+ [x] Session 和dashboard结合的session配置
 	+ [x] fzf 配置

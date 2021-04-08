@@ -49,5 +49,5 @@ vim.api.nvim_set_keymap('n', '<leader>lI', ':LspInfo<CR>', { noremap = true , si
 vim.api.nvim_set_keymap('n', '<leader>ll', ':Lspsaga lsp_finder<CR>', { noremap = true , silent = true })
 vim.api.nvim_set_keymap('n', '<leader>la', ':Lspsaga code_action<CR>', { noremap = true , silent = true })
 vim.api.nvim_set_keymap('n', '<leader>lA', ':Lspsaga range_code_action<CR>', { noremap = true , silent = true })
-vim.api.nvim_buf_set_keymap(0, 'n', '<leader>lf', '<Cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true , silent = true })
-vim.api.nvim_buf_set_keymap(0, 'v', '<leader>lf', '<Cmd>lua vim.lsp.buf.range_formatting()<CR>', { noremap = true , silent = true })
+---- vim.api.nvim_buf_set_keymap(0, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', { noremap = true , silent = true })
+---- vim.api.nvim_buf_set_keymap(0, 'v', '<leader>lf', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', { noremap = true , silent = true })

@@ -6,7 +6,7 @@ local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.n
 -- check packer installed or not
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.cmd('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  vim.cmd('!git clone https://hub.fastgit.org/wbthomason/packer.nvim ' .. install_path)
   vim.cmd [[packadd packer.nvim]]
 end
 
@@ -30,7 +30,7 @@ if ok then
     use 'wbthomason/packer.nvim'
     -- LSP base
     use 'neovim/nvim-lspconfig'
-    use 'glepnir/lspsaga.nvim'
+    -- use 'glepnir/lspsaga.nvim'
     -- use 'nvim-lua/lsp-status.nvim'
     -- completion
     use 'nvim-lua/completion-nvim'
