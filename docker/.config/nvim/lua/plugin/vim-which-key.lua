@@ -30,14 +30,17 @@ which_key_map['t'] = {
  which_key_map['l'] = {
 	name = '+LSP',
  	["a"] = 'code action',
- 	["A"] = 'range code action',
+ 	["n"] = 'rename',
+ 	["r"] = 'reference',
+ 	["q"] = 'diagnostics in qf',
+ 	["e"] = 'show line diagnostics',
  	["f"] = 'format code',
- 	["l"] = 'lsp finder',
- 	["I"] = 'LspInfo',
+ 	["d"] = 'type definition',
+ 	["I"] = {':LspInfo', "Lsp Info"},
  }
 
  which_key_map['w'] = {
-	name = '+Workspace',
+	name = '+LspWS',
  	["a"] = 'add ws folder',
  	["r"] = 'remove ws folder',
  	["l"] = 'list ws folders',
