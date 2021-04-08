@@ -28,4 +28,8 @@ require('plugin.dashboard')
 require('plugin.hop')
 -- vim-which-key
 require('plugin.vim-which-key')
+-- zen
+require('plugin.goyo')
+-- git
+require('plugin.gitsigns')
 

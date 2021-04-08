@@ -50,7 +50,14 @@ if ok then
 
     -- git plugin
     use 'tpope/vim-fugitive'
-    use 'airblade/vim-gitgutter'
+    -- use 'airblade/vim-gitgutter'
+    use {
+      'lewis6991/gitsigns.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim'
+      }
+    }
+    use 'f-person/git-blame.nvim'
 
     -- tagbar
     use 'liuchengxu/vista.vim'
@@ -78,6 +85,11 @@ if ok then
 
     -- key mapping helper
     use 'liuchengxu/vim-which-key'
+
+    -- zen writing
+    use 'junegunn/limelight.vim'
+    use 'junegunn/goyo.vim'
+
 
     -- status line
     use {

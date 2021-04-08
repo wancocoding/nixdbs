@@ -15,10 +15,6 @@ which_key_map['p'] = 'find buffer'
 which_key_map[';'] = { ':Dashboard', 'Start Screen' }
 which_key_map['.'] = 'Change Workroot'
 which_key_map['H'] = { ':let @/ = ""', 'clear highlight' }
--- which_key_map['w'] = {
--- 	name = '+windows',
--- 	["w"] = { '<C-W>w', 'other-window' },
--- }
 
 which_key_map['t'] = {
 	name = '+Tab/Terminal',
@@ -56,6 +52,8 @@ which_key_map['t'] = {
  which_key_map['v'] = {
 	name = '+View/Color',
  	["c"] = 'colorschemes',
+ 	["g"] = 'Goyo',
+ 	["o"] = 'Limelight',
  }
 
  which_key_map['f'] = {
@@ -66,5 +64,41 @@ which_key_map['t'] = {
  	["p"] = 'find maps',
  }
 
+ -- easy jump in buffer with hop
+ which_key_map['j'] = {
+	name = '+JumpWithHop',
+ 	["w"] = 'hint words',
+ 	["l"] = 'hint lines',
+ 	["c"] = 'hop char1',
+ 	["C"] = 'hop char2',
+ 	["p"] = 'hop pattern',
+ }
+
+ which_key_map['g'] = {
+	name = '+Git',
+	-- gitsigns
+ 	["s"] = 'stage hunk',
+ 	["r"] = 'reset hunk',
+ 	["R"] = 'reset buffer',
+ 	["p"] = 'preview hunk',
+ 	["b"] = 'blame line',
+ 	["u"] = 'undo stage hunk',
+	-- fugitive
+ 	["d"] = {':Git diff', 'git diff'},
+ 	["B"] = {':GBrowse', 'git browse'},
+ 	["S"] = {':Gstatus', 'git status'},
+ 	["l"] = {':Git log', 'git log'},
+	-- git-blame
+ 	[","] = {':GitBlameToggle', 'toggle git-blame'},
+ }
 vim.g.which_key_map = which_key_map
 vim.fn["which_key#register"]("<Space>", "g:which_key_map")
+
+
+-- local which_key_map_left_square_bracket = { name = "[" }
+
+-- which_key_map_left_square_bracket['c'] = 'previous hunk'
+
+-- vim.g.which_key_map_left_square_bracket = which_key_map_left_square_bracket
+-- vim.fn["which_key#register"]("[", "g:which_key_map_left_square_bracket")
+
