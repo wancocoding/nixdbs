@@ -1,12 +1,16 @@
 -- vim:set ft=lua et sts=2 ts=2 sw=2 tw=78:
 -- get the packer install path, stdpath of data is ~/.local/share/nvim
 --   you can use :lua print(vim.fn.stdpath('data')) to checkout it
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path =
+  vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 -- check packer installed or not
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.cmd("!git clone https://hub.fastgit.org/wbthomason/packer.nvim " .. install_path)
+  vim.cmd(
+    "!git clone https://hub.fastgit.org/wbthomason/packer.nvim " ..
+      install_path
+  )
   vim.cmd [[packadd packer.nvim]]
 end
 
@@ -34,7 +38,7 @@ if ok then
       -- ===================
       -- LSP base
       use "neovim/nvim-lspconfig"
-      -- use 'glepnir/lspsaga.nvim'
+      use "glepnir/lspsaga.nvim"
       -- use 'nvim-lua/lsp-status.nvim'
       -- completion
       use "nvim-lua/completion-nvim"
@@ -43,15 +47,33 @@ if ok then
       use "honza/vim-snippets"
       use "SirVer/ultisnips"
 
+      -- code format
       use "mhartington/formatter.nvim"
 
+      -- Treesitter
+      use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+
+      -- ===================
+      -- Golang
+      -- ===================
+      use "fatih/vim-go"
       -- ===================
       -- start screen
       -- ===================
       use "glepnir/dashboard-nvim"
+
+      -- ===================
+      -- fuzzy finder
+      -- ===================
       -- fzf
       use {"junegunn/fzf", dir = "~/.fzf", run = "./install --all"}
       use {"junegunn/fzf.vim"}
+      -- Telescope
+      use {
+        "nvim-telescope/telescope.nvim",
+        requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}}
+      }
+      use "nvim-telescope/telescope-media-files.nvim"
 
       -- ===================
       -- file explorer
@@ -110,6 +132,9 @@ if ok then
       -- ===================
       -- UI appearances
       -- ===================
+      -- icon
+      -- use "kyazdani42/nvim-web-devicons"
+      use "ryanoasis/vim-devicons"
       -- status line
       use {
         "glepnir/galaxyline.nvim",
@@ -121,6 +146,8 @@ if ok then
         -- some optional icons
         requires = {"kyazdani42/nvim-web-devicons", opt = true}
       }
+      -- buffer line
+      use "romgrk/barbar.nvim"
       -- colorschemes
       use "glepnir/oceanic-material"
     end

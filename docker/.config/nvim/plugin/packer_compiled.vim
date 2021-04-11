@@ -32,6 +32,10 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
+  ["barbar.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/barbar.nvim"
+  },
   ["completion-nvim"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/completion-nvim"
@@ -78,6 +82,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/limelight.vim"
   },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
@@ -85,6 +93,10 @@ _G.packer_plugins = {
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+  },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -102,6 +114,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
+  ["telescope-media-files.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/telescope-media-files.nvim"
+  },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
   ultisnips = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/ultisnips"
@@ -109,6 +133,10 @@ _G.packer_plugins = {
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-commentary"
+  },
+  ["vim-devicons"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-devicons"
   },
   ["vim-easy-align"] = {
     loaded = true,
@@ -121,6 +149,10 @@ _G.packer_plugins = {
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-fugitive"
+  },
+  ["vim-go"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/vim-go"
   },
   ["vim-snippets"] = {
     loaded = true,
@@ -140,10 +172,10 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: galaxyline.nvim
-try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugin.statusline\frequire\0", "config", "galaxyline.nvim")
 -- Config for: hop
 try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0", "config", "hop")
+-- Config for: galaxyline.nvim
+try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugin.statusline\frequire\0", "config", "galaxyline.nvim")
 END
 
 catch

@@ -15,9 +15,12 @@ require("core.mapping")
 
 -- LSP settings
 require("plugin.lsp-config")
--- require('plugin.lspsaga')
+-- lspsaga
+require('plugin.lspsaga')
 -- completion-nvim
 require("plugin.completion-nvim")
+-- telescope
+require("plugin.telescope")
 -- fzf
 require("plugin.fzf")
 -- nvim-tree
@@ -34,3 +37,5 @@ require("plugin.goyo")
 require("plugin.gitsigns")
 -- formatter
 require("plugin.formatter")
+-- vista
+require("plugin.vista")
