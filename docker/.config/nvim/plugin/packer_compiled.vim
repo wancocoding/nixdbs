@@ -86,6 +86,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
+  ["material.vim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/material.vim"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
@@ -109,6 +113,10 @@ _G.packer_plugins = {
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  },
+  ["palenight.vim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/palenight.vim"
   },
   ["plenary.nvim"] = {
     loaded = true,

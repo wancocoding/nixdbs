@@ -151,6 +151,24 @@ vim.api.nvim_set_keymap(
   "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>",
   {noremap = true, silent = true}
 )
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>wl",
+  '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
+  {noremap = true, silent = true}
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>wa",
+  '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
+  {noremap = true, silent = true}
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>wr",
+  '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
+  {noremap = true, silent = true}
+)
 -- vim.cmd('nnoremap <silent> [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 -- vim.cmd('nnoremap <silent> ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 -- vim.cmd('nnoremap <silent> <Leader> <cmd>lua vim.lsp.buf.implementation()<CR>')

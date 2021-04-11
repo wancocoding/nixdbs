@@ -5,7 +5,20 @@
 -- set background=dark
 -- colorscheme oceanic_material
 vim.o.background = "dark"
-vim.cmd('colorscheme oceanic_material')
+-- ====== palenight
+-- vim.cmd('colorscheme palenight')
+
+-- ====== material oceanic
+-- vim.cmd('colorscheme oceanic_material')
+
+-- ====== material
+-- material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
+-- vim.g.material_theme_style = 'palenight'
+-- vim.cmd('colorscheme material')
+
+-- ====== onedark
+vim.cmd('colorscheme onedark')
+
 
 vim.cmd('syntax enable')
 vim.cmd('syntax on')

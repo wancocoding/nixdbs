@@ -149,7 +149,10 @@ if ok then
       -- buffer line
       use "romgrk/barbar.nvim"
       -- colorschemes
+      use 'joshdick/onedark.vim'
+      use {'kaicataldo/material.vim', branch='main'}
       use "glepnir/oceanic-material"
+      use 'drewtempelmeyer/palenight.vim'
     end
   )
 end

@@ -39,3 +39,5 @@ require("plugin.gitsigns")
 require("plugin.formatter")
 -- vista
 require("plugin.vista")
+-- barbar
+-- require("plugin.barbar")
