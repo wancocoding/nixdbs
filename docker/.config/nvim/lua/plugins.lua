@@ -150,9 +150,11 @@ if ok then
       use "romgrk/barbar.nvim"
       -- colorschemes
       use 'joshdick/onedark.vim'
+      use 'morhetz/gruvbox'
       use {'kaicataldo/material.vim', branch='main'}
       use "glepnir/oceanic-material"
       use 'drewtempelmeyer/palenight.vim'
+      use 'ayu-theme/ayu-vim'
     end
   )
 end

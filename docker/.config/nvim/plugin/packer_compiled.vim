@@ -73,6 +73,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/goyo.vim"
   },
+  gruvbox = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/gruvbox"
+  },
   hop = {
     config = { "\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0" },
     loaded = true,
@@ -109,6 +113,10 @@ _G.packer_plugins = {
   ["oceanic-material"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/oceanic-material"
+  },
+  ["onedark.vim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/onedark.vim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -180,10 +188,10 @@ _G.packer_plugins = {
   }
 }
 
--- Config for: hop
-try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0", "config", "hop")
 -- Config for: galaxyline.nvim
 try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugin.statusline\frequire\0", "config", "galaxyline.nvim")
+-- Config for: hop
+try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0", "config", "hop")
 END
 
 catch

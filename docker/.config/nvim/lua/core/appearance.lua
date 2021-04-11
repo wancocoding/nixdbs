@@ -2,9 +2,11 @@
 -- ==============================
 -- Appearance
 -- ==============================
--- set background=dark
--- colorscheme oceanic_material
 vim.o.background = "dark"
+
+-- ====== oceanic material
+-- colorscheme oceanic_material
+
 -- ====== palenight
 -- vim.cmd('colorscheme palenight')
 
@@ -17,7 +19,16 @@ vim.o.background = "dark"
 -- vim.cmd('colorscheme material')
 
 -- ====== onedark
-vim.cmd('colorscheme onedark')
+-- vim.cmd('colorscheme onedark')
+
+-- ====== Ayu
+-- light / mirage / dark
+vim.cmd([[let ayucolor="mirage"]])
+vim.cmd('colorscheme ayu')
+
+-- ====== gruvbox
+-- vim.g.gruvbox_contrast_dark="hard"
+-- vim.cmd('colorscheme gruvbox')
 
 
 vim.cmd('syntax enable')
