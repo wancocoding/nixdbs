@@ -140,22 +140,23 @@ export BAT_PAGER="less -R"
 # ======================================
 # Golang
 # ======================================
-export GOPATH=/home/coco/develop/workspace/go
-export PATH=/home/coco/develop/workspace/go/bin:/home/coco/develop/env/sdk/go/bin:$PATH
+export GOPATH=$HOME/develop/workspace/go
+export PATH=$HOME/develop/workspace/go/bin:$HOME/develop/env/sdk/go/bin:$PATH
 export GO111MODULE=on
 export GOPROXY=https://goproxy.cn
 
 # ======================================
 # OpenJDK and Gradle
 # ======================================
-export JAVA_HOME=/home/coco/develop/env/sdk/jdk
+export JAVA_HOME=$HOME/develop/env/sdk/jdk
 export PATH=$PATH:$JAVA_HOME/bin
-export GRADLE_HOME=/home/coco/develop/env/sdk/gradle
+export GRADLE_HOME=$HOME/develop/env/sdk/gradle
 export PATH=$PATH:$GRADLE_HOME/bin
 
 # ======================================
 # Ruby RVM 
 # ======================================
+export PATH=$HOME/develop/env/sdk/ruby/bin:$PATH
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 # Load RVM into a shell session *as a function*
@@ -172,6 +173,7 @@ export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 # ======================================
 # Python pyenv
 # ======================================
+export PATH="$HOME/.pyenv/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
