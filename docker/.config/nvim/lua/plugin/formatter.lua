@@ -34,6 +34,16 @@ require("formatter").setup(
           }
         end
       },
+      json = {
+        -- use python json.tool to format json
+        function()
+          return {
+            exe = "python3",
+            args = {"-m", "json.tool"},
+            stdin = true
+          }
+        end
+      },
       rust = {
         -- Rustfmt
         function()

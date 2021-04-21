@@ -32,6 +32,10 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
+  ["ayu-vim"] = {
+    loaded = true,
+    path = "/home/coco/.local/share/nvim/site/pack/packer/start/ayu-vim"
+  },
   ["barbar.nvim"] = {
     loaded = true,
     path = "/home/coco/.local/share/nvim/site/pack/packer/start/barbar.nvim"
