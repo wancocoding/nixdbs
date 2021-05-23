@@ -1,8 +1,8 @@
-# Wancocoding's dotfiles
+# coco's dotfiles
 
 
 Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
-Version:		0.3.1
+Version:		0.3.9
 created:		2020-10-01
 updated:		2020-10-12
 
