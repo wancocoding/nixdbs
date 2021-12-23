@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/wancocoding/dotfiles/compare/v1.1.0...v1.2.0) (2021-12-23)
+
+
+### Features
+
+* refactor linux dotfiles ([4189868](https://github.com/wancocoding/dotfiles/commit/41898685067b2401ac0f8d86340f869cdd1546c3)), closes [#2](https://github.com/wancocoding/dotfiles/issues/2) [#3](https://github.com/wancocoding/dotfiles/issues/3)
+
 ## 1.1.0 (2021-12-23)
 
 
