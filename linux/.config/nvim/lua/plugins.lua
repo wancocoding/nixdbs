@@ -106,6 +106,10 @@ return require('packer').startup(function(use)
     -- For vsnip users.
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
+
+    -- formatting
+    use "mhartington/formatter.nvim"
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

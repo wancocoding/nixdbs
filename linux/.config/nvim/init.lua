@@ -51,3 +51,5 @@ require("plugin.nvim-cmp")
 
 require("plugin.lspconfig")
 
+-- formatting
+require("plugin.formatter")
