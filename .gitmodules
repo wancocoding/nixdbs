@@ -1,12 +1,12 @@
-[submodule "docker/.tmux/plugins/tpm"]
-	path = docker/.tmux/plugins/tpm
-	url = https://hub.fastgit.org/tmux-plugins/tpm
-[submodule "docker/.tmux/plugins/tmux-resurrect"]
-	path = docker/.tmux/plugins/tmux-resurrect
-	url = https://hub.fastgit.org/tmux-plugins/tmux-resurrect.git
-[submodule "docker/.tmux/plugins/tmux-continuum"]
-	path = docker/.tmux/plugins/tmux-continuum
-	url = https://hub.fastgit.org/tmux-plugins/tmux-continuum.git
-[submodule "docker/.tmux/plugins/tmux-themepack"]
-	path = docker/.tmux/plugins/tmux-themepack
-	url = https://hub.fastgit.org/jimeh/tmux-themepack.git
+[submodule "linux/.tmux/plugins/tpm"]
+	path = linux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule "linux/.tmux/plugins/tmux-resurrect"]
+	path = linux/.tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect.git
+[submodule "linux/.tmux/plugins/tmux-continuum"]
+	path = linux/.tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum.git
+[submodule "linux/.tmux/plugins/tmux-themepack"]
+	path = linux/.tmux/plugins/tmux-themepack
+	url = https://github.com/jimeh/tmux-themepack.git
