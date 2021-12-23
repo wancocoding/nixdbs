@@ -24,12 +24,14 @@ require("core.mapping")
 
 -- Lualine
 require("plugin.lualine")
+-- galaxyline
+-- require("plugin.galaxyline")
 
 -- treesitter
 require("plugin.treesitter")
 
 -- fzf
--- require("plugin.fzf")
+require("plugin.fzf")
 
 -- telescope
 require("plugin.telescope")
@@ -41,7 +43,12 @@ require("plugin.nvim-tree")
 -- vista
 require("plugin.vista")
 
+-- ============================
+-- Git
+-- ============================
 
+-- gitsign
+require("plugin.gitsign")
 
 -- ============================
 -- LSP Settings
@@ -53,3 +60,17 @@ require("plugin.lspconfig")
 
 -- formatting
 require("plugin.formatter")
+
+-- trouble
+require("plugin.trouble")
+
+-- ============================
+-- Misc
+-- ============================
+-- hop
+require("plugin.hop")
+
+-- dashboard
+require("plugin.dashboard")
+
+

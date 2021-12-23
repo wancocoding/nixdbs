@@ -39,8 +39,8 @@ return require('packer').startup(function(use)
 
 
   -- fzf
-  -- use {"junegunn/fzf", dir = "~/.fzf", run = "./install --all"}
-  -- use {"junegunn/fzf.vim"}
+  use {"junegunn/fzf", dir = "~/.fzf", run = "./install --all"}
+  use {"junegunn/fzf.vim"}
 
   -- Telescope
   use {
@@ -56,6 +56,17 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
+  -- galaxyline
+  -- use {
+  --   "glepnir/galaxyline.nvim",
+  --   branch = "main",
+  --   -- your statusline
+  --   config = function()
+  --     require "plugin.statusline"
+  --   end,
+  --   -- some optional icons
+  --   requires = {"kyazdani42/nvim-web-devicons", opt = true}
+  -- }
 
 
 
@@ -109,6 +120,54 @@ return require('packer').startup(function(use)
 
     -- formatting
     use "mhartington/formatter.nvim"
+
+    -- Trouble
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+
+
+    -- ===================
+    -- git plugin
+    -- ===================
+    use "tpope/vim-fugitive"
+    -- use 'airblade/vim-gitgutter'
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      }
+    }
+
+    -- ===================
+    -- Misc
+    -- ===================
+    -- surround
+    use "tpope/vim-surround"
+    -- auto align
+    use "junegunn/vim-easy-align"
+    -- comment tools
+    use "tpope/vim-commentary"
+    -- easy motion like
+    use {
+      "phaazon/hop.nvim",
+      branch = 'v1',
+      config = function()
+        -- you can configure Hop the way you like here; see :h hop-config
+        require "hop".setup {keys = "etovxqpdygfblzhckisuran"}
+      end
+    }
+
+    -- start screen
+    use "glepnir/dashboard-nvim"
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

@@ -1,16 +1,16 @@
-# Coco's dotfiles
+Coco's Dotfiles
 
 
-Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
-Version:		0.3.9
-created:		2020-10-01
-updated:		2021-05-23
+* Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
+* Version:		1.3.0
+* created:		2020-10-01
+* updated:		2021-12-23
 
 
 This project is used to record my develop envrionment on osx win and linux
 
 
-# Content
+## Content
 
 * [Intro](#intro)
 * [Windows](#windows)
@@ -18,30 +18,34 @@ This project is used to record my develop envrionment on osx win and linux
 * [ChangeLog](#changelog)
 
 
-# Intro
+## Intro
 
 This dotfiles project contains the following content
 
 
 
-# Workflow
+## Workflow
 
-## Version Control
+### Version Control
 
 ```shell
+npx standard-version
 
 ```
 
-# Windows
+## Windows
 
 Before install, you must install winget first, please download it from [winget github release](https://github.com/microsoft/winget-cli/releases)
 
-## Manual installation
+### Manual installation
 
 * python3.8.6
 
 
-# ChangeLog
+## ChangeLog
+
+see Changelog.txt for more infomation
+
 * 2020-12-16
 	- windows的vim重新修改
 * 2020-10-13 v0.3.3

@@ -140,10 +140,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 
 # ====== pyenv settings ======
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+eval "$(pyenv init -)"
 
 
 # ====== golang settings ======

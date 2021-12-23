@@ -1,5 +1,9 @@
 vim.api.nvim_set_keymap("n", "<leader>F", "<cmd>Format<cr>", {silent = true})
 
+local pypath = vim.g.python3_host_prog
+local blackpath = pypath:match("(.*[/\\])") .."/black"
+-- print(blackpath)
+
 require("formatter").setup(
   {
     logging = false,
@@ -29,7 +33,7 @@ require("formatter").setup(
         -- black
         function()
           return {
-            exe = "black",
+            exe = blackpath,
             args = {"--fast", "--line-length", 80, "-q", "-"},
             stdin = true
           }
@@ -49,7 +53,7 @@ require("formatter").setup(
         -- use python json.tool to format json
         function()
           return {
-            exe = "python3",
+            exe = pypath,
             args = {"-m", "json.tool"},
             stdin = true
           }
