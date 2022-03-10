@@ -209,15 +209,19 @@ init_pkgm()
             ;;
         'arch')
             echo "setup archlinux pacman, use tsinghua mirror"
-            grep -q tsinghua /etc/pacman.d/mirrorlist
-            if [ $? ] ; then
-                :;
+            # sudo grep -q 'tsinghua' /etc/pacman.d/mirrorlist
+            if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
+                echo "tsinghua mirror already existed!"
             else
-                local arch_source_tsinghua='Server = https://mirror.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch'
+                echo "tsinghua mirror server not existed, now add it."
+                arch_source_tsinghua='Server = https://mirror.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch'
                 insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-                sed -rn "$insert_ln i $arch_source_tsinghua" /etc/pacman.d/mirrorlist
+                sudo sed -i "$insert_ln i $arch_source_tsinghua" /etc/pacman.d/mirrorlist
                 unset insert_ln
+                unset arch_source_tsinghua
             fi
+            echo "now update pacman"
+            sudo pacman -Syy
             ;;
         *)
             log_red "You must sync your package manager manually"
