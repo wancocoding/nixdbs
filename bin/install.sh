@@ -154,9 +154,8 @@ usage_help()
 check_base_requirement()
 {
     # check if user can sudo
-    if ! [ sudo -v &> /dev/null ]; then
-        log_red "you can not use sudo command, please make sure you can use
-        sudo"
+    if ! sudo -v &> /dev/null ; then
+        log_red "you can not use sudo command, please make sure you can use sudo"
         exit 1
     fi
 
