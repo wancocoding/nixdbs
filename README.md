@@ -1,65 +1,43 @@
 Coco's Dotfiles
+===
+
+Install require softs and libraries for development environment
+
+* setup script
+* dotfiles
+* system settings
+	- timezone
+	- apt source
+	- locale
+* Languages
+	- `Python` dev kits
+	- `Java` dev kits
+	- `C/C++` dev kits
+	- `Golang` dev kits
+	- `Node` dev kits
+	- `Lua` dev kits
+* Common Tools
+	- `Vim/Neovim`
+	- `Homebrew`
+	- base libraries
+	- `Tmux`
+	- `git` and git settings
+	- `fzf`
+	- others
+		+ `/usr/share/dict/words` for dictionary
+		+ standard-version (git commit tools)
+		+ wget file vim unzip net-tools iputils-ping tree htop unrar less most
 
 
-* Maintainer:		Vincent Wancocoding  <http://www.cocoding.cc>
-* Version:		1.3.0
-* created:		2020-10-01
-* updated:		2021-12-23
+## Support OS
+
+* Linux
+    - Ubuntu
+    - Archlinux
+    - Fedora
+* OSX
 
 
-This project is used to record my develop envrionment on osx win and linux
+## What's Next
 
 
-## Content
-
-* [Intro](#intro)
-* [Windows](#windows)
-	[Manual installation](#manual-installation)
-* [ChangeLog](#changelog)
-
-
-## Intro
-
-This dotfiles project contains the following content
-
-
-
-## Workflow
-
-### Version Control
-
-```shell
-npx standard-version
-
-```
-
-## Windows
-
-Before install, you must install winget first, please download it from [winget github release](https://github.com/microsoft/winget-cli/releases)
-
-### Manual installation
-
-* python3.8.6
-
-
-## ChangeLog
-
-see Changelog.txt for more infomation
-
-* 2020-12-16
-	- windows的vim重新修改
-* 2020-10-13 v0.3.3
-	- add university ctag for vim
-	- update mardown make tag python script path
-* 2020-10-12 v0.3.2
-	- add powershell script and function
-* 2020-10-11 v0.3.1
-	- different OS, use different directory
-	- new windows vim config
-	- add windows PowerShell profile
-* 2020-10-10 v0.2
-	- create windows config
-	- nvim and vim use the save config
-	- update readme
-* 2020-10-01 v0.1
-	- create repository
