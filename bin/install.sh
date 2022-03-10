@@ -79,7 +79,7 @@ detect_os(){
         echo "Your Operation System not supported!!"
         exit 1
     fi
-    lowcase_os_dist="${$OS_DIST,,}"
+    lowcase_os_dist="${OS_DIST,,}"
 }
 
 # ==================================
