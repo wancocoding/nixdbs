@@ -2,9 +2,11 @@
 
 
 # usage:
-# curl -L https://gitee.com/rainytooo/dotfiles/raw/master/bin/setup.sh | bash
+# curl -L https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh | bash
 # or
 # /bin/bash -c "$(curl -fsSL https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh)"
+# local DEBUG
+# 
 
 set -Eeu -o pipefail
 
@@ -206,6 +208,7 @@ init_pkgm()
             sudo apt update && apt upgrade -y
             ;;
         'arch')
+            echo "setup archlinux pacman, use tsinghua mirror"
             grep -q tsinghua /etc/pacman.d/mirrorlist
             if [ $? ] ; then
                 :;
