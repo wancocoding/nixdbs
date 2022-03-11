@@ -22,6 +22,23 @@ WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 echo "your workspace path is $WORKPATH"
 
 # ==================================
+# useful variables
+# ==================================
+
+# github mirror
+# usage:
+#   [clone]
+#   git clone https://ghproxy.com/https://github.com/stilleshan/ServerStatus
+#   [file]
+#   wget https://ghproxy.com/https://github.com/stilleshan/ServerStatus/archive/master.zip
+#   curl -O https://ghproxy.com/https://github.com/stilleshan/ServerStatus/archive/master.zip
+#   [raw content]
+#   wget https://ghproxy.com/https://raw.githubusercontent.com/stilleshan/ServerStatus/master/Dockerfile
+#   curl -O https://ghproxy.com/https://raw.githubusercontent.com/stilleshan/ServerStatus/master/Dockerfile
+GITHUB_PROXY="https://ghproxy.com"
+
+
+# ==================================
 # Detect OS
 # ==================================
 
@@ -300,6 +317,22 @@ init_pkgm()
     esac
 }
 
+
+
+setup_proxy()
+{
+    read -p "Do you want to setup proxy:[y(yes)|n(no)] >" input_text
+    if [ ! -z $input_text -a $input_text != " " ]; then
+        if [[ $input_text == "y" || $input_text == "Y" ]]; then
+            echo "Install v2ray for proxy!"
+        elif [[ $input_text == "n" || $input_text == "N" ]]; then
+            echo "Do not setup proxy right now!"
+        else
+            :;
+        fi
+    fi
+}
+
 setup_timezone()
 {
     log_title "setup timezone!"
@@ -377,7 +410,11 @@ setup()
     init_pkgm
     log_success "Setup system package manager success"
 
-    log_blue "=====> Step 4: Install and init git"
+    log_blue "=====> Step 4: Setup proxy"
+    setup_proxy
+    log_success "Setup proxy success"
+
+    log_blue "=====> Step 5: Install and init git"
     init_git
     log_success "Setup git success"
     # install_dev_kits
