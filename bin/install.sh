@@ -19,7 +19,7 @@ LOG_LEVEL="INFO"                  # INFO DEBUG ERROR
 
 # get the real path of this script
 WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
+echo "your workspace path is $WORKPATH"
 
 # ==================================
 # Detect OS
@@ -112,26 +112,36 @@ print_underline()
 print_f_red="$(print_bold 31)"
 print_f_yellow="$(print_bold 33)"
 print_f_blue="$(print_bold 34)"
+print_f_green="$(print_bold "38;5;82")" # use the default forceground color
 print_f_bold="$(print_bold 39)" # use the default forceground color
 print_f_reset="$(print_escape 0)"
 
-
+# information
 log_blue()
 {
     printf "${print_f_blue}%s${print_f_reset} \n" "$1"
 }
-
+# error
 log_red()
 {
     printf "${print_f_red}%s${print_f_reset} \n" "$1"
 }
-
+# warning
 log_yellow()
 {
     printf "${print_f_yellow}%s${print_f_reset} \n" "$1"
 }
+# success
+log_green()
+{
+    printf "${print_f_green}%s${print_f_reset} \n" "$1"
+}
 
 
+log_success()
+{
+    printf "${print_f_green}[ ok ] ${print_f_reset} %s \n" "$1"
+}
 
 # show script usage
 usage_help()
@@ -190,6 +200,66 @@ init_git()
         echo "git already installed"
     fi
     echo "now configure git"
+    read -p "enter your name[coco]: > " input_text
+    if [ ! -z $input_text -a $input_text != " " ]; then
+        git config --global user.name "$input_text"
+    else
+        log_yellow "you should setup your git config [user.name] later!"
+    fi
+    read -p "enter your email[ohergal@gmail.com]: > " input_text
+    if [ ! -z $input_text -a $input_text != " " ]; then
+        git config --global user.email "$input_text"
+    else
+        log_yellow "you should setup your git config [user.email] later!"
+    fi
+    # git config --global user.name
+    # git config --global user.email
+    # git config --global http.proxy
+
+    # common git settings
+    git config --global core.autocrlf false
+    git config --global core.eol lf
+    git config --global pull.rebase true
+    git config --global core.editor vim
+
+    # git alias settings
+    # git push
+    git config --global alias.p 'push'
+
+    # git status
+    git config --global alias.st 'status -sb'
+
+    # git log
+    git config --global alias.ll 'log --oneline'
+    git config --global alias.lla 'log --oneline --decorate --graph --all'
+
+    # last commit
+    git config --global alias.last 'log -1 HEAD --stat'
+
+    # git commit
+    git config --global alias.cm 'commit'
+    git config --global alias.cmm 'commit -m'
+
+    # git checkout
+    git config --global alias.co 'checkout'
+
+    # git remote
+    git config --global alias.rv 'remote -v'
+
+    # git diff 
+    git config --global alias.d 'diff'
+    git config --global alias.dv 'difftool -t vimdiff -y'
+
+    # list git global config
+    git config --global alias.gl 'config --global -l'
+
+    # git branch
+    git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+
+    # reset last 
+    git config --global alias.undo 'reset HEAD~1 --mixed'
+    
+    # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
 }
 
 
@@ -203,9 +273,9 @@ init_pkgm()
 {
     case $lowcase_os_dist in
         'ubuntu')
-            echo "setup ubuntu apt" ;
-            run_as_root "cat $WORKPATH/settings/ubuntu/sources.list > /etc/apt/sources.list"
-            sudo apt update && apt upgrade -y
+            echo "setup ubuntu apt"
+            sudo -u root /bin/bash -c "cat $WORKPATH/../settings/ubuntu/sources.list > /etc/apt/sources.list"
+            sudo apt update && sudo apt upgrade -y
             ;;
         'arch')
             echo "setup archlinux pacman, use tsinghua mirror"
@@ -297,15 +367,19 @@ setup()
 
     log_blue "=====> Step 1: Detect you OS infomation"
     detect_os
+    log_success "Detect OS success"
 
     log_blue "=====> Step 2: Check Requirement"
     check_base_requirement
+    log_success "Check requirements success"
 
     log_blue "=====> Step 3: Setup system package manager"
     init_pkgm
+    log_success "Setup system package manager success"
 
     log_blue "=====> Step 4: Install and init git"
     init_git
+    log_success "Setup git success"
     # install_dev_kits
     # setup_timezone
     # setup_locale
