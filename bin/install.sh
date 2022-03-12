@@ -12,9 +12,8 @@ set -Eeu -o pipefail
 
 REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
 
-
-# init some variable
-LOG_LEVEL="INFO"                  # INFO DEBUG ERROR
+# create a temp directory for 
+TMP_FILE="$(mktmp -d)" || exit 1
 
 
 # get the real path of this script
@@ -37,6 +36,12 @@ echo "your workspace path is $WORKPATH"
 #   curl -O https://ghproxy.com/https://raw.githubusercontent.com/stilleshan/ServerStatus/master/Dockerfile
 GITHUB_PROXY="https://ghproxy.com"
 
+# v2fly/v2ray 
+V2RAY_VERSION="v4.44.0" # this will be update when proxy install success
+V2RAY_RELEASE="https://github.com/v2fly/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip"
+V2RAY_RELEASE_PROXY="${GITHUB_PROXY}/${V2RAY_RELEASE}"
+V2RAY_INSTALL_SCRIPT="https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh"
+V2RAY_INSTALL_SCRIPT_PROXY="${GITHUB_PROXY}/${V2RAY_INSTALL_SCRIPT}"
 
 # ==================================
 # Detect OS
@@ -96,7 +101,7 @@ detect_os(){
         echo ${OS_INFO}
     else
         echo "Your Operation System not supported!!"
-        exit 1
+        error_exit
     fi
     lowcase_os_dist="${OS_DIST,,}"
 }
@@ -108,6 +113,20 @@ detect_os(){
 abort() {
   printf "%s\n" "$@"
   exit 1
+}
+
+error_exit()
+{
+    log_yellow "Finish this job, but some error occurred!"
+    # remove temp file 
+    rm -rf $TMP_FILE &> /dev/null
+    exit 1
+}
+
+finish_exit()
+{
+    rm -rf $TMP_FILE &> /dev/null
+    exit 0
 }
 # output formatting
 # check if it is standard output
@@ -185,7 +204,7 @@ check_base_requirement()
     # check if user can sudo
     if ! sudo -v &> /dev/null ; then
         log_red "you can not use sudo command, please make sure you can use sudo"
-        exit 1
+        error_exit
     fi
 
 }
@@ -201,8 +220,8 @@ install_pkg()
             sudo pacman -Sy git
             ;;
         *)
-            echo "i can not help you, you must install $1 manually"
-            exit 1
+            echo "I can not help you, you must install $1 manually"
+            error_exit
             ;;
     esac
 }
@@ -218,7 +237,7 @@ init_git()
     fi
     echo "now configure git"
     read -p "enter your name[coco]: > " input_text
-    if [ ! -z $input_text -a $input_text != " " ]; then
+    if [ ! -z $input_text ] && [ $input_text != " " ]; then
         git config --global user.name "$input_text"
     else
         log_yellow "you should setup your git config [user.name] later!"
@@ -312,7 +331,7 @@ init_pkgm()
             ;;
         *)
             log_red "You must sync your package manager manually"
-            exit 1
+            error_exit
             ;;
     esac
 }
@@ -321,16 +340,29 @@ init_pkgm()
 
 setup_proxy()
 {
-    read -p "Do you want to setup proxy:[y(yes)|n(no)] >" input_text
-    if [ ! -z $input_text -a $input_text != " " ]; then
-        if [[ $input_text == "y" || $input_text == "Y" ]]; then
-            echo "Install v2ray for proxy!"
-        elif [[ $input_text == "n" || $input_text == "N" ]]; then
-            echo "Do not setup proxy right now!"
+    echo "Setup a local proxy or just add a proxy server?"
+    echo " (1) local proxy server"
+    echo " (2) remote proxy socket or http server"
+    echo " (0) ignore, setup proxy server later!"
+    read -p "your choice: > " input_text
+    if [ ! -z $input_text ] && [ $input_text != " " ]; then
+        if [ $input_text -eq 0 ]; then
+            echo "you decide setup proxy server later!"
+        elif [ $input_text -eq 1 ]; then
+            echo "setup a local proxy!"
+        elif [ $input_text -eq 2 ]; then
+            echo "setup a remote proxy"
         else
             :;
         fi
+    else
+        log_red "your proxy setting failed!"
     fi
+}
+
+setup_local_proxy()
+{
+    
 }
 
 setup_timezone()
@@ -383,7 +415,7 @@ init_para()
                 ;;
             h)
                 usage_help
-                exit 1
+                finish_exit
                 ;;
         esac
     done
@@ -407,7 +439,8 @@ setup()
     log_success "Check requirements success"
 
     log_blue "=====> Step 3: Setup system package manager"
-    init_pkgm
+    # init_pkgm
+    echo "igore this step when debug..."
     log_success "Setup system package manager success"
 
     log_blue "=====> Step 4: Setup proxy"
