@@ -102,7 +102,8 @@ detect_os(){
         echo "Your Operation System not supported!!"
         error_exit
     fi
-    lowcase_os_dist="${OS_DIST,,}"
+    # lowcase_os_dist="${OS_DIST,,}"
+    lowcase_os_dist=$(echo $OS_DIST | awk '{print tolower($0)}')
     echo "Your system information:"
     echo -e "  Marchine:            ${OS}"
     echo -e "  Dist:                ${OS_DIST}"
@@ -271,7 +272,7 @@ init_git()
     # git config --global user.email
     # git config --global http.proxy
 
-    if [ -n $REMOTE_PROXY ]; then
+    if [ -n "${REMOTE_PROXY-}" ]; then
         git config --global http.proxy $REMOTE_PROXY
     fi
     # common git settings
