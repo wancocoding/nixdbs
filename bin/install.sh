@@ -92,7 +92,7 @@ detect_os(){
         type -p sw_vers &>/dev/null
         [ $? -eq 0 ] && {
             OS=`sw_vers | grep 'ProductName' | cut -f 2`
-            OS_VER=`sw_vers | grep 'ProductVersion' | cut -f 2`
+            OS_REV=`sw_vers | grep 'ProductVersion' | cut -f 2`
             OS_BUILD=`sw_vers | grep 'BuildVersion' | cut -f 2`
             OS_INFO="${OS} ${OS_DIST} ${OS_VER} ${OS_BUILD}"
         } || {
