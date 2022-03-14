@@ -49,6 +49,7 @@ V2RAY_INSTALL_SCRIPT_PROXY="${GITHUB_PROXY}/${V2RAY_INSTALL_SCRIPT}"
 
 OS=`uname -s`
 OS_MACH=`uname -m`
+OS_KERNEL=`uname -r`
 
 detect_os(){
     if [ "${OS}" = "Linux" ] ; then
@@ -94,7 +95,7 @@ detect_os(){
             OS=`sw_vers | grep 'ProductName' | cut -f 2`
             OS_VER=`sw_vers | grep 'ProductVersion' | cut -f 2`
             OS_BUILD=`sw_vers | grep 'BuildVersion' | cut -f 2`
-            OS_INFO="${OS} ${OS_DIST} ${VER} ${BUILD}"
+            OS_INFO="${OS} ${OS_DIST} ${OS_VER} ${BUILD}"
         } || {
             OS_INFO="MacOSX"
         }
@@ -104,10 +105,12 @@ detect_os(){
         error_exit
     fi
     lowcase_os_dist="${OS_DIST,,}"
-    echo -e "Marchine:            ${OS}"
-    echo -e "Dist:                ${OS_DIST}"
-    echo -e "Version:             ${OS_REV}"
-    echo -e "Architecture:        ${OS_MACH}"
+    echo "Your system information:"
+    echo -e "  Marchine:            ${OS}"
+    echo -e "  Dist:                ${OS_DIST}"
+    echo -e "  Version:             ${OS_REV}"
+    echo -e "  Architecture:        ${OS_MACH}"
+    echo -e "  Kernel:              ${OS_KERNEL}"
 }
 
 # ==================================
