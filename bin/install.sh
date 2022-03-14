@@ -13,7 +13,7 @@ set -Eeu -o pipefail
 REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
 
 # create a temp directory for 
-TMP_FILE="$(mktmp -d)" || exit 1
+TMP_FILE="$(mktemp -d)" || exit 1
 
 
 # get the real path of this script
@@ -94,7 +94,7 @@ detect_os(){
             OS=`sw_vers | grep 'ProductName' | cut -f 2`
             OS_VER=`sw_vers | grep 'ProductVersion' | cut -f 2`
             OS_BUILD=`sw_vers | grep 'BuildVersion' | cut -f 2`
-            OS_INFO="Darwin ${OS} ${VER} ${BUILD}"
+            OS_INFO="${OS} ${OS_DIST} ${VER} ${BUILD}"
         } || {
             OS_INFO="MacOSX"
         }
@@ -104,6 +104,10 @@ detect_os(){
         error_exit
     fi
     lowcase_os_dist="${OS_DIST,,}"
+    echo -e "Marchine:            ${OS}"
+    echo -e "Dist:                ${OS_DIST}"
+    echo -e "Version:             ${OS_REV}"
+    echo -e "Architecture:        ${OS_MACH}"
 }
 
 # ==================================
@@ -199,8 +203,21 @@ usage_help()
 # setup some environments
 # ==================================
 
+check_bash()
+{
+    if [ -z "${BASH_VERSION:-}" ]; then
+        log_red "Bash is required!, You must install it first"
+        error_exit
+    fi
+}
+
 check_base_requirement()
 {
+    check_bash
+    if [[ ! -x "/usr/bin/sudo" ]]; then
+        log_red "You must install sudo first"
+        error_exit
+    fi
     # check if user can sudo
     if ! sudo -v &> /dev/null ; then
         log_red "you can not use sudo command, please make sure you can use sudo"
@@ -243,7 +260,7 @@ init_git()
         log_yellow "you should setup your git config [user.name] later!"
     fi
     read -p "enter your email[ohergal@gmail.com]: > " input_text
-    if [ ! -z $input_text -a $input_text != " " ]; then
+    if [ ! -z $input_text ] && [ $input_text != " " ]; then
         git config --global user.email "$input_text"
     else
         log_yellow "you should setup your git config [user.email] later!"
@@ -252,6 +269,9 @@ init_git()
     # git config --global user.email
     # git config --global http.proxy
 
+    if [ -n $REMOTE_PROXY ]; then
+        git config --global http.proxy $REMOTE_PROXY
+    fi
     # common git settings
     git config --global core.autocrlf false
     git config --global core.eol lf
@@ -352,6 +372,13 @@ setup_proxy()
             echo "setup a local proxy!"
         elif [ $input_text -eq 2 ]; then
             echo "setup a remote proxy"
+            echo "Please enter your remote proxy url"
+            echo "eg: http://192.168.0.114:9081"
+            read -p "> " input_text
+            if [ ! -z $input_text ] && [ $input_text != "" ]; then
+                REMOTE_PROXY=$input_text
+                log_green "your proxy is: $REMOTE_PROXY"
+            fi
         else
             :;
         fi
@@ -362,7 +389,15 @@ setup_proxy()
 
 setup_local_proxy()
 {
-    
+    V2RAY_TEMP_DIR="$(mktemp -d)" || exit 1
+    cd $V2RAY_TEMP_DIR
+    # download install script
+    curl -O "$V2RAY_INSTALL_SCRIPT_PROXY"
+    # download the v2ray
+    curl -O "$V2RAY_RELEASE_PROXY"
+    /bin/bash install-release.sh -l v2ray-linux-64.zip
+    cd /tmp
+    rm -rf $V2RAY_TEMP_DIR
 }
 
 setup_timezone()
@@ -457,5 +492,6 @@ setup()
 
 
 setup
+finish_exit
 
 # vim:set ft=bash et sts=4 ts=4 sw=4 tw=78:
