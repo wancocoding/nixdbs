@@ -87,7 +87,6 @@ detect_os(){
             OS_REV=""
         fi
         OS_INFO="${OS} ${OS_DIST} ${OS_REV}(${OS_PSEUDONAME} ${OS_KERNEL} ${OS_MACH})"
-        echo ${OS_INFO}
     elif [ "${OS}" == "Darwin" ]; then
         OS_DIST="OSX"
         type -p sw_vers &>/dev/null
@@ -95,11 +94,10 @@ detect_os(){
             OS=`sw_vers | grep 'ProductName' | cut -f 2`
             OS_VER=`sw_vers | grep 'ProductVersion' | cut -f 2`
             OS_BUILD=`sw_vers | grep 'BuildVersion' | cut -f 2`
-            OS_INFO="${OS} ${OS_DIST} ${OS_VER} ${BUILD}"
+            OS_INFO="${OS} ${OS_DIST} ${OS_VER} ${OS_BUILD}"
         } || {
             OS_INFO="MacOSX"
         }
-        echo ${OS_INFO}
     else
         echo "Your Operation System not supported!!"
         error_exit
@@ -111,6 +109,7 @@ detect_os(){
     echo -e "  Version:             ${OS_REV}"
     echo -e "  Architecture:        ${OS_MACH}"
     echo -e "  Kernel:              ${OS_KERNEL}"
+    echo ${OS_INFO}
 }
 
 # ==================================
