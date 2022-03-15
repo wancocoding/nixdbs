@@ -10,6 +10,15 @@
 
 set -Eeu -o pipefail
 
+
+
+# Require Bash
+if [ -z "${BASH_VERSION:-}" ]
+then
+  abort "Bash is required to interpret this script."
+fi
+
+
 REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
 
 # create a temp directory for 
@@ -58,33 +67,54 @@ detect_os(){
             OS_DIST='RedHat'
             OS_PSEUDONAME=$(sed s/.*\(// < /etc/redhat-release | sed s/\)//)
             OS_REV=$(sed s/.*release\ // < /etc/redhat-release | sed s/\ .*//)
+            if [[ -x "$(command -v dnf)" ]]; then
+                PACKAGE_INSTALL_CMD='dnf -y install'
+                SYNC_SYSTEM_PACKAGE_CMD='apt update && apt upgrade -y'
+            elif [[ -x "$(command -v yum)"]]; then
+                PACKAGE_INSTALL_CMD='yum -y install'
+            else
+                log_yellow "No yum or dnf in this system!"
+                error_exit
+            fi
+            SYNC_SYSTEM_PACKAGE_CMD="echo 'no need to update system!'"
         elif [ -f /etc/SuSE-release ] ; then
             OS_DIST='SuSe'
             # OS_DIST=$(tr "\n" ' ' < /etc/SuSE-release | sed s/VERSION.*//)
             OS_PSEUDONAME=`cat /etc/SuSE-release | tr "\n" ' '| sed s/VERSION.*//`
             OS_REV=`cat /etc/SuSE-release | tr "\n" ' ' | sed s/.*=\ //`
-        elif [ -f /etc/mandrake-release ] ; then
-            OS_DIST='Mandrake'
-            OS_PSEUDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
-            OS_REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
-            # OS_PSEUDONAME=$(sed s/.*\(// < /etc/mandrake-release | sed s/\)//)
-            # OS_REV=$(sed s/.*release\ // < /etc/mandrake-release | sed s/\ .*//)
+            PACKAGE_INSTALL_CMD='zypper install -y --no-recommends'
+            SYNC_SYSTEM_PACKAGE_CMD="zypper update -y"
+        # elif [ -f /etc/mandrake-release ] ; then
+        #     OS_DIST='Mandrake'
+        #     OS_PSEUDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
+        #     OS_REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
+        #     PACKAGE_INSTALL_CMD='dnf -y install'
+        #     # OS_PSEUDONAME=$(sed s/.*\(// < /etc/mandrake-release | sed s/\)//)
+        #     # OS_REV=$(sed s/.*release\ // < /etc/mandrake-release | sed s/\ .*//)
         elif [ -f /etc/debian_version ] ; then	
             # if [ "$(awk -F= '/DISTRIB_ID/ {print $2}' /etc/lsb-release)" = "Ubuntu" ]; then
             if [ -f /etc/lsb-release ] ; then
                 OS_DIST=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
                 OS_PSEUDONAME=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
                 OS_REV=`cat /etc/lsb-release | grep '^DISTRIB_RELEASE' | awk -F=  '{ print $2 }'`
+                PACKAGE_INSTALL_CMD='apt -y --no-install-recommends install'
+                SYNC_SYSTEM_PACKAGE_CMD='apt update && apt upgrade -y'
+            else
+                log_yellow "Can not recognize your debain distribute"
+                error_exit
             fi
         elif [ -f /etc/arch-release ] ; then
             OS_DIST="Arch"
-            OS_PSEUDONAME=""
-            OS_REV=""
+            OS_PSEUDONAME="No"
+            OS_REV="No"
+            PACKAGE_INSTALL_CMD='pacman -Syu --noconfirm'
+            SYNC_SYSTEM_PACKAGE_CMD='pacman -Syu'
         fi
         if [ -f /etc/UnitedLinux-release ] ; then
             OS_DIST="${DIST}[$(tr "\n" ' ' < /etc/UnitedLinux-release | sed s/VERSION.*//)]"
             OS_PSEUDONAME=""
             OS_REV=""
+
         fi
         OS_INFO="${OS} ${OS_DIST} ${OS_REV}(${OS_PSEUDONAME} ${OS_KERNEL} ${OS_MACH})"
     elif [ "${OS}" == "Darwin" ]; then
@@ -350,7 +380,7 @@ init_pkgm()
                 unset arch_source_tsinghua
             fi
             echo "now update pacman"
-            sudo pacman -Syy
+            sudo pacman -Syu
             ;;
         *)
             log_red "You must sync your package manager manually"
