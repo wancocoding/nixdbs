@@ -182,6 +182,8 @@ exe_sudo_cmd()
     # done
     # debug_cmd "/usr/bin/sudo" "${args[@]}"
     # exe_cmd "/usr/bin/sudo" "${args[@]}"
+
+    debug_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$@"
     exe_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$@"
 }
 
@@ -345,7 +347,7 @@ init_pkgm()
             if grep -q tsinghua /etc/apk/repositories ; then
                 echo "tsinghua mirror already existed!"
             else
-                sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+                exe_sudo_cmd "sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories"
                 # sed -i 's/dl-cdn.alpinelinux.org/mirrors.bfsu.edu.cn/g' /etc/apk/repositories
             fi
             sync_and_update_system_pkg
