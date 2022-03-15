@@ -184,7 +184,7 @@ exe_sudo_cmd()
     # exe_cmd "/usr/bin/sudo" "${args[@]}"
 
     debug_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$@"
-    exe_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$@"
+    exe_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$(format_cmd "$@")"
 }
 
 # ==================================
