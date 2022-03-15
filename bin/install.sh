@@ -75,6 +75,28 @@ finish_exit()
     rm -rf $TMP_FILE &> /dev/null
     exit 0
 }
+
+# 解析参数 
+#   v verbose模式
+init_para()
+{
+    while getopts 'vhp:' script_args; do
+        case "$script_args" in
+            v)
+                LOG_LEVEL="DEBUG";
+                ;;
+            p)
+                echo "set the git proxy."
+                git config --global http.proxy ${OPTARG}
+                ;;
+            h)
+                usage_help
+                finish_exit
+                ;;
+        esac
+    done
+}
+
 # output formatting
 # check if it is standard output
 if [[ -t 1 ]]; then
@@ -186,6 +208,12 @@ exe_sudo_cmd()
     debug_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$@"
     exe_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$(format_cmd "$@")"
 }
+
+run_as_root()
+{
+    sudo -u root -H bash -c $1
+}
+
 
 # ==================================
 # Detect OS Information
@@ -540,26 +568,21 @@ init_git()
 }
 
 
-run_as_root()
-{
-    sudo -u root -H bash -c $1
-}
 
-
-
+# ==================================
+# Setup timezone
+# ==================================
 
 setup_timezone()
 {
-    log_title "setup timezone!"
     timezone="Asia/shanghai"
-    sudo apt install -y tzdata
-    sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-    run_as_root "echo \"${timezone}\" > /etc/timezone"
-    sudo dpkg-reconfigure -f noninteractive tzdata
+    install_pkg tzdata
+    exe_sudo_cmd "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+    exe_sudo_cmd "echo \"${timezone}\" > /etc/timezone"
+    exe_sudo_cmd "dpkg-reconfigure -f noninteractive tzdata"
     # or 
     # sudo timedatectl set-timezone Asia/Shanghai
     timedatectl
-
 }
 
 setup_locale()
@@ -583,26 +606,6 @@ install_dev_kits()
     libmysql++-dev libmysqlclient-dev python-dev
 }
 
-# 解析参数 
-#   v verbose模式
-init_para()
-{
-    while getopts 'vhp:' script_args; do
-        case "$script_args" in
-            v)
-                LOG_LEVEL="DEBUG";
-                ;;
-            p)
-                echo "set the git proxy."
-                git config --global http.proxy ${OPTARG}
-                ;;
-            h)
-                usage_help
-                finish_exit
-                ;;
-        esac
-    done
-}
 
 main()
 {
@@ -622,8 +625,8 @@ main()
     log_success "Check requirements success"
 
     log_blue "=====> Step 3: Setup system package manager"
-    init_pkgm
-    # echo "igore this step when debug..."
+    # init_pkgm
+    echo "igore this step when debug..."
     log_success "Setup system package manager success"
 
 
@@ -638,6 +641,10 @@ main()
     log_blue "=====> Step 6: Install and init git"
     init_git
     log_success "Setup git success"
+
+    log_blue "=====> Step 7: Setup Timezone"
+    setup_timezone
+    log_success "Setup timezone success"
     # install_dev_kits
     # setup_timezone
     # setup_locale
