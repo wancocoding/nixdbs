@@ -31,24 +31,19 @@ Install require softs and libraries for development environment
 
 ## Principle
 
-script
-
-尽量将工作脚本化,放到`~/sbin`里
-
-config
-
-尽量将配置文件用git管理起来
-
-install
-
-尽量使用系统自带的软件包管理器,优先级为`pm(apt|pacman|dnf|...) > homebrew > install manually`
+* Keep Small,Simple
+* 尽量将工作脚本化,放到`~/sbin`里
+* 尽量将配置文件用git管理起来
+* 尽量使用系统自带的软件包管理器,优先级为`(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
 
 ## Support OS
 
 * Linux
     - Archlinux
     - Ubuntu
+    - Alpine
     - [ ] Fedora/RedHat
+    - [ ] OpenSuse
 * [ ] OSX
 
 
