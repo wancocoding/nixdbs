@@ -402,6 +402,9 @@ detect_software()
         install_pkg "${pkg_arr[@]}"
         unset pkg_arr
     fi
+    if ! command -v unzip > /dev/null ; then
+        install_pkg "unzip"
+    fi
 }
 
 # ==================================
