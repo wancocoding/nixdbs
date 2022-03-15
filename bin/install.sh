@@ -402,10 +402,14 @@ detect_software()
         local -a pkg_arr=("curl")
         install_pkg "${pkg_arr[@]}"
         unset pkg_arr
+    else
+        echo "curl already installed!"
     fi
     if ! command -v unzip > /dev/null ; then
         echo "No unzip in your system, now try to install it"
         install_pkg "unzip"
+    else
+        echo "curl already installed!"
     fi
 }
 
