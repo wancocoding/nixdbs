@@ -110,7 +110,6 @@ detect_os(){
             OS_DIST="Arch"
             PACKAGE_INSTALL_CMD='pacman -Syu --noconfirm'
             SYNC_SYSTEM_PACKAGE_CMD='pacman -Syu'
-        fi
         elif [ -f /etc/alpine-release ] ; then
             OS_DIST="Alpine"
             OS_REV=`cat /etc/alpine-release`
