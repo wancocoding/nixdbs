@@ -180,7 +180,7 @@ format_cmd()
 # logging execute commands
 debug_cmd()
 {
-    printf "${print_f_blue}==> %s${print_f_reset}\n" "$(format_cmd "$@")"
+    printf "${print_f_blue}[command] %s${print_f_reset}\n" "$(format_cmd "$@")"
 }
 
 
@@ -576,21 +576,40 @@ init_git()
 setup_timezone()
 {
     timezone="Asia/shanghai"
-    install_pkg tzdata
-    exe_sudo_cmd "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
-    exe_sudo_cmd "echo \"${timezone}\" > /etc/timezone"
-    exe_sudo_cmd "dpkg-reconfigure -f noninteractive tzdata"
-    # or 
-    # sudo timedatectl set-timezone Asia/Shanghai
-    timedatectl
+    if [ $lowcase_os_dist == "alpine" ]; then
+        install_pkg tzdata
+        exe_sudo_cmd "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+        exe_sudo_cmd "echo \"${timezone}\" > /etc/timezone"
+    else
+            # exe_sudo_cmd "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
+            # exe_sudo_cmd "echo \"${timezone}\" > /etc/timezone"
+            # exe_sudo_cmd "dpkg-reconfigure -f noninteractive tzdata"
+            # or 
+            # sudo timedatectl set-timezone Asia/Shanghai
+        if command -v timedatectl > /dev/null ; then
+            exe_sudo_cmd "timedatectl set-timezone Asia/Shanghai"
+            exe_sudo_cmd "timedatectl"
+        else
+            log_yellow "your timezone setup failed, you should set timezone manually later"
+        fi
+    fi
 }
+
+# ==================================
+# Setup locale
+# ==================================
 
 setup_locale()
 {
-    log_title "setup locale"
-    sudo apt install -y locales \
-    && sudo locale-gen en_US.UTF-8 \
-    && sudo locale
+    if command -v localectl > /dev/null ; then
+        exe_sudo_cmd "localectl set-locale LANG=en_US.UTF-8"
+        exe_sudo_cmd "localectl"
+    else
+        log_yellow "You should set locale manually later"
+    fi
+    # sudo apt install -y locales \
+    # && sudo locale-gen en_US.UTF-8 \
+    # && sudo locale
 }
 
 # install basic development kits
@@ -629,7 +648,6 @@ main()
     echo "igore this step when debug..."
     log_success "Setup system package manager success"
 
-
     log_blue "=====> Step 4: Check Base Softwares"
     detect_software
     log_success "Setup basic soft success"
@@ -645,6 +663,11 @@ main()
     log_blue "=====> Step 7: Setup Timezone"
     setup_timezone
     log_success "Setup timezone success"
+
+    log_blue "=====> Step 8: Setup Language"
+    setup_locale
+    log_success "Setup locale language success"
+
     # install_dev_kits
     # setup_timezone
     # setup_locale
