@@ -293,7 +293,7 @@ detect_os(){
 install_pkg()
 {
     local -a install_packages_arr=("$@")
-    install_cmd_args=("${PACKAGE_INSTALL_CMD_ARR[@]}" "${install_packages_arr[@]}")
+    install_cmd_args=("${PACKAGE_INSTALL_CMD}" "${install_packages_arr[@]}")
     exe_sudo_cmd "${install_cmd_args[@]}"
     # case $lowcase_os_dist in
     #     'ubuntu')
