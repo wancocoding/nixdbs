@@ -70,7 +70,7 @@ detect_os(){
             if [[ -x "$(command -v dnf)" ]]; then
                 PACKAGE_INSTALL_CMD='dnf -y install'
                 SYNC_SYSTEM_PACKAGE_CMD='apt update && apt upgrade -y'
-            elif [[ -x "$(command -v yum)"]]; then
+            elif [[ -x "$(command -v yum)" ]]; then
                 PACKAGE_INSTALL_CMD='yum -y install'
             else
                 log_yellow "No yum or dnf in this system!"
