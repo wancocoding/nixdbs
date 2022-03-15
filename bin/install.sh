@@ -60,6 +60,9 @@ OS=`uname -s`
 OS_MACH=`uname -m`
 OS_KERNEL=`uname -r`
 
+
+OS_PSEUDONAME=""
+OS_REV=""
 detect_os(){
     if [ "${OS}" = "Linux" ] ; then
         OS_KERNEL=$(uname -r)
@@ -105,16 +108,19 @@ detect_os(){
             fi
         elif [ -f /etc/arch-release ] ; then
             OS_DIST="Arch"
-            OS_PSEUDONAME="No"
-            OS_REV="No"
             PACKAGE_INSTALL_CMD='pacman -Syu --noconfirm'
             SYNC_SYSTEM_PACKAGE_CMD='pacman -Syu'
         fi
+        elif [ -f /etc/alpine-release ] ; then
+            OS_DIST="Alpine"
+            OS_REV=`cat /etc/alpine-release`
+            PACKAGE_INSTALL_CMD='apk add'
+            SYNC_SYSTEM_PACKAGE_CMD='pacman -Syu'
+        fi
         if [ -f /etc/UnitedLinux-release ] ; then
-            OS_DIST="${DIST}[$(tr "\n" ' ' < /etc/UnitedLinux-release | sed s/VERSION.*//)]"
-            OS_PSEUDONAME=""
-            OS_REV=""
-
+            # OS_DIST="${DIST}[$(tr "\n" ' ' < /etc/UnitedLinux-release | sed s/VERSION.*//)]"
+            log_yellow "Not sure your system is supported!"
+            error_exit
         fi
         OS_INFO="${OS} ${OS_DIST} ${OS_REV}(${OS_PSEUDONAME} ${OS_KERNEL} ${OS_MACH})"
     elif [ "${OS}" == "Darwin" ]; then
