@@ -612,6 +612,44 @@ setup_locale()
     # && sudo locale
 }
 
+
+# ==================================
+# Setup Development kits
+# ==================================
+
+setup_basic_dev_kits()
+{
+    if [ "${OS}" = "Linux" ] ; then
+       if [[ -x "$(command -v apt)" ]] ; then
+           log_blue "Debian install build-essential"
+           sudo apt install build-essential
+       elif command -v pacman > /dev/null ; then
+           log_blue "Arch install base-devel"
+           sudo pacman -Syu base-devel
+       elif command -v dnf > /dev/null ; then
+           log_blue "Fedora group install [Development Tools] and [Development Libraries]"
+           sudo dnf group install "Development Tools" "Development Libraries"
+       elif command -v zypper > /dev/null ; then
+           log_blue "Suse sudo zypper install -t pattern devel_basis"
+           sudo zypper install -t pattern devel_basis
+       elif command -v apk > /dev/null; then
+           log_blue "Alpine install build-base"
+           sudo apk add build-base
+       else
+           log_yellow "Your OS not support now!"
+           error_exit
+       fi
+    elif [ "${OS}" == "Darwin" ]; then
+        log_blue "execute 'xcode-select --install' on macosx"
+        xcode-select --install
+    else
+        log_yellow "Your OS not support now!"
+        error_exit
+    fi
+}
+
+
+
 # install basic development kits
 install_dev_kits()
 {
@@ -668,9 +706,9 @@ main()
     setup_locale
     log_success "Setup locale language success"
 
-    # install_dev_kits
-    # setup_timezone
-    # setup_locale
+    log_blue "=====> Step 9: Setup Basic Development Kits"
+    setup_basic_dev_kits
+    log_success "Setup Basic Development Kits success"
 }
 
 
