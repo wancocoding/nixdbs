@@ -2,6 +2,30 @@ Coco's Dotfiles
 ===
 
 Install require softs and libraries for development environment
+## Features
+
++ 系统进基本的初始化
+  - 时区
+  - 字符集
+  - 软件源镜像
++ 开发环境基础
+  - git和配置
+  - Vim/NeoVim和配置
+  - 基础工具包
++ 代理设置
++ 服务
+  - sshd
+  - git
++ 特定语言开发环境
+  - C/C++
+  - Java
+  - Python
+  - Golang
+  - Node
+  - Ruby
+  - Lua
++ 其它工具
+  - fzf bat lsd bat htop netcat ripgrep fd the_silver_searcher
 
 * setup script
 * dotfiles

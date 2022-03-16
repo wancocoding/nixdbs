@@ -12,11 +12,6 @@ set -Eeu -o pipefail
 
 
 
-# Require Bash
-if [ -z "${BASH_VERSION:-}" ]
-then
-  abort "Bash is required to interpret this script."
-fi
 
 
 REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
@@ -53,9 +48,33 @@ V2RAY_INSTALL_SCRIPT="https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/
 V2RAY_INSTALL_SCRIPT_PROXY="${GITHUB_PROXY}/${V2RAY_INSTALL_SCRIPT}"
 
 # ==================================
+# Preparation
+# ==================================
+
+# Require Bash
+if [ -z "${BASH_VERSION:-}" ]
+then
+  abort "Bash is required to interpret this script."
+fi
+
+# check not call from subshell
+if [ -t 1 ]; then
+  is_tty() {
+    true
+  }
+else
+  is_tty() {
+    false
+  }
+fi
+
+# ==================================
 # utility functions
 # ==================================
 
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
 # abort and exit
 abort() {
   printf "%s\n" "$@"
@@ -612,6 +631,24 @@ setup_locale()
     # && sudo locale
 }
 
+# ==================================
+# Setup zsh
+# ==================================
+setup_zsh()
+{
+    if ! command_exists zsh; then
+        read -p "Do you want to install zsh now: (y|n) [y] >" input_text
+        if [ x"$input_text" == x'y' ]; then
+            install_pkg zsh
+        else
+            log_yellow "Skip install zsh"
+            return 0
+        fi
+    else
+        echo "zsh already installed!"
+    fi
+}
+
 
 # ==================================
 # Setup Development kits
@@ -627,8 +664,11 @@ setup_basic_dev_kits()
            log_blue "Arch install base-devel"
            sudo pacman -Syu base-devel
        elif command -v dnf > /dev/null ; then
-           log_blue "Fedora group install [Development Tools] and [Development Libraries]"
+           log_blue "dnf group install [Development Tools] and [Development Libraries]"
            sudo dnf group install "Development Tools" "Development Libraries"
+       elif command -v yum > /dev/null ; then
+           log_blue "yum group install [Development Tools] and [Development Libraries]"
+           sudo yum groupinstall "Development Tools" "Development Libraries"
        elif command -v zypper > /dev/null ; then
            log_blue "Suse sudo zypper install -t pattern devel_basis"
            sudo zypper install -t pattern devel_basis
@@ -706,7 +746,11 @@ main()
     setup_locale
     log_success "Setup locale language success"
 
-    log_blue "=====> Step 9: Setup Basic Development Kits"
+    log_blue "=====> Step 9: Setup Zsh"
+    setup_zsh
+    log_success "Setup Zsh success"
+
+    log_blue "=====> Step 10: Setup Basic Development Kits"
     setup_basic_dev_kits
     log_success "Setup Basic Development Kits success"
 }
