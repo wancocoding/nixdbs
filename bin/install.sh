@@ -638,13 +638,18 @@ setup_zsh()
 {
 
     echo "Install zsh standalone or setup ohmyzsh?"
-    echo " (1) zsh with ohmyzsh"
+    echo " (1) zsh with ohmyzsh[recommend]"
     echo " (2) zsh standalone"
     echo " (0) setup zsh manually later!"
     read -p "your choice: > " input_opts
     case $input_opts in
         1)
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+            if [ -n "${REMOTE_PROXY-}" ]; then
+                sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            else
+                sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            fi
             ;;
         2)
             install_zsh
