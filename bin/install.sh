@@ -644,15 +644,12 @@ setup_zsh()
     read -p "your choice: > " input_opts
     case $input_opts in
         1)
-
-            if [ -n "${REMOTE_PROXY-}" ]; then
-                sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            else
-                sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            fi
+            install_ohmyzsh
+            runzsh
             ;;
         2)
             install_zsh
+            runzsh
             ;;
         0)
             echo "Skip zsh setup."
@@ -663,6 +660,40 @@ setup_zsh()
             return
             ;;
     esac
+}
+
+runzsh()
+{
+    log_yellow "Important!!! You may run this script again if you run zsh right now!!!"
+    read -p "Do you want to run zsh now? [y|n]: > " user_opts
+    case $user_opts in
+        y*|Y*) ;;
+        n*|N*)
+            echo "Not run zsh now..."
+            log_yellow "You can run zsh after this script!!"
+            return ;;
+        *)
+            echo "Invalid choice."
+            return ;;
+    esac
+    exec zsh -l
+}
+
+install_ohmyzsh()
+{
+    # see https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
+    if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    then
+        if [ -n "${REMOTE_PROXY-}" ]; then
+            echo "use remote proxy you just set!...${REMOTE_PROXY}"
+            sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        elif [ -n "${GITHUB_PROXY-}" ]; then
+            echo "use github mirror...${GITHUB_PROXY}"
+            sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        fi
+    fi
+    log_red "install ohmyzsh failed, and no available http proxy or github mirror"
+    error_exit
 }
 
 
@@ -735,7 +766,6 @@ EOF
         export SHELL="$zsh"
         log_green "Shell successful changed to $zsh"
     fi
-    exec zsh -l
 
 }
 
