@@ -682,15 +682,22 @@ runzsh()
 install_ohmyzsh()
 {
     # see https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
-    if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    then
-        if [ -n "${REMOTE_PROXY-}" ]; then
-            echo "use remote proxy you just set!...${REMOTE_PROXY}"
-            sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-        elif [ -n "${GITHUB_PROXY-}" ]; then
-            echo "use github mirror...${GITHUB_PROXY}"
-            sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-        fi
+    # if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    # then
+    #     if [ -n "${REMOTE_PROXY-}" ]; then
+    #         echo "use remote proxy you just set!...${REMOTE_PROXY}"
+    #         sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    #     elif [ -n "${GITHUB_PROXY-}" ]; then
+    #         echo "use github mirror...${GITHUB_PROXY}"
+    #         sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    #     fi
+    # fi
+    if [ -n "${REMOTE_PROXY-}" ]; then
+        echo "use remote proxy you just set!...${REMOTE_PROXY}"
+        sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    elif [ -n "${GITHUB_PROXY-}" ]; then
+        echo "use github mirror...${GITHUB_PROXY}"
+        sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     fi
     log_red "install ohmyzsh failed, and no available http proxy or github mirror"
     error_exit
