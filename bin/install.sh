@@ -698,9 +698,10 @@ install_ohmyzsh()
     elif [ -n "${GITHUB_PROXY-}" ]; then
         echo "use github mirror...${GITHUB_PROXY}"
         sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    else
+        log_red "install ohmyzsh failed, and no available http proxy or github mirror"
+        error_exit
     fi
-    log_red "install ohmyzsh failed, and no available http proxy or github mirror"
-    error_exit
 }
 
 
