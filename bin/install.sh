@@ -817,6 +817,13 @@ setup_basic_dev_kits()
 }
 
 
+# ==================================
+# Setup Vim
+# ==================================
+
+
+
+
 
 # install basic development kits
 install_dev_kits()
@@ -881,6 +888,10 @@ main()
     log_blue "=====> Step 10: Setup Basic Development Kits"
     setup_basic_dev_kits
     log_success "Setup Basic Development Kits success"
+
+    # log_blue "=====> Step 11: Setup Vim/NeoVim"
+    # setup_vim
+    # log_success "Setup Vim/NeoVim success"
 }
 
 
