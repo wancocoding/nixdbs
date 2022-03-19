@@ -64,4 +64,6 @@ Contains necessary utilities and development components.
 * standard-version, or `standard-version -r major|minor|patch|1.1.1`
 * git push --follow-tags github master
 
+## Problems
 
+* [ ] can't close issue from commit
