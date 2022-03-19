@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/wancocoding/dotfiles/compare/v1.4.1...v1.5.0) (2022-03-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* all basic setup finish, add settings files
+
+### ✨ Features | 新功能
+
+* all basic setup finish, add settings files ([7e8c407](https://github.com/wancocoding/dotfiles/commit/7e8c407ed38b6fda158aebc8b34d9a84dedf9bdd)), closes [#5](https://github.com/wancocoding/dotfiles/issues/5) [#6](https://github.com/wancocoding/dotfiles/issues/6) [#7](https://github.com/wancocoding/dotfiles/issues/7) [#8](https://github.com/wancocoding/dotfiles/issues/8) [#9](https://github.com/wancocoding/dotfiles/issues/9) [#10](https://github.com/wancocoding/dotfiles/issues/10) [#11](https://github.com/wancocoding/dotfiles/issues/11) [#12](https://github.com/wancocoding/dotfiles/issues/12) [#13](https://github.com/wancocoding/dotfiles/issues/13) [#14](https://github.com/wancocoding/dotfiles/issues/14)
+* define version in package.json ([7fcef3f](https://github.com/wancocoding/dotfiles/commit/7fcef3f85a5e09eca63c43e5d4dfa689a98c3a11))
+* update versionrc ([73e2931](https://github.com/wancocoding/dotfiles/commit/73e2931051fecd09f5c9eb300143f7780f749289))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* fix version number in package.json ([182a69a](https://github.com/wancocoding/dotfiles/commit/182a69a9f7dcf591f76ea6d88d3d71b80c923d21))
+
 ### [1.4.1](https://gitee.com/rainytooo/dotfiles/compare/v1.4.0...v1.4.1) (2022-03-19)
 
 ## [1.4.0](https://github.com/wancocoding/dotfiles/compare/v1.3.0...v1.4.0) (2021-12-23)
