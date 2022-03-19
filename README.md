@@ -1,76 +1,58 @@
 Coco's Dotfiles
 ===
 
-Install require softs and libraries for development environment
+Initialize a development environment on a `Linux`, `Unix`, `MacOS` system within minutes,
+Contains necessary utilities and development components.
+
 ## Features
 
-+ 系统进基本的初始化
-  - 时区
-  - 字符集
-  - 软件源镜像
-+ 开发环境基础
-  - git和配置
-  - Vim/NeoVim和配置
-  - 基础工具包
-+ 代理设置
-+ 服务
-  - sshd
-  - git
-+ 特定语言开发环境
-  - C/C++
-  - Java
-  - Python
-  - Golang
-  - Node
-  - Ruby
-  - Lua
-+ 其它工具
-  - fzf bat lsd bat htop netcat ripgrep fd the_silver_searcher
-
-* setup script
-* dotfiles
 * system settings
 	- timezone
-	- apt source
-	- locale
-* Languages
+    - locale
+	- repository mirrors
+* Develop Languages
 	- `Python` dev kits
 	- `Java` dev kits
 	- `C/C++` dev kits
 	- `Golang` dev kits
 	- `Node` dev kits
 	- `Lua` dev kits
+    - `Ruby` dev kits
+* Services
+    - sshd
+    - git
+    - proxy
 * Common Tools
 	- `Vim/Neovim`
 	- `Homebrew`
-	- base libraries
+	- base develop libraries
 	- `Tmux`
 	- `git` and git settings
 	- `fzf`
 	- others
 		+ `/usr/share/dict/words` for dictionary
 		+ standard-version (git commit tools)
-		+ wget file vim unzip net-tools iputils-ping tree htop unrar less most
+		+ wget file unzip net-tools iputils-ping tree htop unrar less most
+          bat neofetch lsd fzf ripgrep fd the_sliver_searcher netcat
 
 
 ## Principle
 
-* Keep Small,Simple
-* 尽量将工作脚本化,放到`~/sbin`里
-* 尽量将配置文件用git管理起来
-* 尽量使用系统自带的软件包管理器,优先级为`(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
+* Keep Small, Simple
+* Script your workflow
+* Manage your settings, config files, dotfiles in git repository
+* Alway use the package management that in the system first, `(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
 
 ## Support OS
 
 * Linux
-    - Archlinux
-    - Ubuntu
-    - Alpine
+    - [x] Archlinux
+    - [x] Ubuntu
+    - [x] Alpine
     - [ ] Fedora/RedHat
     - [ ] OpenSuse
 * [ ] OSX
 
 
-## What's Next
 
 
