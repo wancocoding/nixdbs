@@ -32,8 +32,8 @@ Contains necessary utilities and development components.
 	- others
 		+ `/usr/share/dict/words` for dictionary
 		+ standard-version (git commit tools)
-		+ wget file unzip net-tools iputils-ping tree htop unrar less most
-          bat neofetch lsd fzf ripgrep fd the_sliver_searcher netcat
+		+ `wget` `file` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
+          `bat` `neofetch` `lsd` `fzf` `ripgrep` `fd` `the_sliver_searcher` `netcat`
 
 
 ## Principle
