@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/wancocoding/dotfiles/compare/v1.5.0...v1.5.1) (2022-03-19)
+
+
+### ✨ Features | 新功能
+
+* add development workflow in readme ([25ea244](https://github.com/wancocoding/dotfiles/commit/25ea24423490bc81d878844bceb6924c7e499bd5)), closes [#5](https://github.com/wancocoding/dotfiles/issues/5) [#6](https://github.com/wancocoding/dotfiles/issues/6) [#7](https://github.com/wancocoding/dotfiles/issues/7) [#8](https://github.com/wancocoding/dotfiles/issues/8) [#9](https://github.com/wancocoding/dotfiles/issues/9) [#10](https://github.com/wancocoding/dotfiles/issues/10) [#11](https://github.com/wancocoding/dotfiles/issues/11) [#12](https://github.com/wancocoding/dotfiles/issues/12) [#13](https://github.com/wancocoding/dotfiles/issues/13) [#14](https://github.com/wancocoding/dotfiles/issues/14)
+
 ## [1.5.0](https://github.com/wancocoding/dotfiles/compare/v1.4.1...v1.5.0) (2022-03-19)
 
 
