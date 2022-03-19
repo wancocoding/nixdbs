@@ -7,51 +7,55 @@ Contains necessary utilities and development components.
 ## Features
 
 * system settings
-	- timezone
+    - timezone
     - locale
-	- repository mirrors
+    - repository mirrors
 * Develop Languages
-	- `Python` dev kits
-	- `Java` dev kits
-	- `C/C++` dev kits
-	- `Golang` dev kits
-	- `Node` dev kits
-	- `Lua` dev kits
+    - `Python` dev kits
+    - `Java` dev kits
+    - `C/C++` dev kits
+    - `Golang` dev kits
+    - `Node` dev kits
+    - `Lua` dev kits
     - `Ruby` dev kits
 * Services
     - sshd
     - git
     - proxy
 * Common Tools
-	- `Vim/Neovim`
-	- `Homebrew`
-	- base develop libraries
-	- `Tmux`
-	- `git` and git settings
-	- `fzf`
-	- others
-		+ `/usr/share/dict/words` for dictionary
-		+ standard-version (git commit tools)
-		+ `wget` `file` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
+    - `zsh` and `ohmyzsh`
+    - `Vim/Neovim`
+    - `Homebrew`
+    - base develop libraries
+    - `Tmux`
+    - `git` and git settings
+    - `fzf`
+    - others
+        + `/usr/share/dict/words` for dictionary
+        + standard-version (git commit tools)
+        + `wget` `file` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
           `bat` `neofetch` `lsd` `fzf` `ripgrep` `fd` `the_sliver_searcher` `netcat`
 
 
 ## Principle
 
 * Keep Small, Simple
-* Script your workflow
+* Script your workflow, record every useful step to scripts.
 * Manage your settings, config files, dotfiles in git repository
 * Alway use the package management that in the system first, `(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
 
 ## Support OS
 
-* Linux
+* [ ] Linux
     - [x] Archlinux
     - [x] Ubuntu
     - [x] Alpine
-    - [ ] Fedora/RedHat
+    - [ ] Fedora/RedHat/CentOS
     - [ ] OpenSuse
 * [ ] OSX
+* [ ] Unix
+    - [ ] OpenBSD
+    - [ ] FreeBSD
 
 
 ## Development
