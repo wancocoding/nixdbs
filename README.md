@@ -54,5 +54,14 @@ Contains necessary utilities and development components.
 * [ ] OSX
 
 
+## Development
+
+### Workflow
+
+* edit code
+* git add file
+* git commit with template
+* standard-version, or `standard-version -r major|minor|patch|1.1.1`
+* git push --follow-tags github master
 
 
