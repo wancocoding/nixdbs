@@ -1,0 +1,62 @@
+# Please write your commit messages according to the following specifications 
+
+# <type>[optional scope]: <description>
+# break line
+# [optional body]
+# break line
+# [optional footer(s)]
+
+# ======================================
+# Type should be one of the following:
+# ======================================
+#   * build      构建相关代码和文件
+#   * chore      构建过程或者辅助工具的变动
+#   * ci         CI or CD
+#   * docs       文档相关变动
+#   * feat       新功能特性
+#   * fix        修复
+#   * perf       优化,性能提升
+#   * refactor   重构
+#   * revert     回滚
+#   * style      代码样式或者格式化代码
+#   * test       测试
+#   * merge      合并
+#   * sync       同步
+
+# 如果是破坏性的改动,必须加上!,并且在footer加上BREAKING CHANGE:
+
+# ======================================
+# Scope:
+# ======================================
+# scope就是影响范围
+# 比如: compile, build, *, view, service
+# 根据业务和项目自己把握,能用来区分层次
+
+
+# ======================================
+# Description:
+# ======================================
+# 字数不要超过80
+# 首字母小写
+# 第一个是一个动词
+# 不要句号
+
+# ======================================
+# Description:
+# ======================================
+
+
+# ======================================
+# Examples
+# ======================================
+
+# feat(*): add library for tailwind
+# 
+# install development libraries by npm install
+#   - postcss
+#   - postcss-cli
+#   - autoprefixer
+#   - @snowpack/plugin-postcss
+# 
+# Refs #133
+# Closes #123, #245, #992
