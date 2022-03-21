@@ -816,6 +816,66 @@ setup_basic_dev_kits()
     fi
 }
 
+# ==================================
+# Setup Homebrew
+# ==================================
+setup_homebrew()
+{
+    read -p "Would you like to install Homebrew? [y|n]: > " user_opts
+    case $user_opts in
+        y*|Y*)
+           install_homebrew 
+           ;;
+        n*|N*)
+            echo "Skip..."
+            return ;;
+        *)
+            log_yellow "Invalid choice. Skip this step..."
+            return ;;
+    esac
+}
+
+install_homebrew()
+{
+    if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+        echo "You have installed Homebrew already! Skip this step."
+    else
+        export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+        export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+        export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+        /bin/bash -c "$(curl -fsSL ${GITHUB_PROXY}/https://github.com/Homebrew/install/raw/HEAD/install.sh)"
+    fi
+    setup_rcfile_for_homebrew
+    log_success "Setup Homebrew success"
+}
+
+setup_rcfile_for_homebrew()
+{
+    # for zsh
+    if [ -a $HOME/.zprofile ]; then
+        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.zprofile ; then
+            echo "" >> $HOME/.zprofile
+            echo "# ====== Homebrew ====== " >> $HOME/.zprofile
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.zprofile
+            echo 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"' >> $HOME/.zprofile
+            echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"' >> $HOME/.zprofile
+            echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"' >> $HOME/.zprofile
+            echo 'export HOMEBREW_AUTO_UPDATE_SECS=86400' >> $HOME/.zprofile
+        fi
+    fi
+    # for bash
+    if [ -a $HOME/.profile ]; then
+        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.profile ; then
+            echo "" >> $HOME/.profile
+            echo "# ====== Homebrew ====== " >> $HOME/.profile
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.profile
+            echo 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"' >> $HOME/.profile
+            echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"' >> $HOME/.profile
+            echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"' >> $HOME/.profile
+            echo 'export HOMEBREW_AUTO_UPDATE_SECS=86400' >> $HOME/.profile
+        fi
+    fi
+}
 
 # ==================================
 # Setup Vim
@@ -848,50 +908,54 @@ main()
     log_blue "Start initialization"
     log_blue "============================================"
 
-    log_blue "=====> Step 1: Detect you OS infomation"
+    log_blue "=====> Detect you OS infomation"
     detect_os
     log_success "Detect OS success"
 
-    log_blue "=====> Step 2: Check Requirement"
+    log_blue "=====> Check Requirement"
     check_base_requirement
     log_success "Check requirements success"
 
-    log_blue "=====> Step 3: Setup system package manager"
+    log_blue "=====> Setup system package manager"
     # init_pkgm
     echo "igore this step when debug..."
     log_success "Setup system package manager success"
 
-    log_blue "=====> Step 4: Check Base Softwares"
+    log_blue "=====> Check Base Softwares"
     detect_software
     log_success "Setup basic soft success"
 
-    log_blue "=====> Step 5: Setup proxy"
+    log_blue "=====> Setup proxy"
     setup_proxy
     log_success "Setup proxy success"
 
-    log_blue "=====> Step 6: Install and init git"
+    log_blue "=====> Install and init git"
     init_git
     log_success "Setup git success"
 
-    log_blue "=====> Step 7: Setup Timezone"
+    log_blue "=====> Setup Timezone"
     setup_timezone
     log_success "Setup timezone success"
 
-    log_blue "=====> Step 8: Setup Language"
+    log_blue "=====> Setup Language"
     setup_locale
     log_success "Setup locale language success"
 
-    log_blue "=====> Step 9: Setup Zsh"
+    log_blue "=====> Setup Zsh"
     setup_zsh
     log_success "Setup Zsh success"
 
-    log_blue "=====> Step 10: Setup Basic Development Kits"
+    log_blue "=====> Setup Basic Development Kits"
     setup_basic_dev_kits
     log_success "Setup Basic Development Kits success"
 
-    # log_blue "=====> Step 11: Setup Vim/NeoVim"
+
+    log_blue "======> Setup Homebrew"
+    setup_homebrew
+
+    log_blue "=====> Setup Vim/NeoVim"
     # setup_vim
-    # log_success "Setup Vim/NeoVim success"
+    log_success "Setup Vim/NeoVim success"
 }
 
 
