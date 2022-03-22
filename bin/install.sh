@@ -456,7 +456,47 @@ detect_software()
         echo "No unzip in your system, now try to install it"
         install_pkg "unzip"
     else
-        echo "curl already installed!"
+        echo "unzip already installed!"
+    fi
+    if ! command -v wget > /dev/null ; then
+        echo "No wget in your system, now try to install it"
+        install_pkg "wget"
+    else
+        echo "wget already installed!"
+    fi
+    if python --version 2>&1 | grep -q '^Python 3\.'; then
+        echo "Python3 already installed!"
+        local py_version=$(python --version 2>&1 | awk '{print $2}')
+        echo "python3 version is $py_version"
+    else
+        install_system_python3
+    fi
+}
+
+install_system_python3()
+{
+    if [ "${OS}" = "Linux" ] ; then
+       if [[ -x "$(command -v apt)" ]] ; then
+           sudo apt install python3
+       elif command -v pacman > /dev/null ; then
+           sudo pacman -Syu python
+       elif command -v dnf > /dev/null ; then
+           sudo dnf install python3
+       elif command -v yum > /dev/null ; then
+           sudo yum install python3
+       elif command -v zypper > /dev/null ; then
+           sudo zypper install python3
+       elif command -v apk > /dev/null; then
+           sudo apk add python3
+       else
+           log_yellow "Your OS not support now!"
+           error_exit
+       fi
+    elif [ "${OS}" == "Darwin" ]; then
+        echo "Skip on MacOSX"
+    else
+        log_yellow "Your OS not support now!"
+        error_exit
     fi
 }
 
@@ -877,6 +917,19 @@ setup_rcfile_for_homebrew()
     fi
 }
 
+
+# ==================================
+# Setup C and Cpp Development Kits
+# ==================================
+# gcc g++ make ninja gdb cmake llvm clangd
+setup_c_dev_kits()
+{
+    echo "Install gcc"
+    if command_exists gcc ; then
+        echo "gcc exist, Skip..."
+    fi
+}
+
 # ==================================
 # Setup Vim
 # ==================================
@@ -949,6 +1002,8 @@ main()
     setup_basic_dev_kits
     log_success "Setup Basic Development Kits success"
 
+    log_blue "======> Setup C and Cpp Development kits"
+    setup_c_dev_kits
 
     log_blue "======> Setup Homebrew"
     setup_homebrew
