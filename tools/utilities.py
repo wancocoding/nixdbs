@@ -1,3 +1,5 @@
+# python functions for install software or update system
+
 import os
 import argparse
 import json
