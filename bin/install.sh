@@ -5,7 +5,9 @@
 # curl -L https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh | bash
 # or
 # /bin/bash -c "$(curl -fsSL https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh)"
-# local DEBUG
+# 
+# repository in ~/.cocodot/dotfiles
+# settings file in ~/.cocodot/settings
 # 
 
 set -Eeu -o pipefail
@@ -23,6 +25,8 @@ TMP_FILE="$(mktemp -d)" || exit 1
 # get the real path of this script
 WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 echo "your workspace path is $WORKPATH"
+
+DOTFILE_HOME=$HOME/.cocodot/dotfiles
 
 # ==================================
 # useful variables
@@ -406,6 +410,12 @@ init_pkgm()
 }
 
 
+install_packages()
+{
+    /bin/bash -c "$(python3 /home/coco/dev/workspace/bash/dotfiles/tools/utilities.py --os=$lowcase_os_dist $1)"
+    # python3 /home/coco/dev/workspace/bash/dotfiles/tools/utilities.py --os=ubuntu neovim ninja
+}
+
 # ==================================
 # Detect Requirements
 # ==================================
@@ -626,6 +636,22 @@ init_git()
     # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
 }
 
+
+# ==================================
+# clone project repository
+# ==================================
+clone_repository()
+{
+    local project_path=$HOME/.cocodot/dotfiles
+    if [ -d $project_path ]; then
+        echo "dotfiles has already in your marchine."
+        cd $project_path && git pull origin master
+    else
+        mkdir -p $HOME/.cocodot/ >/dev/null 2>&1
+        git clone $GITHUB_PROXY/https://github.com/wancocoding/dotfiles.git $HOME/.cocodot/dotfiles
+    fi
+    log_success "Clone dotfiles repository success!"
+}
 
 
 # ==================================
@@ -891,28 +917,38 @@ install_homebrew()
 
 setup_rcfile_for_homebrew()
 {
+    local brew_env_text=$(cat << VEOF
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+# export HOMEBREW_AUTO_UPDATE_SECS=86400
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+VEOF
+    )
     # for zsh
     if [ -a $HOME/.zprofile ]; then
         if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.zprofile ; then
-            echo "" >> $HOME/.zprofile
-            echo "# ====== Homebrew ====== " >> $HOME/.zprofile
+            echo '' >> $HOME/.zprofile
+            echo '# ====== Homebrew ====== ' >> $HOME/.zprofile
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.zprofile
-            echo 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"' >> $HOME/.zprofile
-            echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"' >> $HOME/.zprofile
-            echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"' >> $HOME/.zprofile
-            echo 'export HOMEBREW_AUTO_UPDATE_SECS=86400' >> $HOME/.zprofile
+            echo "$brew_env_text" >> $HOME/.zprofile
         fi
     fi
     # for bash
     if [ -a $HOME/.profile ]; then
         if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.profile ; then
-            echo "" >> $HOME/.profile
-            echo "# ====== Homebrew ====== " >> $HOME/.profile
+            echo '' >> $HOME/.profile
+            echo '# ====== Homebrew ====== ' >> $HOME/.profile
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.profile
-            echo 'export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"' >> $HOME/.profile
-            echo 'export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"' >> $HOME/.profile
-            echo 'export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"' >> $HOME/.profile
-            echo 'export HOMEBREW_AUTO_UPDATE_SECS=86400' >> $HOME/.profile
+            echo "$brew_env_text" >> $HOME/.profile
+        fi
+    elif [ -a $HOME/.bash_profile ]; then
+        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.bash_profile ; then
+            echo '' >> $HOME/.bash_profile
+            echo '# ====== Homebrew ====== ' >> $HOME/.bash_profile
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bash_profile
+            echo "$brew_env_text" >> $HOME/.bash_profile
         fi
     fi
 }
@@ -986,6 +1022,9 @@ main()
     init_git
     log_success "Setup git success"
 
+    log_blue "=====> Clone dotfiles repository"
+    clone_repository
+
     log_blue "=====> Setup Timezone"
     setup_timezone
     log_success "Setup timezone success"
@@ -1011,6 +1050,7 @@ main()
     log_blue "=====> Setup Vim/NeoVim"
     # setup_vim
     log_success "Setup Vim/NeoVim success"
+
 }
 
 
