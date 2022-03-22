@@ -13,6 +13,9 @@
             "alpine": { "name": "ninja", "method": "system" },
             "freebsd": { "name": "ninja", "method": "system" }
         },
+        "cmake": {
+            "default": { "name": "cmake", "method": "system" }
+        },
         "pyenv": {
             "default": { "name": "pyenv", "method": "manual" }
         }
