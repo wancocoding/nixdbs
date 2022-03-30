@@ -102,8 +102,11 @@ setup_os_commands()
     echo_title "Setup system commands"
     case $OSNAME_LOWERCASE in
         gentoo)
-            fmt_info "Your os is Gentoo linux!"
+            fmt_info "Your os is Gentoo Linux!"
             setup_gentoo
+            ;;
+        manjaro)
+            fmt_info "Your os is Manjaro Linux!"
             ;;
         *)
             error_exit "Sorry, $OSNAME_LOWERCASE is not supported right now."
