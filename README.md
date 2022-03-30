@@ -48,13 +48,13 @@ Contains necessary utilities and development components.
 
 * [ ] Linux
     - [x] Archlinux
-    - [x] Ubuntu
-    - [x] Alpine
+    - [x] Ubuntu/Debain
+    - [x] Gentoo
+    - [ ] Alpine
     - [ ] Fedora/RedHat/CentOS
     - [ ] OpenSuse
 * [ ] OSX
 * [ ] Unix
-    - [ ] OpenBSD
     - [ ] FreeBSD
 
 

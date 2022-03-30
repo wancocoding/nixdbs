@@ -23,13 +23,13 @@
     "commands": {
         "install": {
             "default": "brew install",
-            "arch": "sudo pacman -Syu",
+            "arch": "sudo pacman -S",
             "ubuntu": "sudo apt install -y",
-            "fedora": "sudo dnf install",
-            "gentoo": "sudo emerge",
-            "opensuse": "sido zypper in",
-            "alpine": "sudo apk add",
-            "freebsd": "sudo pkg install"
-        }
+	    "fedora": "sudo dnf install",
+	    "gentoo": "sudo emerge -av",
+	    "opensuse": "sido zypper in",
+	    "alpine": "sudo apk add",
+	    "freebsd": "sudo pkg install"
+	}
     }
 }
