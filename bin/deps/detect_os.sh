@@ -48,8 +48,9 @@ detect_os(){
             fi
         elif [ -f /etc/arch-release ] ; then
             OS_DIST="Arch"
-        elif [ -f /etc/manjaro-release ] ; then
-            OS_DIST="Manjaro"
+            if [ -f /etc/manjaro-release ] ; then
+                OS_DIST="Manjaro"
+	    fi
         elif [ -f /etc/alpine-release ] ; then
             OS_DIST="Alpine"
             OS_REV=`cat /etc/alpine-release`

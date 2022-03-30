@@ -1,5 +1,17 @@
 #!/bin/bash
 
+cmd_to_string()
+{
+    local exe_arg
+    printf "%s" "$1"
+    shift
+    for exe_arg in "$@"
+    do
+        printf " "
+        # replace all space
+        printf "%s" "${exe_arg// /\ }"
+    done
+}
 execute()
 {
     fmt_cmd "$*"
@@ -12,6 +24,11 @@ exe_sudo()
 {
     local -a args=("$@")
     execute "/usr/bin/sudo" "${args[@]}"
+}
+
+exe_sudo_string()
+{
+    execute "/usr/bin/sudo" "/bin/bash" "-c" "$*"
 }
 
 
@@ -83,8 +100,8 @@ setup_gentoo()
 {
     SYS_INSTALL_PKG_CMD=("emerge" "-av")
     SYS_UPGRADE_PKG_CMD=("emerge" "--update" "--deep" "--change-use")
-    # SYS_UPDATE_CMD=("emerge" "--ask" "--sync")
-    # SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
+    SYS_UPDATE_CMD=("emerge" "--ask" "--sync")
+    SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
     SYS_CLEAN_CMD=("emerge" "-a" "--depclean")
     gentoo_setup_portage_mirror
     gentoo_setup_portage_license
@@ -96,6 +113,36 @@ setup_gentoo()
     # system_update
 }
 
+# =================================
+# Manjaro
+# =================================
+
+setup_manjaro_mirror()
+{
+    fmt_info "Change pacman repos mirror"
+	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
+		echo "mirror already existed!"
+	else
+		echo "mirror server not existed, now add it."
+		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
+		exe_sudo_string sed -i "'$insert_ln i $MANJARO_MIRROR'" /etc/pacman.d/mirrorlist
+		unset insert_ln
+	fi
+}
+
+setup_manjaro()
+{
+    SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
+    SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
+    SYS_UPDATE_CMD=("pacman" "-Syy")
+
+    # setup mirror
+	setup_manjaro_mirror
+
+	system_update
+}
+
+# =================================
 
 setup_os_commands()
 {
@@ -107,6 +154,11 @@ setup_os_commands()
             ;;
         manjaro)
             fmt_info "Your os is Manjaro Linux!"
+			setup_manjaro
+            ;;
+        arch)
+            fmt_info "Your os is Manjaro Linux!"
+			setup_arch
             ;;
         *)
             error_exit "Sorry, $OSNAME_LOWERCASE is not supported right now."
