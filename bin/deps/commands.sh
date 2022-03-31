@@ -52,19 +52,6 @@ pkg_install()
     exe_sudo "${install_cmd[@]}"
 }
 
-system_update()
-{
-    fmt_info "Update your system"
-    if [ -v SYS_UPDATE_CMD[@] ]; then
-        exe_sudo "${SYS_UPDATE_CMD[@]}"
-    fi
-    if [ -v SYS_UPGRADE_CMD[@] ]; then
-        exe_sudo "${SYS_UPGRADE_CMD[@]}"
-    fi
-    if [ -v SYS_CLEAN_CMD[@] ]; then
-        exe_sudo "${SYS_CLEAN_CMD[@]}"
-    fi
-}
 
 # =================================
 # Gentoo
@@ -106,7 +93,6 @@ setup_gentoo()
     gentoo_setup_portage_mirror
     gentoo_setup_portage_license
 
-	system_update
 
     # fmt_info "Now, test system package manager command!"
     # pkg_install "app-admin/eselect" 
@@ -125,7 +111,7 @@ setup_manjaro_mirror()
 	else
 		echo "mirror server not existed, now add it."
 		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-		exe_sudo_string sed -i "'$insert_ln i $MANJARO_MIRROR'" /etc/pacman.d/mirrorlist
+		exe_sudo "sed" "-i" "'$insert_ln i $MANJARO_MIRROR'" "/etc/pacman.d/mirrorlist"
 		unset insert_ln
 	fi
 }
@@ -135,11 +121,41 @@ setup_manjaro()
     SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
     SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
     SYS_UPDATE_CMD=("pacman" "-Syy")
+    SYS_UPGRADE_CMD=("pacman" "-Syu")
 
     # setup mirror
-	setup_manjaro_mirror
+    setup_manjaro_mirror
 
-	system_update
+}
+
+
+# =================================
+# Archlinux
+# =================================
+
+setup_arch_mirror()
+{
+    fmt_info "Change pacman repos mirror"
+	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
+		echo "mirror already existed!"
+	else
+		echo "mirror server not existed, now add it."
+		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
+		exe_sudo "sed" "-i" "'$insert_ln i $ARCH_MIRROR'" "/etc/pacman.d/mirrorlist"
+		unset insert_ln
+	fi
+}
+
+setup_arch()
+{
+    SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
+    SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
+    SYS_UPDATE_CMD=("pacman" "-Syy")
+    SYS_UPGRADE_CMD=("pacman" "-Syu")
+
+    # setup mirror
+    setup_manjaro_mirror
+
 }
 
 # =================================
@@ -157,8 +173,12 @@ setup_os_commands()
 			setup_manjaro
             ;;
         arch)
-            fmt_info "Your os is Manjaro Linux!"
+            fmt_info "Your os is ArchLinux!"
 			setup_arch
+            ;;
+        ubuntu)
+            fmt_info "Your os is Ubuntu!"
+			setup_ubuntu
             ;;
         *)
             error_exit "Sorry, $OSNAME_LOWERCASE is not supported right now."

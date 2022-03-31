@@ -47,79 +47,8 @@ source ./deps/detect_os.sh
 # setup os commands
 source ./deps/commands.sh
 
-# ==================================
-# Setup package managment
-# ==================================
-
-# install package on different OS
-install_pkg()
-{
-    local -a install_packages_arr=("$@")
-    install_cmd_args=("${PACKAGE_INSTALL_CMD}" "${install_packages_arr[@]}")
-    exe_sudo_cmd "${install_cmd_args[@]}"
-    # case $lowcase_os_dist in
-    #     'ubuntu')
-    #         exe_sudo_cmd apt install git
-    #         ;;
-    #     'arch')
-    #         exe_sudo_cmd pacman -Sy git
-    #         ;;
-    #     *)
-    #         echo "I can not help you, you must install $1 manually"
-    #         error_exit
-    #         ;;
-    # esac
-}
-
-sync_and_update_system_pkg()
-{
-    log_blue "Sync and upgrade your system now!"
-    if [ -n "${SYNC_SYSTEM_PACKAGE_CMD-}" ]; then
-        exe_sudo_cmd "${SYNC_SYSTEM_PACKAGE_CMD}"
-    fi
-}
-
-# init the package manager
-init_pkgm()
-{
-    case $lowcase_os_dist in
-        'ubuntu')
-            echo "setup ubuntu repository mirror to tsinghua"
-            sudo -u root /bin/bash -c "cat $WORKPATH/../settings/ubuntu/sources.list > /etc/apt/sources.list"
-            sync_and_update_system_pkg
-            ;;
-        'arch')
-            echo "setup archlinux repository mirror to tsinghua"
-            # sudo grep -q 'tsinghua' /etc/pacman.d/mirrorlist
-            if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
-                echo "tsinghua mirror already existed!"
-            else
-                echo "tsinghua mirror server not existed, now add it."
-                arch_source_tsinghua='Server = https://mirror.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch'
-                insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-                exe_sudo_cmd sed -i "$insert_ln i $arch_source_tsinghua" /etc/pacman.d/mirrorlist
-                unset insert_ln
-                unset arch_source_tsinghua
-            fi
-            echo "Now update pacman"
-            sync_and_update_system_pkg
-            ;;
-        'alpine')
-            echo "setup alpine repository mirror to tsinghua or bfsu(Beiwai)"
-            if grep -q tsinghua /etc/apk/repositories ; then
-                echo "tsinghua mirror already existed!"
-            else
-                exe_sudo_cmd "sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories"
-                # sed -i 's/dl-cdn.alpinelinux.org/mirrors.bfsu.edu.cn/g' /etc/apk/repositories
-            fi
-            sync_and_update_system_pkg
-            ;;
-        *)
-            log_yellow "You must sync your package manager manually"
-            ;;
-    esac
-}
-
+# update system
+source ./deps/init_system.sh
 
 install_packages()
 {
