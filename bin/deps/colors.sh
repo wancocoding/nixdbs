@@ -39,7 +39,7 @@ detect_term_color()
     TERM_COLOR_TYPE=0
     echo # new line
     show_truecolor
-    read -p "Can you see all 256 colors? [y(yes)|n(no)]" user_answ;
+    read -p "Can you see the continuous gradient of colors? [y(yes)|n(no)]" user_answ;
     case $user_answ in
         y*|Y*)
 	        TERM_COLOR_TYPE=1
@@ -51,7 +51,7 @@ detect_term_color()
 
     echo
     show_256color
-    read -p "Can you see the continuous gradient of colors? [y(yes)|n(no)]" user_answ;
+    read -p "Can you see all 256 colors? [y(yes)|n(no)]" user_answ;
     case $user_answ in
         y*|Y*)
 	        TERM_COLOR_TYPE=2

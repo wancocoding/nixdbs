@@ -159,6 +159,28 @@ setup_arch()
 }
 
 # =================================
+# Ubuntu
+# =================================
+
+setup_ubuntu_mirror()
+{
+    fmt_info "Change apt repos mirror"
+	exe_sudo_string "echo" "'$UBUNTU_MIRROR'" ">" "/etc/apt/sources.list"
+}
+
+setup_ubuntu()
+{
+    SYS_INSTALL_PKG_CMD=("apt" "-y" "--no-install-recommends" "install")
+    SYS_UPGRADE_PKG_CMD=("apt" "update")
+    SYS_UPDATE_CMD=("apt" "update")
+    SYS_UPGRADE_CMD=("apt" "upgrade" "-y")
+
+    # setup mirror
+    setup_ubuntu_mirror
+
+}
+
+# =================================
 
 setup_os_commands()
 {
