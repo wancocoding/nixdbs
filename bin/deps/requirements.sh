@@ -21,15 +21,28 @@ detect_sudo()
     fi
     # check if user can sudo
     if ! sudo -v &> /dev/null ; then
-        echo "you can not use sudo command, please make sure you have sudo privileges"
+        echo "Error: you can not use sudo command, please make sure you have sudo privileges"
         exit 1
     fi
+}
+
+detect_systemd()
+{
+	fmt_info "check systemd..."
+	if [[  -d /run/systemd/system ]] || grep -q systemd < (ls -l /sbin/init);
+	then
+		:;
+	else
+		echo "Error: only linux distributions using systemd are supported!"
+		exit 1
+	fi
 }
 
 detect_requirements()
 {
     echo_title "Check Requirements"
     detect_sudo
+	detect_systemd
     fmt_success "Check requirements success"
 }
 

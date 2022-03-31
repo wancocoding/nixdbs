@@ -42,7 +42,7 @@ detect_term_color()
     read -p "Can you see the continuous gradient of colors? [y(yes)|n(no)]" user_answ;
     case $user_answ in
         y*|Y*)
-	        TERM_COLOR_TYPE=1
+	        TERM_COLOR_TYPE=2
             return
             ;;
         *)
@@ -54,7 +54,7 @@ detect_term_color()
     read -p "Can you see all 256 colors? [y(yes)|n(no)]" user_answ;
     case $user_answ in
         y*|Y*)
-	        TERM_COLOR_TYPE=2
+	        TERM_COLOR_TYPE=1
             return
 	        ;;
         *)
