@@ -29,7 +29,7 @@ detect_sudo()
 detect_systemd()
 {
 	fmt_info "check systemd..."
-	if [[  -d /run/systemd/system ]] || grep -q systemd < (ls -l /sbin/init);
+	if [[ -d /run/systemd/system ]] || grep -q systemd <(ls -l /sbin/init)
 	then
 		:;
 	else
