@@ -28,7 +28,12 @@ exe_sudo()
 
 exe_sudo_string()
 {
-    execute "/usr/bin/sudo" "/bin/bash" "-c" "$*"
+    # execute "/usr/bin/sudo" "/bin/bash" "-c" "$*"
+	fmt_cmd "/usr/bin/sudo" "/bin/bash" "-c" "$*"
+	/usr/bin/sudo /bin/bash -c "$*"
+	if [[ "$?" -ne '0' ]] ;then
+		error_exit "when execute sudo bash -c command."
+	fi
 }
 
 
@@ -115,11 +120,12 @@ setup_manjaro_mirror()
 {
     fmt_info "Change pacman repos mirror"
 	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
-		echo "mirror already existed!"
+		fmt_info "mirror already existed!"
 	else
-		echo "mirror server not existed, now add it."
+		fmt_info "mirror server not existed, now add it."
 		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-		exe_sudo "sed" "-i" "'$insert_ln i $MANJARO_MIRROR'" "/etc/pacman.d/mirrorlist"
+		# exe_sudo "sed" "-i" "'${insert_ln} i\ $MANJARO_MIRROR'" "/etc/pacman.d/mirrorlist"
+		exe_sudo_string "sed -i '${insert_ln}i ${MANJARO_MIRROR}' /etc/pacman.d/mirrorlist"
 		unset insert_ln
 	fi
 }
@@ -145,11 +151,12 @@ setup_arch_mirror()
 {
     fmt_info "Change pacman repos mirror"
 	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
-		echo "mirror already existed!"
+		fmt_info "mirror already existed!"
 	else
-		echo "mirror server not existed, now add it."
+		fmt_info "mirror server not existed, now add it."
 		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-		exe_sudo "sed" "-i" "'$insert_ln i $ARCH_MIRROR'" "/etc/pacman.d/mirrorlist"
+		# exe_sudo "sed" "-i" "'${insert_ln}i $ARCH_MIRROR'" "/etc/pacman.d/mirrorlist"
+		exe_sudo_string "sed -i '${insert_ln}i ${ARCH_MIRROR}' /etc/pacman.d/mirrorlist"
 		unset insert_ln
 	fi
 }
@@ -162,7 +169,7 @@ setup_arch()
     SYS_UPGRADE_CMD=("pacman" "-Syu")
 
     # setup mirror
-    setup_manjaro_mirror
+    setup_arch_mirror
 
 }
 

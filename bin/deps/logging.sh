@@ -49,6 +49,8 @@ fmt_cmd()
 
 echo_title()
 {
+	echo
+	echo
     printf "%s===============================================%s\n" \
         "${FMT_BOLD}${FMT_BLUE}" "$FMT_RESET"
     printf "%s%s%s\n" "${FMT_BOLD}${FMT_BLUE}" "$*" "$FMT_RESET"
