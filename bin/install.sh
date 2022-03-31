@@ -50,6 +50,9 @@ source ./deps/commands.sh
 # update system
 source ./deps/init_system.sh
 
+# install base tools
+source ./deps/install_base_pkg.sh
+
 install_packages()
 {
     /bin/bash -c "$(python3 /home/coco/dev/workspace/bash/dotfiles/tools/utilities.py --os=$lowcase_os_dist $1)"
@@ -58,67 +61,6 @@ install_packages()
 
 
 
-# ==================================
-# Detect Software (need: curl and unzip)
-# ==================================
-detect_software()
-{
-    echo "Checking curl and unzip"
-    if ! command -v curl > /dev/null ; then
-        echo "No curl in your system, now try to install it"
-        local -a pkg_arr=("curl")
-        install_pkg "${pkg_arr[@]}"
-        unset pkg_arr
-    else
-        echo "curl already installed!"
-    fi
-    if ! command -v unzip > /dev/null ; then
-        echo "No unzip in your system, now try to install it"
-        install_pkg "unzip"
-    else
-        echo "unzip already installed!"
-    fi
-    if ! command -v wget > /dev/null ; then
-        echo "No wget in your system, now try to install it"
-        install_pkg "wget"
-    else
-        echo "wget already installed!"
-    fi
-    if python --version 2>&1 | grep -q '^Python 3\.'; then
-        echo "Python3 already installed!"
-        local py_version=$(python --version 2>&1 | awk '{print $2}')
-        echo "python3 version is $py_version"
-    else
-        install_system_python3
-    fi
-}
-
-install_system_python3()
-{
-    if [ "${OS}" = "Linux" ] ; then
-       if [[ -x "$(command -v apt)" ]] ; then
-           sudo apt install python3
-       elif command -v pacman > /dev/null ; then
-           sudo pacman -Syu python
-       elif command -v dnf > /dev/null ; then
-           sudo dnf install python3
-       elif command -v yum > /dev/null ; then
-           sudo yum install python3
-       elif command -v zypper > /dev/null ; then
-           sudo zypper install python3
-       elif command -v apk > /dev/null; then
-           sudo apk add python3
-       else
-           log_yellow "Your OS not support now!"
-           error_exit
-       fi
-    elif [ "${OS}" == "Darwin" ]; then
-        echo "Skip on MacOSX"
-    else
-        log_yellow "Your OS not support now!"
-        error_exit
-    fi
-}
 
 # ==================================
 # Setup Proxy

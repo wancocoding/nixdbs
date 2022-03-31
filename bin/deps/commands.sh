@@ -36,16 +36,48 @@ exe_sudo_string()
 	fi
 }
 
+# this will install packages via different ways, system pm or brew or manually
+pkg_install_wrapper()
+{
+		# get package meta from json file
+		# get teh package install meta
+		local osname=$OSNAME_LOWERCASE
+		fmt_info "install $1 in $osname"
+		# local pkg_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname'])"
+		# local name_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['name'])"
+		# local method_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['method'])"
+		# cat ./data/pkg_meta.json | python3 -c "$pkg_query_text" >/dev/null 2>&1
+		local query_result="$(python3 ./jq.py --os=$osname --pkg=$1)"
+		if [[ "$query_result" = "none" ]]; then
+				fmt_warning "package meta not exist, now try use system package manager"
+				# try to install pkg by system package manager
+				pkg_install "$1"
+		else
+			  echo $query_result
+				local pkg_name=`echo $query_result | awk '{print $1}'`
+				local pkg_install_method=`echo $query_result | awk '{print $2}'`
+				fmt_info "install $pkg_name by $pkg_install_method"
+				if [ "$pkg_install_method" = "system" ]; then
+					pkg_install "$pkg_name"
+				elif [[ "$pkg_install_method" = "brew" ]]; then
+					echo "$install by homebrew"
+				elif [[ "$pkg_install_method" = "manual_compile" ]]; then
+					echo "$install by manual compile"
+				else
+					fmt_error "install method: ${pkg_install_method} not supported!"
+				fi
+		fi
+}
 
 pkg_install()
 {
-    if [ -v $SYS_INSTALL_CMD ]; then
+    if [ -v $SYS_INSTALL_PKG_CMD ]; then
         error_exit "$OSNAME_LOWERCASE system install command not set correctlly!"
     fi
 
     declare -a install_cmd=()
 
-    for sys_install_cmd_arg in "${SYS_INSTALL_CMD[@]}"
+    for sys_install_cmd_arg in "${SYS_INSTALL_PKG_CMD[@]}"
     do
         install_cmd+=("$sys_install_cmd_arg")
     done
@@ -227,3 +259,6 @@ setup_os_commands()
 }
 
 setup_os_commands
+pkg_install_wrapper zsh
+pkg_install_wrapper ninja
+pkg_install_wrapper alksdhkasdh

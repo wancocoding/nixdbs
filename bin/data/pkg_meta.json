@@ -1,0 +1,17 @@
+{
+	"curl": {},
+	"wget": {},
+	"unzip": {},
+	"git": {},
+	"vim": {},
+	"neovim": {},
+	"ninja": {
+			"gentoo": { "name": "dev-util/ninja", "method": "system" },
+			"arch": { "name": "ninja", "method": "system" },
+			"manjaro": { "name": "ninja", "method": "system" },
+			"ubuntu": { "name": "ninja-build", "method": "system" },
+			"fedora": { "name": "ninja-build", "method": "system" }
+	},
+	"cmake": {},
+	"pyenv": {}
+}
