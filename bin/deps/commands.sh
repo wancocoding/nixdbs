@@ -52,6 +52,14 @@ pkg_install()
     exe_sudo "${install_cmd[@]}"
 }
 
+echo_commands()
+{
+	fmt_info "package install cmd: ${SYS_INSTALL_PKG_CMD[@]}"
+	fmt_info "package sync cmd: ${SYS_UPDATE_CMD[@]}"
+	fmt_info "package upgrade cmd: ${SYS_UPGRADE_CMD[@]}"
+	fmt_info "package clean cmd: ${SYS_CLEAN_CMD[@]}"
+}
+
 
 # =================================
 # Gentoo
@@ -170,6 +178,7 @@ setup_ubuntu_mirror()
 
 setup_ubuntu()
 {
+	fmt_info "Define your system commands"
     SYS_INSTALL_PKG_CMD=("apt" "-y" "--no-install-recommends" "install")
     SYS_UPGRADE_PKG_CMD=("apt" "update")
     SYS_UPDATE_CMD=("apt" "update")
@@ -206,6 +215,8 @@ setup_os_commands()
             error_exit "Sorry, $OSNAME_LOWERCASE is not supported right now."
             ;;
     esac
+	echo_commands
+	fmt_success "Setup system commands finish!"
 }
 
 setup_os_commands
