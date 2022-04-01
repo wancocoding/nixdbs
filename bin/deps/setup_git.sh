@@ -37,55 +37,56 @@ setup_git()
     # git config --global http.proxy
 
     if [ -n "${REMOTE_PROXY-}" ]; then
+			  fmt_info "set git http.proxy"
         git config --global http.proxy $REMOTE_PROXY
     fi
     # common git settings
-    git config --global core.autocrlf false
-    git config --global core.eol lf
-    git config --global pull.rebase true
-    git config --global core.editor vim
-		git config --global core.filemode false
-		git config --global merge.tool vimdiff
-		git config --global mergetool.prompt false
-		git config --global mergetool.keepbackup false
+    execute git config --global core.autocrlf false
+    execute git config --global core.eol lf
+    execute git config --global pull.rebase true
+    execute git config --global core.editor vim
+		execute git config --global core.filemode false
+		execute git config --global merge.tool vimdiff
+		execute git config --global mergetool.prompt false
+		execute git config --global mergetool.keepbackup false
 
 
     # git alias settings
     # git push
-    git config --global alias.p 'push'
+    execute git config --global alias.p 'push'
 
     # git status
-    git config --global alias.st 'status -sb'
+    execute git config --global alias.st 'status -sb'
 
     # git log
-    git config --global alias.ll 'log --oneline'
-    git config --global alias.lla 'log --oneline --decorate --graph --all'
+    execute git config --global alias.ll 'log --oneline'
+    execute git config --global alias.lla 'log --oneline --decorate --graph --all'
 
     # last commit
-    git config --global alias.last 'log -1 HEAD --stat'
+    execute git config --global alias.last 'log -1 HEAD --stat'
 
     # git commit
-    git config --global alias.cm 'commit'
-    git config --global alias.cmm 'commit -m'
+    execute git config --global alias.cm 'commit'
+    execute git config --global alias.cmm 'commit -m'
 
     # git checkout
-    git config --global alias.co 'checkout'
+    execute git config --global alias.co 'checkout'
 
     # git remote
-    git config --global alias.rv 'remote -v'
+    execute git config --global alias.rv 'remote -v'
 
     # git diff 
-    git config --global alias.d 'diff'
-    git config --global alias.dv 'difftool -t vimdiff -y'
+    execute git config --global alias.d 'diff'
+    execute git config --global alias.dv 'difftool -t vimdiff -y'
 
     # list git global config
-    git config --global alias.gl 'config --global -l'
+    execute git config --global alias.gl 'config --global -l'
 
     # git branch
-    git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+    execute git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
 
     # reset last 
-    git config --global alias.undo 'reset HEAD~1 --mixed'
+    execute git config --global alias.undo 'reset HEAD~1 --mixed'
     
     # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
 		fmt_success "setup git finish!"
