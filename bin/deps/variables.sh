@@ -43,3 +43,6 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted 
 EOF
 )"
 
+
+TIMEZONE="Asia/shanghai"
+

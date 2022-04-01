@@ -259,6 +259,3 @@ setup_os_commands()
 }
 
 setup_os_commands
-pkg_install_wrapper zsh
-pkg_install_wrapper ninja
-pkg_install_wrapper alksdhkasdh
