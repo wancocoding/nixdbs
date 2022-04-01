@@ -62,23 +62,8 @@ source ./deps/setup_git.sh
 # setup timezone
 source ./deps/setup_tz.sh
 
-
-# ==================================
-# Setup locale
-# ==================================
-
-setup_locale()
-{
-    if command -v localectl > /dev/null ; then
-        exe_sudo_cmd "localectl set-locale LANG=en_US.UTF-8"
-        exe_sudo_cmd "localectl"
-    else
-        log_yellow "You should set locale manually later"
-    fi
-    # sudo apt install -y locales \
-    # && sudo locale-gen en_US.UTF-8 \
-    # && sudo locale
-}
+# setup locale
+source ./deps/setup_locale.sh
 
 # ==================================
 # Setup zsh
