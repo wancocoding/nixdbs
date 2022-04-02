@@ -4,7 +4,7 @@ link_vimrc()
 {
 	fmt_info "link vimrc ......"
 	rm -rf $HOME/.vimrc >/dev/null 2>&1
-	ln -s $NIXDBS_HOME/dotfiles/.vimrc $HOME/.vimrc
+	ln -s $NIXDBS_HOME/dotfiles/vimrc $HOME/.vimrc
 }
 
 install_vim_plug()
@@ -17,7 +17,7 @@ install_vim_plug()
 			$VIM_PLUG_VIMFILE_URL_PROXY
 	fi
 	fmt_info "install plugin"
-	vim +PlugInInstall +qall
+	vim +PlugInstall +qall
 }
 
 setup_vim()
