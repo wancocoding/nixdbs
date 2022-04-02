@@ -11,4 +11,4 @@ fi
 
 git clone $NIXDBS_REPO $NIXDBS_HOME
 
-source $NIXDBS_HOME/bin/boot.sh
+/bin/bash $NIXDBS_HOME/bin/boot.sh
