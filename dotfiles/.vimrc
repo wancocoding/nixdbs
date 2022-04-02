@@ -42,11 +42,11 @@ function! PlugLoaded(name)
             if g:plugs[a:name].dir[-1:] == '/'
                 return (
                     \ isdirectory(g:plugs[a:name].dir) &&
-                    \ stridx(&rth, g:plugs[a:name].dir[:-2]) >= 0)
+                    \ stridx(&rtp, g:plugs[a:name].dir[:-2]) >= 0)
             else
                 return (
                     \ isdirectory(g:plugs[a:name].dir) &&
-                    \ stridx(&rth, g:plugs[a:name]) >= 0)
+                    \ stridx(&rtp, g:plugs[a:name]) >= 0)
 
             endif
         end
