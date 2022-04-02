@@ -9,9 +9,25 @@
 			"gentoo": { "name": "dev-util/ninja", "method": "system" },
 			"arch": { "name": "ninja", "method": "system" },
 			"manjaro": { "name": "ninja", "method": "system" },
-			"ubuntu": { "name": "ninja-build", "method": "system" },
-			"fedora": { "name": "ninja-build", "method": "system" }
+			"ubuntu": { "name": "ninja-build", "method": "system" }
 	},
-	"cmake": {},
+	"clang": {
+			"gentoo": { "name": "sys-devel/clang", "method": "system" },
+			"arch": { "name": "clang", "method": "system" },
+			"manjaro": { "name": "clang", "method": "system" },
+			"ubuntu": { "name": "clang-12", "method": "system" }
+	},
+	"cmake": {
+			"gentoo": { "name": "dev-util/cmake", "method": "system" },
+			"arch": { "name": "cmake", "method": "system" },
+			"manjaro": { "name": "cmake", "method": "system" },
+			"ubuntu": { "name": "cmake", "method": "system" }
+	},
+	"gdb": {
+			"gentoo": { "name": "sys-devel/gdb", "method": "system" },
+			"arch": { "name": "gdb", "method": "system" },
+			"manjaro": { "name": "gdb", "method": "system" },
+			"ubuntu": { "name": "gdb", "method": "system" }
+	},
 	"pyenv": {}
 }

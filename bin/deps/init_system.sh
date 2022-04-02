@@ -21,7 +21,7 @@ system_update()
 init_system()
 {
 	echo_title "Update your system!"
-	# system_update
+	system_update
 }
 
 

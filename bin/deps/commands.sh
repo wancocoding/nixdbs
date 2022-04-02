@@ -53,7 +53,7 @@ pkg_install_wrapper()
 				# try to install pkg by system package manager
 				pkg_install "$1"
 		else
-			  echo $query_result
+			  fmt_info "find package meta: $query_result"
 				local pkg_name=`echo $query_result | awk '{print $1}'`
 				local pkg_install_method=`echo $query_result | awk '{print $2}'`
 				fmt_info "install $pkg_name by $pkg_install_method"

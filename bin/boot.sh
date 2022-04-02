@@ -51,7 +51,7 @@ source ./deps/detect_os.sh
 source ./deps/commands.sh
 
 # update system
-source ./deps/init_system.sh
+# source ./deps/init_system.sh
 
 # install base tools
 source ./deps/install_base_pkg.sh
@@ -66,19 +66,22 @@ source ./deps/setup_git.sh
 source ./deps/setup_tz.sh
 
 # setup locale
-source ./deps/setup_locale.sh
+# source ./deps/setup_locale.sh
 
 # setup zsh
-source ./deps/setup_zsh.sh
+# source ./deps/setup_zsh.sh
 
 # setup Hoembrew
-source ./deps/setup_homebrew.sh
+# source ./deps/setup_homebrew.sh
 
 # install base dev kits packages
 source ./deps/setup_dev_base_kits.sh
 
 # setup vim
 source ./deps/setup_vim.sh
+
+# setup c cpp
+source ./deps/setup_lang_c.sh
 
 finish_exit
 
