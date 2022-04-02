@@ -37,10 +37,21 @@ Plug 'drewtempelmeyer/palenight.vim'
 call plug#end()
 
 function! PlugLoaded(name)
-    return (
-        \ has_key(g:plugs, a:name) &&
-        \ isdirectory(g:plugs[a:name].dir) &&
-        \ stridx(&rtp, g:plugs[a:name].dir) >= 0)
+    if exists("g:plugs")
+        if has_key(g:plugs, a:name)
+            if g:plugs[a:name].dir[-1:] == '/'
+                return (
+                    \ isdirectory(g:plugs[a:name].dir) &&
+                    \ stridx(&rth, g:plugs[a:name].dir[:-2]) >= 0)
+            else
+                return (
+                    \ isdirectory(g:plugs[a:name].dir) &&
+                    \ stridx(&rth, g:plugs[a:name]) >= 0)
+
+            endif
+        end
+    endif
+    return 0
 endfunction
 
 " }}}
