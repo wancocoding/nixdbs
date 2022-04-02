@@ -51,3 +51,5 @@ TIMEZONE="Asia/shanghai"
 
 VIM_PLUG_VIMFILE_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 VIM_PLUG_VIMFILE_URL_PROXY="${GITHUB_PROXY}/$VIM_PLUG_VIMFILE_URL"
+
+GLOBAL_NODE_VERSION="gallium"

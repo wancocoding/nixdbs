@@ -54,16 +54,16 @@ source ./deps/commands.sh
 # source ./deps/init_system.sh
 
 # install base tools
-source ./deps/install_base_pkg.sh
+# source ./deps/install_base_pkg.sh
 
 # setup a local proxy
-source ./deps/setup_local_proxy.sh
+# source ./deps/setup_local_proxy.sh
 
 # setup git
-source ./deps/setup_git.sh
+# source ./deps/setup_git.sh
 
 # setup timezone
-source ./deps/setup_tz.sh
+# source ./deps/setup_tz.sh
 
 # setup locale
 # source ./deps/setup_locale.sh
@@ -75,13 +75,16 @@ source ./deps/setup_tz.sh
 # source ./deps/setup_homebrew.sh
 
 # install base dev kits packages
-source ./deps/setup_dev_base_kits.sh
+# source ./deps/setup_dev_base_kits.sh
 
 # setup vim
-source ./deps/setup_vim.sh
+# source ./deps/setup_vim.sh
 
 # setup c cpp
-source ./deps/setup_lang_c.sh
+# source ./deps/setup_lang_c.sh
+
+# setup nvm and node
+source ./deps/setup_lang_node.sh
 
 finish_exit
 
