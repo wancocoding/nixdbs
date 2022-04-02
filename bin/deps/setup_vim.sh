@@ -17,7 +17,7 @@ install_vim_plug()
 			$VIM_PLUG_VIMFILE_URL_PROXY
 	fi
 	fmt_info "install plugin"
-	vim +PluginInstall +qall
+	vim +PlugInInstall +qall
 }
 
 setup_vim()
