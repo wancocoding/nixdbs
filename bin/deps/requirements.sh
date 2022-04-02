@@ -16,14 +16,36 @@ detect_sudo()
 {
     fmt_info "checking sudo..."
     if [[ ! -x "/usr/bin/sudo" ]]; then
-        echo "You must install sudo first"
+        error_exit "You must install sudo first"
         exit 1
     fi
     # check if user can sudo
     if ! sudo -v &> /dev/null ; then
-        echo "Error: you can not use sudo command, please make sure you have sudo privileges"
+        error_exit "you can not use sudo command, please make sure you have sudo privileges"
         exit 1
     fi
+	fmt_info "[ok]"
+}
+
+detect_git()
+{
+	fmt_info "checking git ..."
+	if command -v git >dev/null 2>&1; then
+		error_exit "Error: You must install git first"
+		exit 1
+	fi
+	fmt_info "[ok]"
+}
+
+
+detect_curl()
+{
+	fmt_info "checking curl ..."
+	if command -v curl >dev/null 2>&1; then
+		error_exit "Error: You must install curl first"
+		exit 1
+	fi
+	fmt_info "[ok]"
 }
 
 detect_systemd()
@@ -33,9 +55,10 @@ detect_systemd()
 	then
 		:;
 	else
-		echo "Error: only linux distributions using systemd are supported!"
+		error_exit "only linux distributions using systemd are supported!"
 		exit 1
 	fi
+	fmt_info "[ok]"
 }
 
 detect_requirements()
@@ -43,6 +66,8 @@ detect_requirements()
     echo_title "Check Requirements"
     detect_sudo
 	detect_systemd
+	detect_git
+	detect_curl
     fmt_success "Check requirements success"
 }
 

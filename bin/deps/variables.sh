@@ -4,7 +4,9 @@
 # useful variables
 # ==================================
 # install path
-DOTFILE_HOME=$HOME/.cocodot/dotfiles
+NIXDBS_HOME=$HOME/.nixdbs
+NIXDBS_REPO=git@192.168.0.118:dotfiles.git
+# NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 
 # github mirror
 # usage:

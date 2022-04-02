@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-
+# ####################################################
+# nixdbs 
+# nixdbs is a bootstrap tools to setup a development env quickly
+# ####################################################
 # usage:
 # curl -L https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh | bash
 # or
