@@ -188,7 +188,7 @@ endif
 " let g:gruvbox_contrast_dark="hard"
 " colorscheme gruvbox
 " === molokai ===
-if PlugLoaded('molokai')
+if PlugLoaded('tomasr/molokai')
     colorscheme molokai
 endif
 " === palenight ===
