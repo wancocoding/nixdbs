@@ -9,11 +9,15 @@ link_vimrc()
 
 install_vim_plug()
 {
+	fmt_info "setup vim plugin"
+	fmt_info "check vim-plug"
 	if [ ! -f $HOME/.vim/autoload/plug.vim ];then
 		fmt_info "install vim-plug"
 		curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 			$VIM_PLUG_VIMFILE_URL_PROXY
 	fi
+	fmt_info "install plugin"
+	vim +PluginInstall +qall
 }
 
 setup_vim()
@@ -35,7 +39,6 @@ setup_vim()
 	fi
 	link_vimrc
 	install_vim_plug
-	vim +PluginInstall +qall
 	fmt_success "Setup vim finish!"
 }
 
