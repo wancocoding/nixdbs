@@ -36,23 +36,23 @@ setup_nvm_profile()
 		source $HOME/.zshrc
     fi
     # for bash
-    if [ -a $HOME/.profile ]; then
-        if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.profile ; then
-            echo '' >> $HOME/.profile
-            echo '# ====== NVM ====== ' >> $HOME/.profile
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.profile
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.profile
-            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.profile
+    if [ -a $HOME/.bash_profile ]; then
+        if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bash_profile ; then
+            echo '' >> $HOME/.bash_profile
+            echo '# ====== NVM ====== ' >> $HOME/.bash_profile
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bash_profile
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bash_profile
+            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bash_profile
         fi
-		source $HOME/.profile
+		source $HOME/.bash_profile
     elif [ -a $HOME/.bashrc ]; then
         if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bashrc ; then
-            echo '# ====== NVM ====== ' >> $HOME/.profile
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.profile
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.profile
-            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.profile
+            echo '# ====== NVM ====== ' >> $HOME/.bashrc
+            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
+            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc
+            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bashrc
         fi
-		source $HOME/.profile
+		source $HOME/.bashrc
     fi
 }
 
