@@ -2,6 +2,73 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/wancocoding/dotfiles/compare/v1.4.0...v2.0.0) (2022-04-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* all basic setup finish, add settings files
+
+### 💄 Styles
+
+* update readme, close issues. ([ebae3a9](https://github.com/wancocoding/dotfiles/commit/ebae3a9fba57a370e8b914c1975b93e8aac29b68)), closes [#8](https://github.com/wancocoding/dotfiles/issues/8) [#9](https://github.com/wancocoding/dotfiles/issues/9) [#10](https://github.com/wancocoding/dotfiles/issues/10) [#11](https://github.com/wancocoding/dotfiles/issues/11) [#12](https://github.com/wancocoding/dotfiles/issues/12) [#13](https://github.com/wancocoding/dotfiles/issues/13) [#14](https://github.com/wancocoding/dotfiles/issues/14)
+
+
+### 🚀 Chore
+
+* **release:** 1.4.1 ([659caf9](https://github.com/wancocoding/dotfiles/commit/659caf99b4586f129311c12d0ab35d49284ab9a0))
+* **release:** 1.5.0 ([53eb37b](https://github.com/wancocoding/dotfiles/commit/53eb37bbbf89bd4940e272706aa626e509988958))
+* **release:** 1.5.1 ([57ea9c5](https://github.com/wancocoding/dotfiles/commit/57ea9c5a14b8530dac3f6b94c8349a558fd1690f))
+* **release:** 1.5.2 ([7c73051](https://github.com/wancocoding/dotfiles/commit/7c730519be95dfddb55c4124db39288f733d3c3b))
+* **release:** 1.5.3 ([710fd50](https://github.com/wancocoding/dotfiles/commit/710fd509f6b8312ed97b92d576cbbc9cdee3f934))
+
+
+### 🐛 Bug Fixes
+
+* detect systemd issue ([0241407](https://github.com/wancocoding/dotfiles/commit/024140704e3b5d4e1edea4f4b8bc1c6a52e5eac3))
+* fix version number in package.json ([5653e5e](https://github.com/wancocoding/dotfiles/commit/5653e5ed37cc59b724de62f7f6a55d41ac83881a))
+* fork and run boot script ([0c13342](https://github.com/wancocoding/dotfiles/commit/0c13342e95402c198279dce1ece4fff7a09ff69b))
+* nvm and homebrew env to profile not work correctly ([b46bef3](https://github.com/wancocoding/dotfiles/commit/b46bef3f34f6575f90337868ec27ee73b1c18884)), closes [#52](https://github.com/wancocoding/dotfiles/issues/52)
+* try to close issue from commit ([e6bded2](https://github.com/wancocoding/dotfiles/commit/e6bded2feba292d5b7f59a35a50d66dca356bdb2)), closes [#5](https://github.com/wancocoding/dotfiles/issues/5) [#6](https://github.com/wancocoding/dotfiles/issues/6) [#7](https://github.com/wancocoding/dotfiles/issues/7)
+* update gitignoe ([9ce1926](https://github.com/wancocoding/dotfiles/commit/9ce192654a5b5877ff32aaf0df7f030272e6dbce))
+* use sed command to replace mirror ([f2c4810](https://github.com/wancocoding/dotfiles/commit/f2c48105854dc89b026d1d6e95f1469358a0c5d1))
+
+
+### ✨ Features
+
+* add Archlinux support ([7806855](https://github.com/wancocoding/dotfiles/commit/78068556a7d0de23cc76cbe148eb803c39a2a6a6)), closes [#49](https://github.com/wancocoding/dotfiles/issues/49)
+* add c and cpp language develop kits ([e1f4714](https://github.com/wancocoding/dotfiles/commit/e1f47149b4afe6a4993b6d12f97782e71cad0589)), closes [#17](https://github.com/wancocoding/dotfiles/issues/17)
+* add config files for install python script ([886c2e1](https://github.com/wancocoding/dotfiles/commit/886c2e1236bd0713807a6f474cd2615da4fc5708)), closes [#29](https://github.com/wancocoding/dotfiles/issues/29) [#19](https://github.com/wancocoding/dotfiles/issues/19)
+* add development workflow in readme ([59078ff](https://github.com/wancocoding/dotfiles/commit/59078ff2c70e64e4953914cced4698f179bc41d6)), closes [#5](https://github.com/wancocoding/dotfiles/issues/5) [#6](https://github.com/wancocoding/dotfiles/issues/6) [#7](https://github.com/wancocoding/dotfiles/issues/7) [#8](https://github.com/wancocoding/dotfiles/issues/8) [#9](https://github.com/wancocoding/dotfiles/issues/9) [#10](https://github.com/wancocoding/dotfiles/issues/10) [#11](https://github.com/wancocoding/dotfiles/issues/11) [#12](https://github.com/wancocoding/dotfiles/issues/12) [#13](https://github.com/wancocoding/dotfiles/issues/13) [#14](https://github.com/wancocoding/dotfiles/issues/14)
+* add dictionary file for vim ([a864fcd](https://github.com/wancocoding/dotfiles/commit/a864fcd46369cff07be2bff5d1250e792bd16065)), closes [#22](https://github.com/wancocoding/dotfiles/issues/22)
+* add Homebrew setup step. ([79f621f](https://github.com/wancocoding/dotfiles/commit/79f621f4f877d721d6e5f8f56b8eed576952e371)), closes [#19](https://github.com/wancocoding/dotfiles/issues/19)
+* add progress for setup steps ([4345816](https://github.com/wancocoding/dotfiles/commit/43458166128fc4cd84ad56fd41de6f36a4d278da)), closes [#40](https://github.com/wancocoding/dotfiles/issues/40)
+* add python script for install software ([c93228f](https://github.com/wancocoding/dotfiles/commit/c93228f1f3d31c67aa075621ad76893fd632b79d)), closes [#30](https://github.com/wancocoding/dotfiles/issues/30) [#28](https://github.com/wancocoding/dotfiles/issues/28)
+* add setup locale ([d610ae2](https://github.com/wancocoding/dotfiles/commit/d610ae282f8b2b76e7a5ed525bab254231d2c63e))
+* add ubuntu support ([5f3d989](https://github.com/wancocoding/dotfiles/commit/5f3d989d83541646ff01f7b973115fa9aef4f08b)), closes [#48](https://github.com/wancocoding/dotfiles/issues/48)
+* all basic setup finish, add settings files ([f975656](https://github.com/wancocoding/dotfiles/commit/f9756560c1572e0ccb4ebdf39a708cfc4c8535ca)), closes [#5](https://github.com/wancocoding/dotfiles/issues/5) [#6](https://github.com/wancocoding/dotfiles/issues/6) [#7](https://github.com/wancocoding/dotfiles/issues/7) [#8](https://github.com/wancocoding/dotfiles/issues/8) [#9](https://github.com/wancocoding/dotfiles/issues/9) [#10](https://github.com/wancocoding/dotfiles/issues/10) [#11](https://github.com/wancocoding/dotfiles/issues/11) [#12](https://github.com/wancocoding/dotfiles/issues/12) [#13](https://github.com/wancocoding/dotfiles/issues/13) [#14](https://github.com/wancocoding/dotfiles/issues/14)
+* check git curl before start setup ([4dcd063](https://github.com/wancocoding/dotfiles/commit/4dcd063ddb99c7953819e505c6a12b5de7fd0186))
+* check system python3 is installed ([1b18c98](https://github.com/wancocoding/dotfiles/commit/1b18c98148334ccabadbdb3e67544a211e53ea38)), closes [#32](https://github.com/wancocoding/dotfiles/issues/32)
+* clone the dotfile repository in home directory ([bc8c0db](https://github.com/wancocoding/dotfiles/commit/bc8c0db49021949ddb709b24322785c1c3a93637)), closes [#33](https://github.com/wancocoding/dotfiles/issues/33) [#38](https://github.com/wancocoding/dotfiles/issues/38) [#37](https://github.com/wancocoding/dotfiles/issues/37) [#31](https://github.com/wancocoding/dotfiles/issues/31) [#32](https://github.com/wancocoding/dotfiles/issues/32)
+* define version in package.json ([63ff825](https://github.com/wancocoding/dotfiles/commit/63ff8258728a02eff75aa58e98c6d1253c3e422d))
+* enable default config file for setup ([4b44e55](https://github.com/wancocoding/dotfiles/commit/4b44e553e51afc05e1385fa06073550aac1556c1)), closes [#20](https://github.com/wancocoding/dotfiles/issues/20) [#18](https://github.com/wancocoding/dotfiles/issues/18)
+* install vim and vim-plug ([82f9f0d](https://github.com/wancocoding/dotfiles/commit/82f9f0d2217378ae8afe3b22cc8de796bdb7ce30)), closes [#15](https://github.com/wancocoding/dotfiles/issues/15) [#42](https://github.com/wancocoding/dotfiles/issues/42)
+* refactor and add gentoo support ([569afa6](https://github.com/wancocoding/dotfiles/commit/569afa6c17f2c60b52ee88b49c5ecb7dde9469f0)), closes [#35](https://github.com/wancocoding/dotfiles/issues/35)
+* refactor and add manjaro support ([d7e5f0c](https://github.com/wancocoding/dotfiles/commit/d7e5f0ccf5812f1451fba0092e697704d58ed0af)), closes [#46](https://github.com/wancocoding/dotfiles/issues/46) [#41](https://github.com/wancocoding/dotfiles/issues/41) [#44](https://github.com/wancocoding/dotfiles/issues/44) [#28](https://github.com/wancocoding/dotfiles/issues/28) [#34](https://github.com/wancocoding/dotfiles/issues/34)
+* refactor install package function ([fdc97b1](https://github.com/wancocoding/dotfiles/commit/fdc97b1c95c9619abcbd527c6af4debf78d2ec38))
+* refactor setup system command ([bbe6443](https://github.com/wancocoding/dotfiles/commit/bbe6443c22083dfc539899dea0175b3d793f0ca1)), closes [#50](https://github.com/wancocoding/dotfiles/issues/50)
+* refactor setup timezone ([f1272dc](https://github.com/wancocoding/dotfiles/commit/f1272dcdc48fd4bf58d2d2812cfe73243f90fd3f))
+* refactor zsh and homebrew setup ([3162d51](https://github.com/wancocoding/dotfiles/commit/3162d519e6e723356725c0dc4021a9e134c891bd))
+* separate install script and boot script ([001bb26](https://github.com/wancocoding/dotfiles/commit/001bb2668267d70bb9719454979d6dbaa9eddfb6))
+* setup nvm and node ([66f71ab](https://github.com/wancocoding/dotfiles/commit/66f71abe54fb4d68143c48c30714a44beb24225a)), closes [#51](https://github.com/wancocoding/dotfiles/issues/51)
+* setup pyenv and install default python ([2e545ce](https://github.com/wancocoding/dotfiles/commit/2e545ce894ea0cc9475aebb730d7edb9bd5d8cad)), closes [#16](https://github.com/wancocoding/dotfiles/issues/16)
+* setup ruby and rbenv ([7130f45](https://github.com/wancocoding/dotfiles/commit/7130f4541827061faecac9b9f2486e839b638e6a)), closes [#26](https://github.com/wancocoding/dotfiles/issues/26)
+* show git config steps ([33fda8e](https://github.com/wancocoding/dotfiles/commit/33fda8e9dcfffd071c5fc6379e329a2edddfb900)), closes [#47](https://github.com/wancocoding/dotfiles/issues/47)
+* show system install and update command ([fd2593e](https://github.com/wancocoding/dotfiles/commit/fd2593e0d17554298ad9a715542b3c42934dccd7))
+* systemd required ([f03d3c2](https://github.com/wancocoding/dotfiles/commit/f03d3c2b9996512a1cd590c8a9e307ed98887fd5)), closes [#45](https://github.com/wancocoding/dotfiles/issues/45)
+* update versionrc ([e418192](https://github.com/wancocoding/dotfiles/commit/e41819297c5b92c78ededab92928d3b0b02a6b19))
+* update versionrc file ([616a432](https://github.com/wancocoding/dotfiles/commit/616a432615a469ca013bcac3b685772918aca87a))
+
 ### [1.5.3](https://github.com/wancocoding/dotfiles/compare/v1.5.2...v1.5.3) (2022-03-19)
 
 
