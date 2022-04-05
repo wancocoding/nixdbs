@@ -33,4 +33,4 @@ setup_locale()
 }
 
 
-run_step "setup_locale"
+append_step "setup_locale"

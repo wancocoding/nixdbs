@@ -43,6 +43,11 @@ get_config()
 	return 1
 }
 
+append_step()
+{
+	SETUP_STEPS_ARRAY+=("$1")
+}
+
 run_step()
 {
 	local encode_title=`echo "$1" | base64`
@@ -60,4 +65,15 @@ run_step()
 		echo "Skip $1, according to configuration file"
 		return
 	fi
+}
+
+main_step()
+{
+	local step_total="${#SETUP_STEPS_ARRAY[@]}"
+	let step_index=1
+	for si in "${!SETUP_STEPS_ARRAY[@]}"; do
+		echo ">>> run setup step (${step_index} of ${step_total})"
+		run_step "${SETUP_STEPS_ARRAY[si]}"
+		let step_index+=1
+	done
 }

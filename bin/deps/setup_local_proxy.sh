@@ -67,5 +67,5 @@ setup_remote_proxy()
 
 }
 
-run_step "setup_remote_proxy"
+append_step "setup_remote_proxy"
 

@@ -25,4 +25,4 @@ init_system()
 }
 
 
-run_step "init_system"
+append_step "init_system"

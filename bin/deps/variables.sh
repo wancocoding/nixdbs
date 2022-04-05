@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # ==================================
-# useful variables
+# variables
 # ==================================
+
 # install path
 NIXDBS_HOME=$HOME/.nixdbs
 NIXDBS_REPO=git@192.168.0.118:dotfiles.git
@@ -56,3 +57,6 @@ GLOBAL_NODE_VERSION="gallium"
 
 # default python version to install by pyenv
 PYENV_DEFAULT_PY_VERSION="3.9.12"
+
+# setup steps
+declare -a SETUP_STEPS_ARRAY

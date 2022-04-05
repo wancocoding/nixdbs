@@ -75,4 +75,4 @@ setup_node_kits()
 }
 
 
-run_step "setup_node_kits"
+append_step "setup_node_kits"

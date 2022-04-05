@@ -81,4 +81,4 @@ setup_py_kits()
 }
 
 
-run_step "setup_py_kits"
+append_step "setup_py_kits"

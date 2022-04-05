@@ -36,4 +36,4 @@ install_base_tools()
 }
 
 
-run_step "install_base_tools"
+append_step "install_base_tools"
