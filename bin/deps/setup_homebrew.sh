@@ -74,4 +74,4 @@ VEOF
 }
 
 
-setup_homebrew
+run_step "setup_homebrew"

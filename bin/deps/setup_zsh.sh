@@ -146,5 +146,5 @@ EOF
 
 }
 
-setup_zsh
+run_step "setup_zsh"
 

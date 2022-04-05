@@ -42,4 +42,4 @@ setup_vim()
 	fmt_success "Setup vim finish!"
 }
 
-setup_vim
+run_step "setup_vim"

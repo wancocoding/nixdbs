@@ -40,4 +40,4 @@ setup_basic_dev_kits()
 	fmt_success "Setup base dev kits finish!"
 }
 
-setup_basic_dev_kits
+run_step "setup_basic_dev_kits"

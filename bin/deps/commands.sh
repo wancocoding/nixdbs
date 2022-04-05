@@ -17,6 +17,7 @@ execute()
     fmt_cmd "$*"
     if ! "$@"; then
         fmt_error "when excute command: $*"
+		error_exit "run command failed, now exit."
     fi
 }
 

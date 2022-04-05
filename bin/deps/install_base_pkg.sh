@@ -35,4 +35,5 @@ install_base_tools()
 	fmt_success "all base tools pkg has installed"
 }
 
-install_base_tools
+
+run_step "install_base_tools"

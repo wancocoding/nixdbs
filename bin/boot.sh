@@ -24,6 +24,11 @@ REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
 # create a temp directory for 
 TMP_FILE="$(mktemp -d)" || exit 1
 
+NIXDBS_CACHE_STEP_FILE=$HOME/.cache/nixdbs/run_steps
+
+mkdir -p $HOME/.cache/nixdbs >/dev/null 2>&1
+[ -f $NIXDBS_CACHE_STEP_FILE ] || touch $NIXDBS_CACHE_STEP_FILE 
+
 # get the real path of this script
 WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
@@ -32,14 +37,14 @@ cd $WORKPATH
 # init variables
 source ./deps/variables.sh
 
+# basic functions
+source ./deps/base_func.sh
+
 # init colors
 source ./deps/colors.sh
 
 # logging
 source ./deps/logging.sh
-
-# basic functions
-source ./deps/base_func.sh
 
 # check requirements
 source ./deps/requirements.sh
@@ -51,37 +56,37 @@ source ./deps/detect_os.sh
 source ./deps/commands.sh
 
 # update system
-# source ./deps/init_system.sh
+source ./deps/init_system.sh
 
 # install base tools
-# source ./deps/install_base_pkg.sh
+source ./deps/install_base_pkg.sh
 
 # setup a local proxy
-# source ./deps/setup_local_proxy.sh
+source ./deps/setup_local_proxy.sh
 
 # setup git
-# source ./deps/setup_git.sh
+source ./deps/setup_git.sh
 
 # setup timezone
-# source ./deps/setup_tz.sh
+source ./deps/setup_tz.sh
 
 # setup locale
-# source ./deps/setup_locale.sh
+source ./deps/setup_locale.sh
 
 # setup zsh
-# source ./deps/setup_zsh.sh
+source ./deps/setup_zsh.sh
 
 # setup Hoembrew
-# source ./deps/setup_homebrew.sh
+source ./deps/setup_homebrew.sh
 
 # install base dev kits packages
-# source ./deps/setup_dev_base_kits.sh
+source ./deps/setup_dev_base_kits.sh
 
 # setup vim
-# source ./deps/setup_vim.sh
+source ./deps/setup_vim.sh
 
 # setup c cpp
-# source ./deps/setup_lang_c.sh
+source ./deps/setup_lang_c.sh
 
 # setup nvm and node
 source ./deps/setup_lang_node.sh

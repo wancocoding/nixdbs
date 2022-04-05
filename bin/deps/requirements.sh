@@ -30,7 +30,7 @@ detect_sudo()
 detect_git()
 {
 	fmt_info "checking git ..."
-	if command -v git >dev/null 2>&1; then
+	if ! command -v git >/dev/null 2>&1; then
 		error_exit "Error: You must install git first"
 		exit 1
 	fi
@@ -41,7 +41,7 @@ detect_git()
 detect_curl()
 {
 	fmt_info "checking curl ..."
-	if command -v curl >dev/null 2>&1; then
+	if ! command -v curl >/dev/null 2>&1; then
 		error_exit "Error: You must install curl first"
 		exit 1
 	fi

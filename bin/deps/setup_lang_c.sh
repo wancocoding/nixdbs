@@ -41,4 +41,4 @@ setup_c_kits()
 }
 
 
-setup_c_kits
+run_step "setup_c_kits"

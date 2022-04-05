@@ -92,4 +92,4 @@ setup_git()
 		fmt_success "setup git finish!"
 }
 
-setup_git
+run_step "setup_git"

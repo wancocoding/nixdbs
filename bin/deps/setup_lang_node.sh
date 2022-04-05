@@ -78,4 +78,4 @@ setup_node_kits()
 }
 
 
-setup_node_kits
+run_step "setup_node_kits"

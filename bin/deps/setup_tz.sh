@@ -35,5 +35,5 @@ setup_timezone()
 }
 
 
-setup_timezone
+run_step "setup_timezone"
 
