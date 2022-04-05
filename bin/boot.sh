@@ -94,6 +94,9 @@ source ./deps/setup_lang_node.sh
 # setup python and pyenv
 source ./deps/setup_lang_py.sh
 
+# setup ruby and rbenv
+source ./deps/setup_lang_rb.sh
+
 main_step
 
 finish_exit
