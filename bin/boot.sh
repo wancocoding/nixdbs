@@ -91,6 +91,9 @@ source ./deps/setup_lang_c.sh
 # setup nvm and node
 source ./deps/setup_lang_node.sh
 
+# setup python and pyenv
+source ./deps/setup_lang_py.sh
+
 finish_exit
 
 # vim:set ft=bash et sts=4 ts=4 sw=4 tw=78:

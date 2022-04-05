@@ -56,14 +56,7 @@ VEOF
         fi
     fi
     # for bash
-    if [ -a $HOME/.bash_profile ]; then
-        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.bash_profile ; then
-            echo '' >> $HOME/.bash_profile
-            echo '# ====== Homebrew ====== ' >> $HOME/.bash_profile
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bash_profile
-            echo "$brew_env_text" >> $HOME/.bash_profile
-        fi
-    elif [ -a $HOME/.bashrc ]; then
+    if [ -a $HOME/.bashrc ]; then
         if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.bashrc ; then
             echo '' >> $HOME/.bashrc
             echo '# ====== Homebrew ====== ' >> $HOME/.bashrc

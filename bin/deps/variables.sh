@@ -53,3 +53,6 @@ VIM_PLUG_VIMFILE_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master
 VIM_PLUG_VIMFILE_URL_PROXY="${GITHUB_PROXY}/$VIM_PLUG_VIMFILE_URL"
 
 GLOBAL_NODE_VERSION="gallium"
+
+# default python version to install by pyenv
+PYENV_DEFAULT_PY_VERSION="3.9.12"

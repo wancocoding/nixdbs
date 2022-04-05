@@ -36,29 +36,26 @@ setup_nvm_profile()
 		source $HOME/.zshrc
     fi
     # for bash
-    if [ -a $HOME/.bash_profile ]; then
-        if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bash_profile ; then
-            echo '' >> $HOME/.bash_profile
-            echo '# ====== NVM ====== ' >> $HOME/.bash_profile
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bash_profile
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bash_profile
-            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bash_profile
-        fi
-		source $HOME/.bash_profile
-    elif [ -a $HOME/.bashrc ]; then
+    if [ -a $HOME/.bashrc ]; then
         if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bashrc ; then
             echo '# ====== NVM ====== ' >> $HOME/.bashrc
             echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc
             echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bashrc
         fi
-		source $HOME/.bashrc
     fi
 }
 
 install_global_node()
 {
 	fmt_info "setup a global node version"
+	# if [ "$(ps | grep `echo $$` | awk '{ print $4 }')" = "bash" ];then
+	#	echo "your shell is bash, now reload bashrc"
+	#	source $HOME/.bashrc
+	# fi
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	nvm install --lts="$GLOBAL_NODE_VERSION"
 	nvm alias default "lts/$GLOBAL_NODE_VERSION"
 	nvm use default

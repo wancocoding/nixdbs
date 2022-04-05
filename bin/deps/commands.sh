@@ -50,23 +50,25 @@ pkg_install_wrapper()
 		# cat ./data/pkg_meta.json | python3 -c "$pkg_query_text" >/dev/null 2>&1
 		local query_result="$(python3 ./jq.py --os=$osname --pkg=$1)"
 		if [[ "$query_result" = "none" ]]; then
-				fmt_warning "package meta not exist, now try use system package manager"
-				# try to install pkg by system package manager
-				pkg_install "$1"
+			fmt_warning "package meta not exist, now try use system package manager"
+			# try to install pkg by system package manager
+			pkg_install "$1"
 		else
-			  fmt_info "find package meta: $query_result"
-				local pkg_name=`echo $query_result | awk '{print $1}'`
-				local pkg_install_method=`echo $query_result | awk '{print $2}'`
-				fmt_info "install $pkg_name by $pkg_install_method"
-				if [ "$pkg_install_method" = "system" ]; then
-					pkg_install "$pkg_name"
-				elif [[ "$pkg_install_method" = "brew" ]]; then
-					echo "$install by homebrew"
-				elif [[ "$pkg_install_method" = "manual_compile" ]]; then
-					echo "$install by manual compile"
-				else
-					fmt_error "install method: ${pkg_install_method} not supported!"
-				fi
+			fmt_info "find package meta: $query_result"
+			# get the packages
+			local pkg_name=`echo $query_result | awk '{$NF=""}1' | sed 's/[[:blank:]]*$//'`
+			local pkg_install_method=`echo $query_result | awk '{print $NF}'`
+			fmt_info "install $pkg_name by $pkg_install_method"
+			if [ "$pkg_install_method" = "system" ]; then
+				local pkg_arr_arg=($pkg_name)
+				pkg_install "${pkg_arr_arg[@]}"
+			elif [[ "$pkg_install_method" = "brew" ]]; then
+				echo "$install by homebrew"
+			elif [[ "$pkg_install_method" = "manual_compile" ]]; then
+				echo "$install by manual compile"
+			else
+				fmt_error "install method: ${pkg_install_method} not supported!"
+			fi
 		fi
 }
 
