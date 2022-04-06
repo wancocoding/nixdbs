@@ -13,8 +13,13 @@ install_vim_plug()
 	fmt_info "checking vim-plug ..."
 	if [ ! -f $HOME/.vim/autoload/plug.vim ];then
 		fmt_info "install vim-plug"
-		curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-			$VIM_PLUG_VIMFILE_URL_PROXY
+		if [ ! -z "${HTTP_PROXY:-}" ]; then
+			curl --proxy "$HTTP_PROXY" -fLo ~/.vim/autoload/plug.vim --create-dirs \
+				$VIM_PLUG_VIMFILE_URL
+		else
+			curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+				$VIM_PLUG_VIMFILE_URL
+		fi
 	fi
 	fmt_info "install plugin"
 	vim +PlugInstall +qall

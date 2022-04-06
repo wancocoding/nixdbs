@@ -36,19 +36,19 @@ setup_git()
     # git config --global user.email
     # git config --global http.proxy
 
-    if [ -n "${REMOTE_PROXY-}" ]; then
-			  fmt_info "set git http.proxy"
-        git config --global http.proxy $REMOTE_PROXY
-    fi
-    # common git settings
-    execute git config --global core.autocrlf false
-    execute git config --global core.eol lf
-    execute git config --global pull.rebase true
-    execute git config --global core.editor vim
-		execute git config --global core.filemode false
-		execute git config --global merge.tool vimdiff
-		execute git config --global mergetool.prompt false
-		execute git config --global mergetool.keepbackup false
+	if [ -n "${NIXDBS_HTTP_PROXY-}" ]; then
+		fmt_info "set git http.proxy"
+		git config --global http.proxy $NIXDBS_HTTP_PROXY
+	fi
+        # common git settings
+	execute git config --global core.autocrlf false
+	execute git config --global core.eol lf
+	execute git config --global pull.rebase true
+	execute git config --global core.editor vim
+	execute git config --global core.filemode false
+	execute git config --global merge.tool vimdiff
+	execute git config --global mergetool.prompt false
+	execute git config --global mergetool.keepbackup false
 
 
     # git alias settings

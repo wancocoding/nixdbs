@@ -19,11 +19,28 @@ else
   }
 fi
 
+get_config_str()
+{
+	# local print_string='{print $NF}'
+	# local pattern_string="/^$1/${print_string}"
+	local config_file="../configs/nixdbs.default.conf"
+	if [ ! -z "${CONFIG_FILE:-}" ]; then
+		config_file=$CONFIG_FILE
+	fi
+	# local config_value=`awk '/^$1/$print_string' $config_file`
+	local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	# echo "the config value of [$1] is $config_value"
+	if [ ! -z "$config_value" ]; then
+		echo "$config_value"
+	else
+		echo
+	fi
+}
 
 get_config()
 {
-	local print_string='{print $NF}'
-	local pattern_string="/^$1/${print_string}"
+	# local print_string='{print $NF}'
+	# local pattern_string="/^$1/${print_string}"
 	local config_file="../configs/nixdbs.default.conf"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
