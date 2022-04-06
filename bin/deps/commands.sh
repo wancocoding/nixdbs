@@ -133,9 +133,9 @@ gentoo_setup_portage_license()
 
 setup_gentoo()
 {
-    SYS_INSTALL_PKG_CMD=("emerge" "-av")
+    SYS_INSTALL_PKG_CMD=("emerge" "-v")
     SYS_UPGRADE_PKG_CMD=("emerge" "--update" "--deep" "--change-use")
-    SYS_UPDATE_CMD=("emerge" "--ask" "--sync")
+    SYS_UPDATE_CMD=("emerge" "--sync")
     SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
     SYS_CLEAN_CMD=("emerge" "-a" "--depclean")
     gentoo_setup_portage_mirror

@@ -101,6 +101,9 @@ source ./deps/setup_lang_py.sh
 # setup ruby and rbenv
 source ./deps/setup_lang_rb.sh
 
+# install tools
+source ./deps/install_tools.sh
+
 main_step
 
 finish_exit

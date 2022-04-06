@@ -40,5 +40,66 @@
 			"fedora": {"name": "zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils", "method": "system"},
 			"opensuse": { "name": "gcc automake bzip2 libbz2-devel xz xz-devel openssl-devel ncurses-devel readline-devel zlib-devel tk-devel libffi-devel sqlite3-devel", "method": "system" },
 			"default": { "name": "bzip2 libffi libxml2 libxmlsec1 openssl readline sqlite xz zlib", "method": "brew" }
+	},
+	"exa": {
+			"default": { "name": "exa", "method": "brew" },
+			"gentoo": { "name": "sys-apps/exa", "method": "system" },
+			"arch": { "name": "exa", "method": "system" },
+			"manjaro": { "name": "exa", "method": "system" },
+			"ubuntu": { "name": "exa", "method": "system" },
+			"fedora": { "name": "exa", "method": "system" }
+	},
+	"fzf": {
+			"default": { "name": "fzf", "method": "brew" },
+			"gentoo": { "name": "app-shells/fzf", "method": "system" },
+			"arch": { "name": "fzf", "method": "system" },
+			"manjaro": { "name": "fzf", "method": "system" },
+			"ubuntu": { "name": "fzf", "method": "system" },
+			"fedora": { "name": "fzf", "method": "system" }
+	},
+	"fd": {
+			"default": { "name": "fd", "method": "brew" },
+			"gentoo": { "name": "sys-apps/fd", "method": "system" },
+			"arch": { "name": "fd", "method": "system" },
+			"manjaro": { "name": "fd", "method": "system" },
+			"ubuntu": { "name": "fd-find", "method": "system" },
+			"fedora": { "name": "fd-find", "method": "system" },
+			"opensuse": { "name": "fd", "method": "system" }
+	},
+	"ripgrep": {
+			"default": { "name": "ripgrep", "method": "brew" },
+			"gentoo": { "name": "sys-apps/ripgrep", "method": "system" },
+			"arch": { "name": "ripgrep", "method": "system" },
+			"manjaro": { "name": "ripgrep", "method": "system" },
+			"ubuntu": { "name": "ripgrep", "method": "system" },
+			"fedora": { "name": "ripgrep", "method": "system" },
+			"opensuse": { "name": "ripgrep", "method": "system" }
+	},
+	"the_silver_searcher": {
+			"default": { "name": "the_silver_searcher", "method": "brew" },
+			"gentoo": { "name": "sys-apps/the_silver_searcher", "method": "system" },
+			"arch": { "name": "the_silver_searcher", "method": "system" },
+			"manjaro": { "name": "the_silver_searcher", "method": "system" },
+			"ubuntu": { "name": "silversearcher-ag", "method": "system" },
+			"fedora": { "name": "the_silver_searcher", "method": "system" },
+			"opensuse": { "name": "the_silver_searcher", "method": "system" }
+	},
+	"bat": {
+			"default": { "name": "bat", "method": "brew" },
+			"gentoo": { "name": "sys-apps/bat", "method": "system" },
+			"arch": { "name": "bat", "method": "system" },
+			"manjaro": { "name": "bat", "method": "system" },
+			"ubuntu": { "name": "bat", "method": "system" },
+			"fedora": { "name": "bat", "method": "system" },
+			"opensuse": { "name": "bat", "method": "system" }
+	},
+	"neofetch": {
+			"default": { "name": "neofetch", "method": "brew" },
+			"gentoo": { "name": "app-misc/neofetch", "method": "system" },
+			"arch": { "name": "neofetch", "method": "system" },
+			"manjaro": { "name": "neofetch", "method": "system" },
+			"ubuntu": { "name": "neofetch", "method": "system" },
+			"fedora": { "name": "neofetch", "method": "system" },
+			"opensuse": { "name": "neofetch", "method": "system" }
 	}
 }
