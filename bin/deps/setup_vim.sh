@@ -10,7 +10,7 @@ link_vimrc()
 install_vim_plug()
 {
 	fmt_info "setup vim plugin"
-	fmt_info "check vim-plug"
+	fmt_info "checking vim-plug ..."
 	if [ ! -f $HOME/.vim/autoload/plug.vim ];then
 		fmt_info "install vim-plug"
 		curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -32,7 +32,7 @@ setup_vim()
 			then 
 				:;
 			else
-				exe_sudo_string "echo '>=app-editors/vim-8.2.4328-r1 terminal' >> /etc/portage/package.use/dev-mask"
+				exe_sudo_string "echo '>=app-editors/vim-8.2.4328-r1 python terminal' >> /etc/portage/package.use/dev-mask"
 			fi
 		fi
 		pkg_install "vim"

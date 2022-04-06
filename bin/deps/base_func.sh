@@ -24,7 +24,7 @@ get_config()
 {
 	local print_string='{print $NF}'
 	local pattern_string="/^$1/${print_string}"
-	local config_file="../nixdbs.default.conf"
+	local config_file="../configs/nixdbs.default.conf"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
 	fi
@@ -50,7 +50,8 @@ append_step()
 
 run_step()
 {
-	local encode_title=`echo "$1" | base64`
+	# local encode_title=`echo "$1" | base64`
+	local encode_title="$1"
 	if get_config "$1"; then
 		if grep -Fxq "$encode_title" "$NIXDBS_CACHE_STEP_FILE"; then
 			# step already executed, skip this step

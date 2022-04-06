@@ -45,27 +45,33 @@
 # 		esac
 # }
 
-setup_remote_proxy()
+save_http_proxy()
 {
-	  echo_title "Setup a remote proxy"
-		read -p "Do you want to setup a remote proxy? [y|n]" user_input
-		case $user_input in
-			y*|Y*)
-					echo "Please enter your remote proxy url"
-					echo "eg: http://192.168.0.114:9081"
-					read -p "> " input_text
-					if [ ! -z $input_text ] && [ $input_text != "" ]; then
-							REMOTE_PROXY=$input_text
-							fmt_info "your proxy is: $REMOTE_PROXY"
-							fmt_success "setup remote proxy!"
-					fi
-					;;
-			*)
-				echo "Ignore..."
-				;;
-		esac
 
 }
 
-append_step "setup_remote_proxy"
+setup_http_proxy()
+{
+	echo_title "Setup a http proxy"
+	fmt_info "this http proxy will used to setup git http.proxy or download something"
+	read -p "Do you want to setup a http proxy? [y|n]" user_input
+	case $user_input in
+		y*|Y*)
+				echo "Please enter your remote proxy url"
+				echo "eg: http://192.168.0.114:9081, http://user:pass@192.168.0.114:9081"
+				read -p "> " input_text
+				if [ ! -z $input_text ] && [ $input_text != "" ]; then
+						REMOTE_PROXY=$input_text
+						fmt_info "your proxy is: $REMOTE_PROXY"
+						fmt_success "setup remote proxy!"
+				fi
+				;;
+		*)
+			echo "Ignore..."
+			;;
+	esac
+
+}
+
+append_step "setup_http_proxy"
 

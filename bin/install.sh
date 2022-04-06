@@ -2,12 +2,15 @@
 
 set -Eeu
 
-NIXDBS_REPO=git@192.168.0.118:dotfiles.git
+# NIXDBS_REPO=git@192.168.0.118:dotfiles.git
+NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 NIXDBS_HOME=$HOME/.nixdbs
+DITFILES_HOME=$HOME/.dotfiles
 
 # check git
 if ! command -v git >/dev/null 2>&1; then
 	echo "you must install git first"
+	exit 1
 fi
 # check bash
 if [ -z "${BASH_VERSION:-}" ]
@@ -23,4 +26,4 @@ if [ -d $NIXDBS_HOME ];then
 fi
 git clone $NIXDBS_REPO $NIXDBS_HOME
 
-/bin/bash $NIXDBS_HOME/bin/boot.sh
+/bin/bash $NIXDBS_HOME/bin/nixdbs.sh

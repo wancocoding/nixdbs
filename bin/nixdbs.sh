@@ -62,7 +62,7 @@ source ./deps/init_system.sh
 source ./deps/install_base_pkg.sh
 
 # setup a local proxy
-source ./deps/setup_local_proxy.sh
+source ./deps/setup_http_proxy.sh
 
 # setup git
 source ./deps/setup_git.sh

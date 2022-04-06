@@ -27,11 +27,13 @@ if !filereadable(vimplug_exists)
 endif
 
 call plug#begin(expand('~/.vim/plugged'))
-"
+
 " ====== themes ======
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 Plug 'drewtempelmeyer/palenight.vim'
+
+Plug 'mhinz/vim-startify'
 
 
 call plug#end()
@@ -196,14 +198,18 @@ if (empty($TMUX))
 endif
 
 " === gruvbox ===
-" let g:gruvbox_contrast_dark="hard"
-" colorscheme gruvbox
+let g:gruvbox_contrast_dark="hard"
+" if PlugLoaded('gruvbox')
+"     colorscheme gruvbox
+" endif
 " === molokai ===
 if PlugLoaded('molokai')
     colorscheme molokai
 endif
 " === palenight ===
-" colorscheme palenight
+" if PlugLoaded('palenight')
+"     colorscheme palenight
+" endif
 
 if has("gui_running")
 	" hide menu and toolbar
