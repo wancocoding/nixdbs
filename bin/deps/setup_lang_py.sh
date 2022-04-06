@@ -17,6 +17,13 @@ install_pyenv()
 	fi
 }
 
+link_pip_conf()
+{
+	fmt_info "link dotfile pip conf"
+	rm -rf $HOME/.pip >/dev/null 2>&1
+	ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
+}
+
 setup_pyenv_profile()
 {
     # for zsh
@@ -76,6 +83,7 @@ setup_py_kits()
 	install_pyenv
 	install_python_build_dependencies
 	install_default_python3
+	link_pip_conf
 
 	fmt_success "Setup Python and pyenv finish!"
 }

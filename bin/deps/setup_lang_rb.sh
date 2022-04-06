@@ -16,6 +16,13 @@ install_rbenv()
 	fi
 }
 
+link_npmrc()
+{
+	fmt_info "link npmrc file"
+	rm -rf $HOME/.npmrc >/dev/null 2>&1
+	ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
+}
+
 setup_rbenv_profile()
 {
     # for zsh
