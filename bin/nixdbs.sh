@@ -34,6 +34,11 @@ WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 cd $WORKPATH
 
+
+
+# parse options
+source ./deps/opts.sh
+
 # =========== These steps are required
 
 # init variables
@@ -86,6 +91,10 @@ source ./deps/setup_homebrew.sh
 # install base dev kits packages
 source ./deps/setup_dev_base_kits.sh
 
+# install tools
+source ./deps/install_tools.sh
+
+# =========== Develop Languages and Tools
 # setup vim
 source ./deps/setup_vim.sh
 
@@ -101,8 +110,8 @@ source ./deps/setup_lang_py.sh
 # setup ruby and rbenv
 source ./deps/setup_lang_rb.sh
 
-# install tools
-source ./deps/install_tools.sh
+
+
 
 main_step
 

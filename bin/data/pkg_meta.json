@@ -86,7 +86,7 @@
 	},
 	"bat": {
 			"default": { "name": "bat", "method": "brew" },
-			"gentoo": { "name": "sys-apps/bat", "method": "system" },
+			"gentoo": { "name": "bat", "method": "brew" },
 			"arch": { "name": "bat", "method": "system" },
 			"manjaro": { "name": "bat", "method": "system" },
 			"ubuntu": { "name": "bat", "method": "system" },

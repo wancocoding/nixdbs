@@ -4,6 +4,7 @@
 # utility functions
 # ==================================
 
+
 command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
@@ -60,6 +61,15 @@ get_config()
 	return 1
 }
 
+get_http_proxy()
+{
+	if [ ! -z "${NIXDBS_HTTP_PROXY:-}" ]; then
+		echo "$NIXDBS_HTTP_PROXY"
+	else
+		get_config_str "http_proxy"
+	fi
+}
+
 append_step()
 {
 	SETUP_STEPS_ARRAY+=("$1")
@@ -85,13 +95,47 @@ run_step()
 	fi
 }
 
-main_step()
+run_all_steps()
 {
 	local step_total="${#SETUP_STEPS_ARRAY[@]}"
 	let step_index=1
 	for si in "${!SETUP_STEPS_ARRAY[@]}"; do
-		echo ">>> run setup step (${step_index} of ${step_total})"
+		echo
+		fmt_info ">>> run setup step (${step_index} of ${step_total})"
 		run_step "${SETUP_STEPS_ARRAY[si]}"
 		let step_index+=1
 	done
+}
+
+run_specified_steps()
+{
+	local step_total="${#specified_steps[@]}"
+	let step_index=1
+	for si in "${!specified_steps[@]}"; do
+		echo
+		fmt_info ">>> run step (${step_index} of ${step_total})"
+		local step_name_i="${specified_steps[si]}"
+		case $step_name_i in
+			brew)
+				setup_homebrew
+				;;
+			vim)
+				setup_vim
+				;;
+			*)
+				error_exit "the setup step [$step_name_i] does not exist."
+				;;
+		esac
+
+		let step_index+=1
+	done
+}
+
+main_step()
+{
+	if [ ${#specified_steps[@]} -gt 0 ]; then
+		run_specified_steps
+	else
+		run_all_steps
+	fi
 }

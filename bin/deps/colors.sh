@@ -62,6 +62,29 @@ detect_term_color()
     esac
 }
 
+
+detect_term_color_noninteractive()
+{
+    echo "checking term color..."
+    TERM_COLOR_TYPE=1
+	case "${COLORTERM:-nt}" in
+		truecolor|24bit)
+	        TERM_COLOR_TYPE=2
+			return 0 ;;
+	esac
+	case "$TERM" in
+		iterm           |\
+		tmux-truecolor  |\
+		linux-truecolor |\
+		xterm-truecolor |\
+		screen-truecolor) 
+	        TERM_COLOR_TYPE=2
+			return 0 ;;
+	esac
+	return 0
+
+}
+
 print_color_type()
 {
     case $TERM_COLOR_TYPE in
@@ -82,7 +105,8 @@ print_color_type()
 
 setup_color()
 {
-    detect_term_color
+    # detect_term_color
+	detect_term_color_noninteractive
     print_color_type
     FMT_RESET=$(printf '\033[0m')
     FMT_BOLD=$(printf '\033[1m')

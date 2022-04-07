@@ -13,8 +13,9 @@ install_vim_plug()
 	fmt_info "checking vim-plug ..."
 	if [ ! -f $HOME/.vim/autoload/plug.vim ];then
 		fmt_info "install vim-plug"
-		if [ ! -z "${HTTP_PROXY:-}" ]; then
-			curl --proxy "$HTTP_PROXY" -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		local http_proxy=$(get_http_proxy)
+		if [ ! -z "${http_proxy:-}" ]; then
+			curl --proxy "$http_proxy" -fLo ~/.vim/autoload/plug.vim --create-dirs \
 				$VIM_PLUG_VIMFILE_URL
 		else
 			curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -23,6 +24,17 @@ install_vim_plug()
 	fi
 	fmt_info "install plugin"
 	vim +PlugInstall +qall
+}
+
+copy_dictionary()
+{
+	fmt_info "setup dictionary for vim"
+	if [ ! -d "/usr/share/dict" ]; then
+		exe_sudo "mkdir" "-p" "/usr/share/dict"
+	fi
+	if [ ! -f "/usr/share/dict/words" ]; then
+		exe_sudo "cp" "../misc/commons/words.txt" "/usr/share/dict/words"
+	fi
 }
 
 setup_vim()
@@ -44,6 +56,8 @@ setup_vim()
 	fi
 	link_vimrc
 	install_vim_plug
+	copy_dictionary
+
 	fmt_success "Setup vim finish!"
 }
 

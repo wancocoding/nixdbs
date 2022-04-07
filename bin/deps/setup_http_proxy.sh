@@ -63,7 +63,7 @@ save_http_proxy()
 	    echo "export NIXDBS_HTTP_PROXY=$NIXDBS_HTTP_PROXY" >> ~/.bashrc
         fi
     fi
-    export HTTP_PROXY="$NIXDBS_HTTP_PROXY"
+    export NIXDBS_HTTP_PROXY="$NIXDBS_HTTP_PROXY"
 }
 
 setup_http_proxy()

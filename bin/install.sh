@@ -2,8 +2,8 @@
 
 set -Eeu
 
-# NIXDBS_REPO=git@192.168.0.118:dotfiles.git
-NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
+NIXDBS_REPO=git@192.168.0.118:dotfiles.git
+# NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 NIXDBS_HOME=$HOME/.nixdbs
 DITFILES_HOME=$HOME/.dotfiles
 

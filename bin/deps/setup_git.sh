@@ -36,9 +36,10 @@ setup_git()
     # git config --global user.email
     # git config --global http.proxy
 
-	if [ -n "${NIXDBS_HTTP_PROXY-}" ]; then
-		fmt_info "set git http.proxy"
-		git config --global http.proxy $NIXDBS_HTTP_PROXY
+	local http_proxy=$(get_http_proxy)
+	if [ ! -z "${http_proxy:-}" ]; then
+		fmt_info "set git global config http.proxy"
+		git config --global http.proxy $http_proxy
 	fi
         # common git settings
 	execute git config --global core.autocrlf false

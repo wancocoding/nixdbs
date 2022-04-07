@@ -63,11 +63,13 @@ pkg_install_wrapper()
 				local pkg_arr_arg=($pkg_name)
 				pkg_install "${pkg_arr_arg[@]}"
 			elif [[ "$pkg_install_method" = "brew" ]]; then
-				echo "$install by homebrew"
+				local pkg_arr_arg=($pkg_name)
+				brew_install "${pkg_arr_arg[@]}"	
 			elif [[ "$pkg_install_method" = "manual_compile" ]]; then
-				echo "$install by manual compile"
+				echo "install by manual not implement yet!"
+				error_exit "can not install $pkg_name manually"
 			else
-				fmt_error "install method: ${pkg_install_method} not supported!"
+				error_exit "install method: ${pkg_install_method} not supported!"
 			fi
 		fi
 }
@@ -90,6 +92,21 @@ pkg_install()
         install_cmd+=("$install_arg")
     done
     exe_sudo "${install_cmd[@]}"
+}
+
+brew_install()
+{
+	if ! command_exists "brew"; then
+		error_exit "you must install Homebrew first!"
+	else
+		local -a install_cmd=(brew install)
+		
+		for install_arg in "$@"
+		do
+			install_cmd+=("$install_arg")
+		done
+		execute "${install_cmd[@]}"
+	fi
 }
 
 echo_commands()
