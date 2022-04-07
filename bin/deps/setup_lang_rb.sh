@@ -12,7 +12,7 @@ install_rbenv()
 
 		git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 		
-		setup_rbenv_profile
+		
 	fi
 }
 
@@ -49,7 +49,9 @@ setup_rbenv_profile()
 	# install ruby-build
 	fmt_info "install ruby-build plugin"
 	mkdir -p "$(rbenv root)"/plugins >/dev/null 2>&1
-	git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+	if [ ! -d "$(rbenv root)"/plugins/ruby-build ]; then
+		git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+	fi
 
 }
 
@@ -61,13 +63,16 @@ install_default_ruby()
 
 	# list versions
 	rbenv install --list
-	rbenv install "$RBENV_DEFALUT_RUBY_VERSION"
-	rbenv versions
-
+	if ! rbenv versions | grep -q "$RBENV_DEFALUT_RUBY_VERSION" ; then
+		rbenv install "$RBENV_DEFALUT_RUBY_VERSION"
+		rbenv versions
+	else
+		fmt_info "ruby default version ${RBENV_DEFALUT_RUBY_VERSION} already installed"
+	fi
 	# checking install
 	fmt_info "checking rbenv install by rbenv-doctir"
-	curl -fsSL "${GITHUB_PROXY}/https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor" | bash
-
+	local http_proxy=$(get_http_proxy)
+	curl --proxy $http_proxy -fsSL "https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor" | bash
 }
 
 setup_rb_kits()
@@ -75,6 +80,8 @@ setup_rb_kits()
 	echo_title "Setup Ruby and rbenv"
 
 	install_rbenv
+
+	setup_rbenv_profile
 
 	install_default_ruby
 

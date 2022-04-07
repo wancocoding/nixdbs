@@ -122,6 +122,9 @@ run_specified_steps()
 			vim)
 				setup_vim
 				;;
+			ruby)
+				setup_rb_kits
+				;;
 			*)
 				error_exit "the setup step [$step_name_i] does not exist."
 				;;
