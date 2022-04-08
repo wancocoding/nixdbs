@@ -72,7 +72,11 @@ install_default_ruby()
 	# checking install
 	fmt_info "checking rbenv install by rbenv-doctir"
 	local http_proxy=$(get_http_proxy)
-	curl --proxy $http_proxy -fsSL "https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor" | bash
+	if [ ! -z "${http_proxy:-}" ]; then
+		curl --proxy $http_proxy -fsSL "https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor" | bash
+	else
+		curl -fsSL "https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor" | bash
+	fi
 }
 
 setup_rb_kits()

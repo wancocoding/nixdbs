@@ -80,6 +80,8 @@ VEOF
     fi
 	eval "$brew_env_text"
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+	fmt_info "checking installed homebrew"
+	brew -v
 }
 
 
