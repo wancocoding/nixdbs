@@ -107,6 +107,19 @@ run_all_steps()
 	done
 }
 
+run_sub_step()
+{
+	local encode_title="$1"
+	if grep -Fxq "SUB-${encode_title}" "$NIXDBS_CACHE_STEP_FILE"; then
+		# step already executed, skip this step
+		echo "Skip $1, it has already finished"
+		return
+	else
+		"$1"
+		echo "SUB-${encode_title}" >> "$NIXDBS_CACHE_STEP_FILE"
+	fi
+}
+
 run_specified_steps()
 {
 	local step_total="${#specified_steps[@]}"
@@ -124,6 +137,12 @@ run_specified_steps()
 				;;
 			ruby)
 				setup_rb_kits
+				;;
+			python)
+				setup_py_kits
+				;;
+			python-deps)
+				install_python_build_dependencies			
 				;;
 			*)
 				error_exit "the setup step [$step_name_i] does not exist."

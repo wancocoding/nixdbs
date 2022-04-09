@@ -16,28 +16,59 @@
 "*****************************************************************************
 "" Plugin Setup {{{
 "*****************************************************************************
+
+" install vim-plug with http_proxy
+" set a http proxy environment in your rcfile with name NIXDBS_HTTP_PROXY
+
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-if !filereadable(vimplug_exists)
-    echo "Installing Vim-Plug..."
-    echo ""
-    let s:vim_plug_url='https://ghproxy.com/https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . s:vim_plug_url
-    " autocmd VimEnter * PlugInstall
+if has('win32')&&!has('win64')
+  let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
+else
+  let curl_exists=expand('curl')
 endif
 
-call plug#begin(expand('~/.vim/plugged'))
+if !filereadable(vimplug_exists)
+    if !executable(curl_exists)
+        echoerr "You have to install curl or first install vim-plug yourself!"
+        execute "q!"
+    endif
+    echo "Installing Vim-Plug..."
+    echo ""
+    if !empty($NIXDBS_HTTP_PROXY)
+        silent exec "!"curl_exists" --proxy " . $NIXDBS_HTTP_PROXY  .  " -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    else
+        silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . s:vim_plug_url
+    endif
+    autocmd VimEnter * PlugInstall
+endif
 
-" ====== themes ======
-Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
-Plug 'drewtempelmeyer/palenight.vim'
+if filereadable(vimplug_exists)
+    call plug#begin(expand('~/.vim/plugged'))
 
-Plug 'mhinz/vim-startify'
+    " ====== themes ======
+    Plug 'morhetz/gruvbox'
+    Plug 'tomasr/molokai'
+    Plug 'drewtempelmeyer/palenight.vim'
 
+    " ====== statusline tabline ======
+    " Plug 'vim-airline/vim-airline'
+    " Plug 'vim-airline/vim-airline-themes'
+    Plug 'itchyny/lightline.vim'
 
-call plug#end()
+    " ====== startup ======
+    Plug 'mhinz/vim-startify'
 
+    " ====== fuzzy finder ======
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+
+    " ====== snippets ======
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+
+    call plug#end()
+endif
 function! PlugLoaded(name)
     if exists("g:plugs")
         if has_key(g:plugs, a:name)
@@ -110,8 +141,8 @@ set smartindent
 
 " auto read when file is changed from outside
 set autoread
-set wildignore=*.o,*.class,*.pyc
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore=*.o,*.class,*.obj,.git,*.rbc,*.pyc,__pycache__
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.db,*.sqlite
 
 " Searching
 set hlsearch
@@ -134,7 +165,7 @@ set tm=1000
 
 " command completion like zsh
 set wildmenu
-set wildmode=full
+set wildmode=list:longest,list:full
 
 " set dictionary
 set complete+=k
@@ -153,11 +184,7 @@ set hidden
 " display incomplete commands
 set showcmd
 
-
-" comletion for nvim-com 
-set completeopt=menu,menuone,noselect
 " }}}
-
 
 "*****************************************************************************
 "" Appearance(Color , theme , StatusLine) {{{
@@ -225,8 +252,9 @@ if has("gui_running")
 	set guifont=Fira\ Code\ weight=453\ 10
 endif
 
-" }}}
+set laststatus=2
 
+" }}}
 
 "*****************************************************************************
 "" Abbreviations {{{
@@ -246,9 +274,108 @@ cnoreabbrev Qall qall
 
 " }}}
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Startify {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" session
+if has('win32')
+  let g:startify_session_dir = '~\vimfiles/startify_session'
+else
+  let g:startify_session_dir = '~/.vim/startify_session'
+endif
+
+" auto update session
+let g:startify_session_persistence = 1
 
 
+let g:startify_commands = [
+    \ ':help reference',
+    \ ['Startify Help', 'h startify'],
+    \ {'h': 'h ref'},
+    \ ]
 
+let g:startify_lists = [
+    \ { 'type': 'files',     'header': ['   Recent Files']            },
+    \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+    \ { 'type': 'sessions',  'header': ['   Sessions']       },
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+    \ { 'type': 'commands',  'header': ['   Commands']       },
+    \ ]
 
+if has('win32')
+  let g:startify_bookmarks = [
+    \ { 'i': '~\AppData\Local\nvim\init.vim' },
+    \ { 'd': 'd:\develop\workspace'},
+    \ ]
+else
+  let g:startify_bookmarks = [
+    \ { 'i': '~/.vimrc' },
+    \ { 'r': '~/.bashrc' },
+    \ { 'd': '~/develop/workspace'},
+    \ ]
+endif
+
+" }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" airline {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ }
+
+" vim-airline
+" let g:airline_theme = 'powerlineish'
+" let g:airline#extensions#branch#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tagbar#enabled = 1
+" let g:airline_skip_empty_sections = 1
+" 
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" 
+" if !exists('g:airline_powerline_fonts')
+"   let g:airline#extensions#tabline#left_sep = ' '
+"   let g:airline#extensions#tabline#left_alt_sep = '|'
+"   let g:airline_left_sep          = '▶'
+"   let g:airline_left_alt_sep      = '»'
+"   let g:airline_right_sep         = '◀'
+"   let g:airline_right_alt_sep     = '«'
+"   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+"   let g:airline#extensions#readonly#symbol   = '⊘'
+"   let g:airline#extensions#linecolumn#prefix = '¶'
+"   let g:airline#extensions#paste#symbol      = 'ρ'
+"   let g:airline_symbols.linenr    = '␊'
+"   let g:airline_symbols.branch    = '⎇'
+"   let g:airline_symbols.paste     = 'ρ'
+"   let g:airline_symbols.paste     = 'Þ'
+"   let g:airline_symbols.paste     = '∥'
+"   let g:airline_symbols.whitespace = 'Ξ'
+" else
+"   let g:airline#extensions#tabline#left_sep = ''
+"   let g:airline#extensions#tabline#left_alt_sep = ''
+" 
+"   " powerline symbols
+"   let g:airline_left_sep = ''
+"   let g:airline_left_alt_sep = ''
+"   let g:airline_right_sep = ''
+"   let g:airline_right_alt_sep = ''
+"   let g:airline_symbols.branch = ''
+"   let g:airline_symbols.readonly = ''
+"   let g:airline_symbols.linenr = ''
+" endif
+
+" }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" fzf fuzzy finder {{{
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Replace the default dictionary completion with fzf-based fuzzy completion
+" inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
+
+" }}}
 
 autocmd FileType coffee,html,css,xml,yaml,json set sw=2 ts=2

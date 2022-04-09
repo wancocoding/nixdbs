@@ -21,7 +21,7 @@ USER=${USER:-$(id -u -n)}
 
 REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
 
-# create a temp directory for 
+# create a temp directory
 TMP_FILE="$(mktemp -d)" || exit 1
 
 NIXDBS_CACHE_STEP_FILE=$HOME/.cache/nixdbs/run_steps
@@ -109,8 +109,6 @@ source ./deps/setup_lang_py.sh
 
 # setup ruby and rbenv
 source ./deps/setup_lang_rb.sh
-
-
 
 
 main_step

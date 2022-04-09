@@ -5,15 +5,18 @@ install_pyenv()
 {
 	fmt_info "checking pyenv..."
 	if [ -d $HOME/.pyenv ];then
-		echo "Pyenv exist!"
+		echo "Pyenv exist! skip..."
 	else
 		fmt_info "install pyenv"
 
 		rm -rf $HOME/.pyenv >/dev/null 2>&1
 
 		git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
-		
-		setup_pyenv_profile
+	fi
+	if [ ! -d $HOME/.pyenv/plugins/pyenv-virtualenv ]; then
+	    git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv	
+	else
+		echo "pyenv-virtualenv already installed, skip..."
 	fi
 }
 
@@ -24,7 +27,7 @@ link_pip_conf()
 	ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
 }
 
-setup_pyenv_profile()
+setup_pyenv_rcfile()
 {
     # for zsh
     if [ -a $HOME/.zshrc ]; then
@@ -35,9 +38,8 @@ setup_pyenv_profile()
 			echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zprofile
 			echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zprofile
 			echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
-
-            echo '# ====== pyenv ====== ' >> $HOME/.zshrc
 			echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+			echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
         fi
     fi
     # for bash
@@ -48,9 +50,14 @@ setup_pyenv_profile()
 			echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 			echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
 			echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+			echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
         fi
-		source $HOME/.bashrc
     fi
+	fmt_info "enable pyenv environments"
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init --path)"
+	eval "$(pyenv init -)"
 }
 
 # see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
@@ -63,15 +70,11 @@ install_python_build_dependencies()
 install_default_python3()
 {
 	echo "install defalut python3"
-	# load rcfile
-	export PYENV_ROOT="$HOME/.pyenv"
-	export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init --path)"
-	eval "$(pyenv init -)"
 
 	# list versions
-	pyenv versions
-	pyenv install $PYENV_DEFAULT_PY_VERSION
+	if ! pyenv versions | grep -q "$PYENV_DEFAULT_PY_VERSION" ; then
+		pyenv install $PYENV_DEFAULT_PY_VERSION
+	fi
 	pyenv versions
 
 }
@@ -81,7 +84,8 @@ setup_py_kits()
 	echo_title "Setup Python and pyenv"
 
 	install_pyenv
-	install_python_build_dependencies
+	setup_pyenv_rcfile
+	run_sub_step "install_python_build_dependencies"
 	install_default_python3
 	link_pip_conf
 
