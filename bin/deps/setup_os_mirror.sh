@@ -17,11 +17,11 @@ replace_gentoo_mirror()
 
 setup_gentoo_mirror()
 {
-	local mirror_area="$(get_config_str mirror_area)"
+	local mirror_area="$(get_setting_value mirror_area)"
 	if [ -n $mirror_area ]; then
 		local mirror_settings_file="../misc/mirrors/${mirror_area}/os/${OSNAME_LOWERCASE}/mirror.conf"
-		local rsync_mirror="$(get_config_value_by_key rsync $mirror_settings_file)"
-		local gentoo_mirror="$(get_config_value_by_key mirror $mirror_settings_file)"
+		local rsync_mirror="$(get_cfg_from_file_by_keyr sync $mirror_settings_file)"
+		local gentoo_mirror="$(get_cfg_from_file_by_key mirror $mirror_settings_file)"
 		replace_gentoo_mirror $rsync_mirror $gentoo_mirror
 	else
 		error_exit "You must define mirror_area in your config file if you want to change you package manager source mirror"
@@ -65,7 +65,7 @@ setup_ubuntu_mirror()
 setup_os_mirror()
 {
     echo_title "Setup system mirror"
-	if get_config "os_package_manager_use_mirror"; then
+	if is_set_true_in_settings "os_package_manager_use_mirror"; then
 		case $OSNAME_LOWERCASE in
 			gentoo)
 				fmt_info "Your os is Gentoo Linux!"

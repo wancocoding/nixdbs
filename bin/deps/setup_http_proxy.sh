@@ -87,7 +87,7 @@ setup_http_proxy()
 	# 		echo "Ignore..."
 	# 		;;
 	# esac
-	local http_proxy=$(get_config_str set_http_proxy)
+	local http_proxy=$(get_setting_value set_http_proxy)
 	if [ ! -z "$http_proxy" ] ;then
 		NIXDBS_HTTP_PROXY="$http_proxy"
 		fmt_info "your http proxy is: $NIXDBS_HTTP_PROXY"

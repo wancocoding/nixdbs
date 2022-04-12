@@ -20,7 +20,7 @@ else
   }
 fi
 
-get_config_str()
+get_setting_value()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
@@ -29,7 +29,8 @@ get_config_str()
 		config_file=$CONFIG_FILE
 	fi
 	# local config_value=`awk '/^$1/$print_string' $config_file`
-	local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	# local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	local config_value="$(get_cfg_from_file_by_key $1 $config_file)"
 	# echo "the config value of [$1] is $config_value"
 	if [ ! -z "$config_value" ]; then
 		echo "$config_value"
@@ -38,25 +39,27 @@ get_config_str()
 	fi
 }
 
-get_config_str_from_file()
-{
-	# local print_string='{print $NF}'
-	# local pattern_string="/^$1/${print_string}"
-	local config_file="$2"
-	if [ ! -z "${CONFIG_FILE:-}" ]; then
-		config_file=$CONFIG_FILE
-	fi
-	# local config_value=`awk '/^$1/$print_string' $config_file`
-	local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
-	# echo "the config value of [$1] is $config_value"
-	if [ ! -z "$config_value" ]; then
-		echo "$config_value"
-	else
-		echo
-	fi
-}
+# Deprecate , use 
+# get_config_str_from_file()
+# {
+#     # local print_string='{print $NF}'
+#     # local pattern_string="/^$1/${print_string}"
+#     local config_file="$2"
+#     if [ ! -z "${CONFIG_FILE:-}" ]; then
+#         config_file=$CONFIG_FILE
+#     fi
+#     # local config_value=`awk '/^$1/$print_string' $config_file`
+#     local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+#     # echo "the config value of [$1] is $config_value"
+#     if [ ! -z "$config_value" ]; then
+#         echo "$config_value"
+#     else
+#         echo
+#     fi
+# }
 
-get_config_value_by_key()
+# get value from a file , eg: mirror = http://mirrors.example.com
+get_cfg_from_file_by_key()
 {
 	sed -n \
 		"/^${1}\s\+\=\s\+/s/^${1}\s\+=\s\+//p" \
@@ -64,7 +67,7 @@ get_config_value_by_key()
 }
 
 
-get_config()
+is_set_true_in_settings()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
@@ -73,7 +76,8 @@ get_config()
 		config_file=$CONFIG_FILE
 	fi
 	# local config_value=`awk '/^$1/$print_string' $config_file`
-	local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	# local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	local config_value="$(get_cfg_from_file_by_key $1 $config_file)"
 	echo "the config value of [$1] is $config_value"
 	case $config_value in
 		y*)
@@ -92,7 +96,7 @@ get_http_proxy()
 	if [ ! -z "${NIXDBS_HTTP_PROXY:-}" ]; then
 		echo "$NIXDBS_HTTP_PROXY"
 	else
-		get_config_str "http_proxy"
+		get_setting_value "http_proxy"
 	fi
 }
 
@@ -105,7 +109,7 @@ run_step()
 {
 	# local encode_title=`echo "$1" | base64`
 	local encode_title="$1"
-	if get_config "$1"; then
+	if is_set_true_in_settings "$1"; then
 		if grep -Fxq "$encode_title" "$NIXDBS_CACHE_STEP_FILE"; then
 			# step already executed, skip this step
 			echo "Skip $1, it has already finished"
