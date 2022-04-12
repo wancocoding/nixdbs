@@ -101,5 +101,14 @@
 			"ubuntu": { "name": "neofetch", "method": "system" },
 			"fedora": { "name": "neofetch", "method": "system" },
 			"opensuse": { "name": "neofetch", "method": "system" }
+	},
+	"universal-tags": {
+			"default": { "name": "universal-ctags", "method": "brew" },
+			"gentoo": { "name": "ctags", "method": "brew" },
+			"arch": { "name": "ctags", "method": "system" },
+			"manjaro": { "name": "ctags", "method": "system" },
+			"ubuntu": { "name": "universal-ctags", "method": "brew" },
+			"fedora": { "name": "universal-ctags", "method": "brew" },
+			"opensuse": { "name": "universal-ctags", "method": "brew" }
 	}
 }

@@ -34,8 +34,6 @@ WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 cd $WORKPATH
 
-
-
 # parse options
 source ./deps/opts.sh
 
@@ -63,6 +61,9 @@ source ./deps/detect_os.sh
 source ./deps/commands.sh
 
 #=========== These steps are optional
+
+# setup os package mirror
+source ./deps/setup_os_mirror.sh
 
 # setup a local proxy
 source ./deps/setup_http_proxy.sh
@@ -109,7 +110,6 @@ source ./deps/setup_lang_py.sh
 
 # setup ruby and rbenv
 source ./deps/setup_lang_rb.sh
-
 
 main_step
 

@@ -122,20 +122,6 @@ echo_commands()
 # Gentoo
 # =================================
 
-gentoo_setup_portage_mirror()
-{
-    # change the package manager mirror
-    fmt_info "Change portage repos mirror"
-    if [ -f /etc/portage/repos.conf/gentoo.conf ]; then
-        replace_cmd=("sed" "-i" "/^sync-uri /s/=.*/= rsync:\/\/rsync.mirrors.ustc.edu.cn\/gentoo-portage\//" "/etc/portage/repos.conf/gentoo.conf")
-        exe_sudo "${replace_cmd[@]}"
-    fi
-    # change the gentoo mirror
-    fmt_info "Change portage make conf"
-    replace_cmd=("sed" "-i" "/^GENTOO_MIRRORS/s/=.*$/=\"https:\/\/mirrors.ustc.edu.cn\/gentoo\/\"/" "/etc/portage/make.conf")
-    exe_sudo "${replace_cmd[@]}"
-}
-
 gentoo_setup_portage_license()
 {
     fmt_info "Update portage accept license"
@@ -155,9 +141,7 @@ setup_gentoo()
     SYS_UPDATE_CMD=("emerge" "--sync")
     SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
     SYS_CLEAN_CMD=("emerge" "-a" "--depclean")
-    gentoo_setup_portage_mirror
     gentoo_setup_portage_license
-
 
     # fmt_info "Now, test system package manager command!"
     # pkg_install "app-admin/eselect" 
@@ -168,30 +152,12 @@ setup_gentoo()
 # Manjaro
 # =================================
 
-setup_manjaro_mirror()
-{
-    fmt_info "Change pacman repos mirror"
-	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
-		fmt_info "mirror already existed!"
-	else
-		fmt_info "mirror server not existed, now add it."
-		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-		# exe_sudo "sed" "-i" "'${insert_ln} i\ $MANJARO_MIRROR'" "/etc/pacman.d/mirrorlist"
-		exe_sudo_string "sed -i '${insert_ln}i ${MANJARO_MIRROR}' /etc/pacman.d/mirrorlist"
-		unset insert_ln
-	fi
-}
-
 setup_manjaro()
 {
     SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
     SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
     SYS_UPDATE_CMD=("pacman" "-Syy")
     SYS_UPGRADE_CMD=("pacman" "-Syu")
-
-    # setup mirror
-    setup_manjaro_mirror
-
 }
 
 
@@ -199,41 +165,18 @@ setup_manjaro()
 # Archlinux
 # =================================
 
-setup_arch_mirror()
-{
-    fmt_info "Change pacman repos mirror"
-	if grep -q tsinghua /etc/pacman.d/mirrorlist ; then
-		fmt_info "mirror already existed!"
-	else
-		fmt_info "mirror server not existed, now add it."
-		insert_ln=$(grep -Fn Server /etc/pacman.d/mirrorlist | sed -n  '1p' | cut --delimiter=":" --fields=1)
-		# exe_sudo "sed" "-i" "'${insert_ln}i $ARCH_MIRROR'" "/etc/pacman.d/mirrorlist"
-		exe_sudo_string "sed -i '${insert_ln}i ${ARCH_MIRROR}' /etc/pacman.d/mirrorlist"
-		unset insert_ln
-	fi
-}
-
 setup_arch()
 {
     SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
     SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
     SYS_UPDATE_CMD=("pacman" "-Syy")
     SYS_UPGRADE_CMD=("pacman" "-Syu")
-
-    # setup mirror
-    setup_arch_mirror
-
 }
 
 # =================================
 # Ubuntu
 # =================================
 
-setup_ubuntu_mirror()
-{
-    fmt_info "Change apt repos mirror"
-	exe_sudo_string "echo" "'$UBUNTU_MIRROR'" ">" "/etc/apt/sources.list"
-}
 
 setup_ubuntu()
 {
@@ -243,8 +186,6 @@ setup_ubuntu()
     SYS_UPDATE_CMD=("apt" "update")
     SYS_UPGRADE_CMD=("apt" "upgrade" "-y")
 
-    # setup mirror
-    setup_ubuntu_mirror
 
 }
 

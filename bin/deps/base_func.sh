@@ -38,6 +38,32 @@ get_config_str()
 	fi
 }
 
+get_config_str_from_file()
+{
+	# local print_string='{print $NF}'
+	# local pattern_string="/^$1/${print_string}"
+	local config_file="$2"
+	if [ ! -z "${CONFIG_FILE:-}" ]; then
+		config_file=$CONFIG_FILE
+	fi
+	# local config_value=`awk '/^$1/$print_string' $config_file`
+	local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
+	# echo "the config value of [$1] is $config_value"
+	if [ ! -z "$config_value" ]; then
+		echo "$config_value"
+	else
+		echo
+	fi
+}
+
+get_config_value_by_key()
+{
+	sed -n \
+		"/^${1}\s\+\=\s\+/s/^${1}\s\+=\s\+//p" \
+		$2
+}
+
+
 get_config()
 {
 	# local print_string='{print $NF}'
@@ -129,6 +155,9 @@ run_specified_steps()
 		fmt_info ">>> run step (${step_index} of ${step_total})"
 		local step_name_i="${specified_steps[si]}"
 		case $step_name_i in
+			osmir)
+				setup_os_mirror
+				;;
 			brew)
 				setup_homebrew
 				;;

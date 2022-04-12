@@ -6,7 +6,7 @@
 install_tools()
 {
 	echo_title "Install tools..."
-	local install_tools=(bat exa htop neofetch unrar)
+	local install_tools=(fzf fd ripgrep the_silver_searcher bat exa htop neofetch unrar universal-ctags)
 	for ti in "${install_tools[@]}"
 	do
 		fmt_info "install $ti"
