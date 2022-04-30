@@ -165,11 +165,20 @@ run_specified_steps()
 			brew)
 				setup_homebrew
 				;;
+			git)
+				setup_git
+				;;
+			tools)
+				install_tools
+				;;
 			vim)
 				setup_vim
 				;;
 			ruby)
 				setup_rb_kits
+				;;
+			node)
+				setup_node_kits
 				;;
 			python)
 				setup_py_kits

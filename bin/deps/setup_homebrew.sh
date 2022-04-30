@@ -47,6 +47,7 @@ install_homebrew()
 setup_rcfile_for_homebrew()
 {
 	fmt_info "setup rcfile for homebrew"
+    # not use any more
     local brew_env_text=$(cat << VEOF
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
@@ -78,7 +79,7 @@ VEOF
 			echo "homebrew env already exist."
         fi
     fi
-	eval "$brew_env_text"
+	eval "$HOMEBREW_SETTINGS"
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 	fmt_info "checking installed homebrew"
 	brew -v

@@ -34,7 +34,7 @@ fmt_error()
 
 fmt_warning()
 {
-    printf "%s[WARNING]:%s\n" "${FMT_BOLD}${FMT_YELLOW}" "${FMT_RESET}" "$*"
+    printf "%s[WARNING]:%s %s\n" "${FMT_BOLD}${FMT_YELLOW}" "${FMT_RESET}" "$*"
 }
 
 fmt_success()

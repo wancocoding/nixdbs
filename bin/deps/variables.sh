@@ -50,6 +50,14 @@ EOF
 
 TIMEZONE="Asia/shanghai"
 
+HOMEBREW_SETTINGS="$(cat << HBEOF
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_NO_AUTO_UPDATE=1
+HBEOF
+)"
+
 
 VIM_PLUG_VIMFILE_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 # VIM_PLUG_VIMFILE_URL_PROXY="${GITHUB_PROXY}/$VIM_PLUG_VIMFILE_URL"

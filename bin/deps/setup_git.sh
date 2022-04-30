@@ -8,13 +8,13 @@
 # check git installed
 setup_git()
 {
-	  echo_title "Setup git"
-    if ! command -v git 1>/dev/null 2>&1; then
-        fmt_warning "Git is not installed, now install git " >&2
-        pkg_install_wrapper git
-    else
-        fmt_info "git already installed"
-    fi
+	echo_title "Setup git"
+	if ! command -v git 1>/dev/null 2>&1; then
+		fmt_warning "Git is not installed, now install git " >&2
+		pkg_install_wrapper git
+	else
+		fmt_info "git already installed"
+	fi
     fmt_info "now setup git and config"
 		if [ ! "$(git config --global user.name)" ]; then
 				read -p "enter your name[coco]: > " input_text
@@ -88,9 +88,13 @@ setup_git()
 
     # reset last 
     execute git config --global alias.undo 'reset HEAD~1 --mixed'
-    
+
+    # git template 
+	cat ../dotfiles/config/git_commit_template > ~/.config/git_commit_template
+	git config --global commit.template ~/.config/git_commit_template
+
     # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
-		fmt_success "setup git finish!"
+	fmt_success "setup git finish!"
 }
 
 append_step "setup_git"

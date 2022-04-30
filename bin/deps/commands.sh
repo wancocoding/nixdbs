@@ -97,16 +97,22 @@ pkg_install()
 brew_install()
 {
 	if ! command_exists "brew"; then
-		error_exit "you must install Homebrew first!"
-	else
-		local -a install_cmd=(brew install)
-		
-		for install_arg in "$@"
-		do
-			install_cmd+=("$install_arg")
-		done
-		execute "${install_cmd[@]}"
+        # homebrew has already installed, but not run brew's settings
+        if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+            echo "homebrew already installed, loading..."
+            eval "$HOMEBREW_SETTINGS"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        else
+            error_exit "you must install Homebrew first!"
+        fi
 	fi
+    local -a install_cmd=(brew install)
+    
+    for install_arg in "$@"
+    do
+        install_cmd+=("$install_arg")
+    done
+    execute "${install_cmd[@]}"
 }
 
 echo_commands()
@@ -136,7 +142,7 @@ gentoo_setup_portage_license()
 
 setup_gentoo()
 {
-    SYS_INSTALL_PKG_CMD=("emerge" "-v")
+    SYS_INSTALL_PKG_CMD=("emerge" "-vn")
     SYS_UPGRADE_PKG_CMD=("emerge" "--update" "--deep" "--change-use")
     SYS_UPDATE_CMD=("emerge" "--sync")
     SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
@@ -154,8 +160,8 @@ setup_gentoo()
 
 setup_manjaro()
 {
-    SYS_INSTALL_PKG_CMD=("pacman" "-Sy")
-    SYS_UPGRADE_PKG_CMD=("pacman" "-Sy")
+    SYS_INSTALL_PKG_CMD=("pacman" "-Sy --needed")
+    SYS_UPGRADE_PKG_CMD=("pacman" "-Syu --needed")
     SYS_UPDATE_CMD=("pacman" "-Syy")
     SYS_UPGRADE_CMD=("pacman" "-Syu")
 }

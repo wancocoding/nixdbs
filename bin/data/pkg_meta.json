@@ -86,7 +86,7 @@
 	},
 	"bat": {
 			"default": { "name": "bat", "method": "brew" },
-			"gentoo": { "name": "bat", "method": "brew" },
+			"gentoo": { "name": "sys-apps/bat", "method": "system" },
 			"arch": { "name": "bat", "method": "system" },
 			"manjaro": { "name": "bat", "method": "system" },
 			"ubuntu": { "name": "bat", "method": "system" },
@@ -102,13 +102,13 @@
 			"fedora": { "name": "neofetch", "method": "system" },
 			"opensuse": { "name": "neofetch", "method": "system" }
 	},
-	"universal-tags": {
-			"default": { "name": "universal-ctags", "method": "brew" },
-			"gentoo": { "name": "ctags", "method": "brew" },
-			"arch": { "name": "ctags", "method": "system" },
-			"manjaro": { "name": "ctags", "method": "system" },
-			"ubuntu": { "name": "universal-ctags", "method": "brew" },
-			"fedora": { "name": "universal-ctags", "method": "brew" },
-			"opensuse": { "name": "universal-ctags", "method": "brew" }
+	"universal-ctags": {
+			"default": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "brew" },
+			"gentoo": { "name": "--HEAD universal-ctags/universal-ctags/universal-ctags", "method": "brew" },
+			"arch": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "system" },
+			"manjaro": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "system" },
+			"ubuntu": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "brew" },
+			"fedora": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "brew" },
+			"opensuse": { "name": "universal-ctags/universal-ctags/universal-ctags", "method": "brew" }
 	}
 }
