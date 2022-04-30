@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/wancocoding/dotfiles/compare/v2.0.0...v2.1.0) (2022-04-30)
+
+
+### ✨ Features
+
+* add http_proxy config and remove github proxy url ([18fe3e5](https://github.com/wancocoding/dotfiles/commit/18fe3e5df2f4bde742d052643b6789f0d2a334c4))
+* add opt for config file and step ([9986e8b](https://github.com/wancocoding/dotfiles/commit/9986e8b20a8d9926295a02ab05edf231a936b8b4)), closes [#60](https://github.com/wancocoding/dotfiles/issues/60) [#62](https://github.com/wancocoding/dotfiles/issues/62) [#63](https://github.com/wancocoding/dotfiles/issues/63)
+* add sub-step and pyenv-virtualenv ([d7fbb69](https://github.com/wancocoding/dotfiles/commit/d7fbb69606352182d170d82ae316295d3ccc2086)), closes [#72](https://github.com/wancocoding/dotfiles/issues/72) [#71](https://github.com/wancocoding/dotfiles/issues/71) [#67](https://github.com/wancocoding/dotfiles/issues/67)
+* add vim plugins, refactor base settings functions ([d61ed63](https://github.com/wancocoding/dotfiles/commit/d61ed63bd57a643e65fc939e440425b1dd9d43be))
+* install useful tools ([75effcc](https://github.com/wancocoding/dotfiles/commit/75effccf7e1de75e336faa9eb7b68223b9d5d329)), closes [#56](https://github.com/wancocoding/dotfiles/issues/56)
+* refactor http proxy setup step ([d04668a](https://github.com/wancocoding/dotfiles/commit/d04668ac156faf43d47f17f73b00cd690ec6a85f)), closes [#57](https://github.com/wancocoding/dotfiles/issues/57) [#58](https://github.com/wancocoding/dotfiles/issues/58) [#59](https://github.com/wancocoding/dotfiles/issues/59)
+* refactor setup os system mirror ([0e2f81c](https://github.com/wancocoding/dotfiles/commit/0e2f81c7830a638b5c0c5698da6b34f817e7065b)), closes [#60](https://github.com/wancocoding/dotfiles/issues/60) [#70](https://github.com/wancocoding/dotfiles/issues/70) [#73](https://github.com/wancocoding/dotfiles/issues/73)
+
+
+### 🐛 Bug Fixes
+
+* brew env init before brew install ([ad10868](https://github.com/wancocoding/dotfiles/commit/ad1086803e45f741e9df88b4fb36c4413afbc37e)), closes [#74](https://github.com/wancocoding/dotfiles/issues/74)
+* fix homebrew setup issue and ruby proxy issue ([d78bfc4](https://github.com/wancocoding/dotfiles/commit/d78bfc4cacbcaa6e3ce2be0d57950af57f20576f))
+* fix ruby ruby setup by proxy issue ([769a431](https://github.com/wancocoding/dotfiles/commit/769a431255d978980c4c2d94925341fa5477be18))
+* link npm and pip config dotfile ([4df3998](https://github.com/wancocoding/dotfiles/commit/4df3998b92d62fa1faf55896db2b1bece6b0be62)), closes [#53](https://github.com/wancocoding/dotfiles/issues/53) [#61](https://github.com/wancocoding/dotfiles/issues/61)
+
 ## [2.0.0](https://github.com/wancocoding/dotfiles/compare/v1.4.0...v2.0.0) (2022-04-05)
 
 
