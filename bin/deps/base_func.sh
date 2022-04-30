@@ -174,11 +174,17 @@ run_specified_steps()
 			vim)
 				setup_vim
 				;;
+			clang)
+				setup_c_kits
+				;;
 			ruby)
 				setup_rb_kits
 				;;
 			node)
 				setup_node_kits
+				;;
+			java)
+				setup_java_kits
 				;;
 			python)
 				setup_py_kits

@@ -2,7 +2,7 @@
 
 set -Eeu
 
-NIXDBS_REPO=git@dev1.lvmos.com:dotfiles.git
+NIXDBS_REPO="https://github.com/wancocoding/dotfiles.git"
 # NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 NIXDBS_HOME=$HOME/.nixdbs
 DITFILES_HOME=$HOME/.dotfiles

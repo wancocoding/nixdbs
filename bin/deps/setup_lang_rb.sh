@@ -16,11 +16,11 @@ install_rbenv()
 	fi
 }
 
-link_npmrc()
+link_gemrc()
 {
-	fmt_info "link npmrc file"
-	rm -rf $HOME/.npmrc >/dev/null 2>&1
-	ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
+	fmt_info "link gemrc file"
+	rm -rf $HOME/.gemrc >/dev/null 2>&1
+	ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
 }
 
 setup_rbenv_profile()
@@ -88,6 +88,8 @@ setup_rb_kits()
 	setup_rbenv_profile
 
 	install_default_ruby
+
+	link_gemrc
 
 	fmt_success "Setup Ruby and rbenv finish!"
 }

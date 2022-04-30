@@ -70,5 +70,9 @@ PYENV_DEFAULT_PY_VERSION="3.9.12"
 # default ruby version by rbenv install
 RBENV_DEFALUT_RUBY_VERSION="3.1.1"
 
+# default jdk version 17.0.3 - AdoptOpenJDK(Eclipse Adoptium Temurin)
+JDK_DEFAULT_VERSION="17.0.3-tem"
+GRADLE_DEFAULT_VERSION="7.4.2"
+
 # setup steps
 declare -a SETUP_STEPS_ARRAY

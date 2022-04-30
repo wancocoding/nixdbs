@@ -19,7 +19,7 @@ set -Eeu -o pipefail
 
 USER=${USER:-$(id -u -n)}
 
-REPO_URL="git@gitee.com:rainytooo/dotfiles.git"
+REPO_URL="https://github.com/wancocoding/dotfiles.git"
 
 # create a temp directory
 TMP_FILE="$(mktemp -d)" || exit 1
@@ -110,6 +110,9 @@ source ./deps/setup_lang_py.sh
 
 # setup ruby and rbenv
 source ./deps/setup_lang_rb.sh
+
+# setup jdk and gradle
+source ./deps/setup_lang_java.sh
 
 main_step
 
