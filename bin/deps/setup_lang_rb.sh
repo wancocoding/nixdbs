@@ -20,7 +20,9 @@ link_gemrc()
 {
 	fmt_info "link gemrc file"
 	rm -rf $HOME/.gemrc >/dev/null 2>&1
-	ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
+	echo "$GEMRC_SETTINGS" > $HOME/.gemrc
+	# ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
+
 }
 
 setup_rbenv_profile()

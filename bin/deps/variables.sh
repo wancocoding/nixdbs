@@ -59,6 +59,22 @@ HBEOF
 )"
 
 
+GEMRC_SETTINGS="$(cat << GREOF
+---
+:backtrace: false
+:bulk_threshold: 1000
+:sources:
+- https://mirrors.aliyun.com/rubygems/
+- https://mirrors.tuna.tsinghua.edu.cn/rubygems/
+- https://gems.ruby-china.com/
+:update_sources: true
+:verbose: true
+:concurrent_downloads: 8
+GREOF
+)"
+
+NPMRC_SETTINGS="registry=https://registry.npm.taobao.org/"
+
 VIM_PLUG_VIMFILE_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 # VIM_PLUG_VIMFILE_URL_PROXY="${GITHUB_PROXY}/$VIM_PLUG_VIMFILE_URL"
 
@@ -74,7 +90,7 @@ RBENV_DEFALUT_RUBY_VERSION="3.1.1"
 JDK_DEFAULT_VERSION="17.0.3-tem"
 GRADLE_DEFAULT_VERSION="7.4.2"
 
-GOLANG_DEFAULT_VERSION="go1.17"
+GOLANG_DEFAULT_VERSION="go1.18.1"
 
 # setup steps
 declare -a SETUP_STEPS_ARRAY

@@ -20,7 +20,8 @@ link_npmrc()
 {
 	fmt_info "add dotfile npmrc"
 	rm -rf $HOME/.npmrc >/dev/null 2>&1
-	ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
+	# ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
+	echo "$NPMRC_SETTINGS" > $HOME/.npmrc
 }
 
 setup_nvm_profile()
