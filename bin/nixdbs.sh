@@ -114,6 +114,9 @@ source ./deps/setup_lang_rb.sh
 # setup jdk and gradle
 source ./deps/setup_lang_java.sh
 
+# setup golang
+source ./deps/setup_lang_go.sh
+
 main_step
 
 finish_exit

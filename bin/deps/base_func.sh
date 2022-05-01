@@ -186,6 +186,9 @@ run_specified_steps()
 			java)
 				setup_java_kits
 				;;
+			go)
+				setup_go_kits
+				;;
 			python)
 				setup_py_kits
 				;;
