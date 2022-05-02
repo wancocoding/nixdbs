@@ -3,7 +3,7 @@
 install_nixdbs()
 {
 
-	[ ! -d $HOME/.local/bin ] && mkidr -p $HOME/.local/bin
+	[ ! -d $HOME/.local/bin ] && mkdir -p $HOME/.local/bin
 	rm -rf $HOME/.local/bin/nixdbs > /dev/null 2>&1
 	ln -s $NIXDBS_HOME/bin/nixdbs.sh $HOME/.local/bin/nixdbs
 	if [ ! grep -q "NIXDBS_HOME" $HOME/.zshrc ]; then
