@@ -16,7 +16,6 @@ Contains necessary utilities and development components.
     - `C/C++` dev kits
     - `Golang` dev kits
     - `Node` dev kits
-    - `Lua` dev kits
     - `Ruby` dev kits
 * Services
     - sshd
@@ -44,7 +43,7 @@ curl -fsSL https://raw.githubusercontent.com/wancocoding/nixdbs/master/tools/ins
 * Keep Small, Simple
 * Script your workflow, record every useful step to scripts.
 * Manage your settings, config files, dotfiles in git repository
-* Alway use the package management that in the system first, `(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
+* Alway use the package management first`(apt|pacman|dnf|yum|apk|zypper..) > homebrew > install manually`
 
 ## Support OS
 
@@ -53,8 +52,8 @@ curl -fsSL https://raw.githubusercontent.com/wancocoding/nixdbs/master/tools/ins
 		* [x] Archlinux
 		* [x] Ubuntu/Debain
 		* [x] Gentoo
-		* [ ] Fedora/RedHat/CentOS
-		* [ ] OpenSuse
+		* [x] Fedora/RedHat
+		* [x] OpenSuse
 	- [ ] OSX
 + Architecture
 	- [x] `x86`
