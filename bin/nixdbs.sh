@@ -43,7 +43,6 @@ source ./deps/opts.sh
 
 source ./deps/install_nixdbs.sh
 
-
 # init variables
 source ./deps/variables.sh
 
