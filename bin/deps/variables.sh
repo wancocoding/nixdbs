@@ -59,6 +59,18 @@ HBEOF
 )"
 
 
+FZF_SETTINGS="$(cat << FZFEOF
+# fd
+export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+export FZF_DEFAULT_OPTS="--no-mouse --border --height 50% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300' --preview-window='right:hidden:wrap' --bind='f3:execute(bat --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-a:select-all+accept,ctrl-y:execute-silent(echo {+} | xclip -i -sel clip)'"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!{.git,node_modules}/*" 2>/dev/null'
+export FZF_ALT_C_COMMAND="rg --sort-files --files --null 2>/dev/null | xargs -0 dirname | uniq"
+FZFEOF
+)"
+
+FZF_SETTINGS_CONS='export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"'
+
+
 GEMRC_SETTINGS="$(cat << GREOF
 ---
 :backtrace: false

@@ -2,10 +2,8 @@
 
 set -Eeu
 
-NIXDBS_REPO="https://github.com/wancocoding/dotfiles.git"
-# NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
+NIXDBS_REPO="https://github.com/wancocoding/nixdbs.git"
 NIXDBS_HOME=$HOME/.nixdbs
-DITFILES_HOME=$HOME/.dotfiles
 
 # check git
 if ! command -v git >/dev/null 2>&1; then

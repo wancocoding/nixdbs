@@ -23,8 +23,11 @@ install_pyenv()
 link_pip_conf()
 {
 	fmt_info "link dotfile pip conf"
-	rm -rf $HOME/.pip >/dev/null 2>&1
-	ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
+	rm -rf $HOME/.pip/pip.conf >/dev/null 2>&1
+	# ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
+	mkdir -p $HOME/.pip
+	echo "[global]" > $HOME/.pip/pip.conf
+	echo "url = https://pypi.tuna.tsinghua.edu.cn/simple" >> $HOME/.pip/pip.conf
 }
 
 setup_pyenv_rcfile()

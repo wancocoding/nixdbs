@@ -9,7 +9,7 @@ Contains necessary utilities and development components.
 * system settings
     - timezone
     - locale
-    - repository mirrors
+    - package manager repository mirrors
 * Develop Languages
     - `Python` dev kits
     - `Java` dev kits
@@ -20,22 +20,24 @@ Contains necessary utilities and development components.
     - `Ruby` dev kits
 * Services
     - sshd
-    - git
     - proxy
 * Common Tools
     - `zsh` and `ohmyzsh`
-    - `Vim/Neovim`
+    - `Vim`
     - `Homebrew`
     - base develop libraries
-    - `Tmux`
     - `git` and git settings
-    - `fzf`
-    - others
+    - other useful softs
         + `/usr/share/dict/words` for dictionary
         + standard-version (git commit tools)
-        + `wget` `file` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
+        + `wget` `file` `zip` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
           `bat` `neofetch` `lsd` `fzf` `ripgrep` `fd` `the_sliver_searcher` `netcat`
 
+## Installation
+
+```
+curl -fsSL https://raw.githubusercontent.com/wancocoding/nixdbs/master/tools/install.sh | bash
+```
 
 ## Principle
 
@@ -46,28 +48,20 @@ Contains necessary utilities and development components.
 
 ## Support OS
 
-* [ ] Linux
-    - [x] Archlinux
-    - [x] Ubuntu/Debain
-    - [x] Gentoo
-    - [ ] Alpine
-    - [ ] Fedora/RedHat/CentOS
-    - [ ] OpenSuse
-* [ ] OSX
-* [ ] Unix
-    - [ ] FreeBSD
++ OS
+	- [x] Linux
+		* [x] Archlinux
+		* [x] Ubuntu/Debain
+		* [x] Gentoo
+		* [ ] Fedora/RedHat/CentOS
+		* [ ] OpenSuse
+	- [ ] OSX
++ Architecture
+	- [x] `x86`
+	- [x] `x86_64`
+	- [x] `armv6l`
+	- [x] `aarch64`
 
 
 ## Development
 
-### Workflow
-
-* edit code
-* git add file
-* git commit with template
-* standard-version, or `standard-version -r major|minor|patch|1.1.1`
-* git push --follow-tags github master
-
-## Problems
-
-* [ ] can't close issue from commit

@@ -19,7 +19,9 @@ set -Eeu -o pipefail
 
 USER=${USER:-$(id -u -n)}
 
-REPO_URL="https://github.com/wancocoding/dotfiles.git"
+REPO_URL="https://github.com/wancocoding/nixdbs.git"
+
+NIXDBS_HOME=$HOME/.nixdbs
 
 # create a temp directory
 TMP_FILE="$(mktemp -d)" || exit 1
