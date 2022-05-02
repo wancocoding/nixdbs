@@ -24,7 +24,7 @@ get_setting_value()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
-	local config_file="../configs/nixdbs.default.conf"
+	local config_file="$NIXDBS_HOME/configs/nixdbs.default.conf"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
 	fi
@@ -71,7 +71,7 @@ is_set_true_in_settings()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
-	local config_file="../configs/nixdbs.default.conf"
+	local config_file="$NIXDBS_HOME/configs/nixdbs.default.conf"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
 	fi

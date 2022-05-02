@@ -19,7 +19,7 @@ setup_gentoo_mirror()
 {
 	local mirror_area="$(get_setting_value mirror_area)"
 	if [ -n $mirror_area ]; then
-		local mirror_settings_file="../misc/mirrors/${mirror_area}/os/${OSNAME_LOWERCASE}/mirror.conf"
+		local mirror_settings_file="$NIXDBS_HOME/misc/mirrors/${mirror_area}/os/${OSNAME_LOWERCASE}/mirror.conf"
 		local rsync_mirror="$(get_cfg_from_file_by_keyr sync $mirror_settings_file)"
 		local gentoo_mirror="$(get_cfg_from_file_by_key mirror $mirror_settings_file)"
 		replace_gentoo_mirror $rsync_mirror $gentoo_mirror

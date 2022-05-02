@@ -33,7 +33,7 @@ copy_dictionary()
 		exe_sudo "mkdir" "-p" "/usr/share/dict"
 	fi
 	if [ ! -f "/usr/share/dict/words" ]; then
-		exe_sudo "cp" "../misc/commons/words.txt" "/usr/share/dict/words"
+		exe_sudo "cp" "$NIXDBS_HOME/misc/commons/words.txt" "/usr/share/dict/words"
 	fi
 }
 

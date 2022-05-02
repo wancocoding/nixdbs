@@ -48,7 +48,7 @@ pkg_install_wrapper()
 		# local name_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['name'])"
 		# local method_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['method'])"
 		# cat ./data/pkg_meta.json | python3 -c "$pkg_query_text" >/dev/null 2>&1
-		local query_result="$(python3 ./jq.py --os=$osname --pkg=$1)"
+		local query_result="$(python3 ${NIXDBS_HOME}/bin/jq.py --os=$osname --pkg=$1)"
 		if [[ "$query_result" = "none" ]]; then
 			fmt_warning "package meta not exist, now try use system package manager"
 			# try to install pkg by system package manager

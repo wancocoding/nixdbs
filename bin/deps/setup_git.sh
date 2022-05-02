@@ -90,7 +90,7 @@ setup_git()
     execute git config --global alias.undo 'reset HEAD~1 --mixed'
 
     # git template 
-	cat ../dotfiles/config/git_commit_template > ~/.config/git_commit_template
+	cat $NIXDBS_HOME/dotfiles/config/git_commit_template > ~/.config/git_commit_template
 	git config --global commit.template ~/.config/git_commit_template
 
     # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
