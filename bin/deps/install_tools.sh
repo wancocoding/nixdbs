@@ -14,6 +14,7 @@ config_fzf()
 			echo "# ====== fzf settings ======" >> $HOME/.zshrc
 			echo "$FZF_SETTINGS" >> $HOME/.zshrc
 			echo "$FZF_SETTINGS_CONS" >> $HOME/.zshrc
+			cat $NIXDBS_HOME/dotfiles/fzf.zsh >> $HOME/.zshrc
 		fi
 	fi
 
@@ -28,6 +29,18 @@ config_fzf()
 	fi
 }
 
+get_fzf_shell_tools()
+{
+	fmt_info "download fzf completion and key-bnindings..."
+	local fzf_shell_location="$HOME/.local/share/shell/fzf"
+	[ -d $fzf_shell_location ] && rm -rf $fzf_shell_location > /dev/null 2>&1
+	mkdir -p "$fzf_shell_location" > /dev/null 2>&1
+	curl -o "$fzf_shell_location/completion.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash
+	curl -o "$fzf_shell_location/key-bindings.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash
+	curl -o "$fzf_shell_location/completion.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh
+	curl -o "$fzf_shell_location/key-bindings.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
+}
+
 install_tools()
 {
 	echo_title "Install tools..."
@@ -38,6 +51,7 @@ install_tools()
 		fmt_info "install $ti"
 		pkg_install_wrapper "$ti"
 	done
+	get_fzf_shell_tools
 	config_fzf
 	fmt_success "install tools finish."
 }

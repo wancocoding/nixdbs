@@ -41,6 +41,9 @@ source ./deps/opts.sh
 
 # =========== These steps are required
 
+source ./deps/install_nixdbs.sh
+
+
 # init variables
 source ./deps/variables.sh
 
