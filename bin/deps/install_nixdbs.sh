@@ -23,5 +23,4 @@ install_nixdbs()
 }
 
 
-append_step "install_nixdbs"
-
+install_nixdbs
