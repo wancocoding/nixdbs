@@ -13,14 +13,16 @@ install_vim_plug()
 	fmt_info "checking vim-plug ..."
 	if [ ! -f $HOME/.vim/autoload/plug.vim ];then
 		fmt_info "install vim-plug"
-		local http_proxy=$(get_http_proxy)
-		if [ ! -z "${http_proxy:-}" ]; then
-			curl --proxy "$http_proxy" -fLo ~/.vim/autoload/plug.vim --create-dirs \
-				$VIM_PLUG_VIMFILE_URL
-		else
-			curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-				$VIM_PLUG_VIMFILE_URL
-		fi
+		curl_wrapper -fLo ~/.vim/autoload/plug.vim --create-dirs \
+			$VIM_PLUG_VIMFILE_URL
+		# local http_proxy=$(get_http_proxy)
+		# if [ ! -z "${http_proxy:-}" ]; then
+		#     curl --proxy "$http_proxy" -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		#         $VIM_PLUG_VIMFILE_URL
+		# else
+		#     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		#         $VIM_PLUG_VIMFILE_URL
+		# fi
 	fi
 	fmt_info "install plugin"
 	vim +PlugInstall +qall

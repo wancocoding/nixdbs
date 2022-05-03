@@ -29,33 +29,52 @@ config_fzf()
 	fi
 }
 
+
 get_fzf_shell_tools()
 {
+	shopt -s expand_aliases
 	fmt_info "download fzf completion and key-bnindings..."
 	local fzf_shell_location="$HOME/.local/share/shell/fzf"
 	[ -d $fzf_shell_location ] && rm -rf $fzf_shell_location > /dev/null 2>&1
 	mkdir -p "$fzf_shell_location" > /dev/null 2>&1
-	curl -o "$fzf_shell_location/completion.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash
-	curl -o "$fzf_shell_location/key-bindings.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash
-	curl -o "$fzf_shell_location/completion.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh
-	curl -o "$fzf_shell_location/key-bindings.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
+	fmt_info "downlad bash completion"
+	curl_wrapper -o "$fzf_shell_location/completion.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash
+	fmt_info "downlad bash key-bindings"
+	curl_wrapper -o "$fzf_shell_location/key-bindings.bash" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash
+	fmt_info "downlad zsh completion"
+	curl_wrapper -o "$fzf_shell_location/completion.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh
+	fmt_info "downlad zsh key-bindings"
+	curl_wrapper -o "$fzf_shell_location/key-bindings.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
 }
 
 install_cheatsh()
 {
+	fmt_info "Installing cheat.sh ..."
 	if [ ! -f $HOME/.local/bin/cht.sh ];then 
 		[ ! -f $HOME/.local/bin ] && rm -rf $HOME/.local/bin/cht.sh > /dev/null 2>&1
-		curl https://cht.sh/:cht.sh > $HOME/.local/bin/cht.sh
+		fmt_info "downloading cht.sh ..."
+		curl_wrapper https://cht.sh/:cht.sh > $HOME/.local/bin/cht.sh
 		chmod +x $HOME/.local/bin/cht.sh
 	fi
 
 	# shell completion
+	# bash
 	local cht_shell_location="$HOME/.local/share/shell/cht"
 	[ -d $cht_shell_location ] && rm -rf $cht_shell_location > /dev/null 2>&1
 	mkdir -p "$cht_shell_location" > /dev/null 2>&1
-	curl -o "$cht_shell_location/completion.bash" -L \
+	fmt_info "downloading cheat.sh bash completion ..."
+	curl_wrapper -o "$cht_shell_location/completion.bash" -l \
 		https://cheat.sh/:bash_completion
-	append_rc "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
+	append_bashrc "# cheat.sh bash completion"
+	append_bashrc "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
+
+	# zsh
+	fmt_info "downloading cheat.sh zsh completion ..."
+	curl_wrapper -o "$cht_shell_location/completion.zsh" -l \
+		https://cheat.sh/:zsh
+	append_zshrc "# cheat.sh zsh completion"
+	append_zshrc "[ -f $cht_shell_location/completion.zsh ] && source $cht_shell_location/completion.zsh"
+
 }
 
 install_tools()

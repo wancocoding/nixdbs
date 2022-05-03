@@ -38,6 +38,19 @@ Contains necessary utilities and development components.
 curl -fsSL https://raw.githubusercontent.com/wancocoding/nixdbs/master/tools/install.sh | bash
 ```
 
+### http proxy
+
+You can define a http proxy in two ways:
+
+add a `http_proxy` in a config file 
+```
+http_proxy = http://tb.cocosrv.com:9081
+```
+
+or add a `NIXDBS_HTTP_PROXY` in your bashrc or zshrc(recommend)
+
+
+
 ## Principle
 
 * Keep Small, Simple

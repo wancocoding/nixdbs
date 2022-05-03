@@ -3,12 +3,13 @@
 install_sdkman()
 {
 	if [ ! -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
-		local http_proxy=$(get_http_proxy)
-		if [ ! -z "${http_proxy:-}" ]; then
-			curl --proxy $http_proxy -s "https://get.sdkman.io" | bash
-		else
-			curl -s "https://get.sdkman.io" | bash
-		fi
+		curl_wrapper -s "https://get.sdkman.io" | bash
+		# local http_proxy=$(get_http_proxy)
+		# if [ ! -z "${http_proxy:-}" ]; then
+		#     curl --proxy $http_proxy -s "https://get.sdkman.io" | bash
+		# else
+		#     curl -s "https://get.sdkman.io" | bash
+		# fi
 	fi
 	# sdkman script not set -eu, it's sucks
 	set +eu

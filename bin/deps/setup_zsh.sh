@@ -7,29 +7,30 @@
 setup_zsh()
 {
 	echo_title "Setup zsh"
-    echo "Install zsh standalone or setup ohmyzsh?"
-    echo " (1) zsh with ohmyzsh[recommend]"
-    echo " (2) zsh standalone"
-    echo " (0) setup zsh manually later!"
-    read -p "your choice: > " input_opts
-    case $input_opts in
-        1)
-            install_ohmyzsh
-            runzsh
-            ;;
-        2)
-            install_zsh
-            runzsh
-            ;;
-        0)
-            echo "Skip zsh setup."
-            return
-            ;;
-        *)
-            fmr_warning "Invalid choice, you could setup zsh manually later."
-            return
-            ;;
-    esac
+    # echo "Install zsh standalone or setup ohmyzsh?"
+    # echo " (1) zsh with ohmyzsh[recommend]"
+    # echo " (2) zsh standalone"
+    # echo " (0) setup zsh manually later!"
+    # read -p "your choice: > " input_opts
+    # case $input_opts in
+    #     1)
+    #         install_ohmyzsh
+    #         runzsh
+    #         ;;
+    #     2)
+    #         install_zsh
+    #         runzsh
+    #         ;;
+    #     0)
+    #         echo "Skip zsh setup."
+    #         return
+    #         ;;
+    #     *)
+    #         fmr_warning "Invalid choice, you could setup zsh manually later."
+    #         return
+    #         ;;
+    # esac
+	install_zsh
 	fmt_success "finish zsh setup."
 }
 
@@ -63,15 +64,21 @@ install_ohmyzsh()
     #         sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     #     fi
     # fi
-    if [ -n "${REMOTE_PROXY-}" ]; then
-        echo "use remote proxy you just set!...${REMOTE_PROXY}"
-        sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    elif [ -n "${GITHUB_PROXY-}" ]; then
-        echo "use github mirror...${GITHUB_PROXY}"
-        sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    else
-        error_exit "install ohmyzsh failed, and no available http proxy or github mirror"
-    fi
+    # if [ -n "${REMOTE_PROXY-}" ]; then
+    #     echo "use remote proxy you just set!...${REMOTE_PROXY}"
+    #     sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    # elif [ -n "${GITHUB_PROXY-}" ]; then
+    #     echo "use github mirror...${GITHUB_PROXY}"
+    #     sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    # else
+    #     error_exit "install ohmyzsh failed, and no available http proxy or github mirror"
+    # fi
+	install_zsh
+	if [ ! -d $HOME/.oh-my-zsh ]; then
+		curl_wrapper "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
+	else
+		echo "oh-my-zsh already installed"
+	fi
 }
 
 
@@ -85,7 +92,7 @@ install_zsh()
         #     fmt_warning "Skip install zsh"
         #     return
         # fi
-        install_pkg zsh
+		pkg_install_wrapper zsh
     else
         echo "zsh already installed!"
     fi
@@ -107,18 +114,18 @@ EOF
         return
     fi
 
-    printf "${print_f_yellow}Do you want to change your default shell to zsh now? [y|n] ${print_f_reset}"
-
-    read -r u_opts
-    case $u_opts in
-        y*|Y*|"") ;;
-        n*|N*)
-            echo "Skip this step, not change your shell to zsh"
-            return ;;
-        *)
-            echo "Invalid choice. Shell change skiped."
-            return ;;
-    esac
+    # fmt_msg_yellow "Do you want to change your default shell to zsh now? [y|n]"
+    #
+    # read -r u_opts
+    # case $u_opts in
+    #     y*|Y*|"") ;;
+    #     n*|N*)
+    #         echo "Skip this step, not change your shell to zsh"
+    #         return ;;
+    #     *)
+    #         echo "Invalid choice. Shell change skiped."
+    #         return ;;
+    # esac
 
     if [ -f /etc/shells ]; then
         shells_file=/etc/shells
@@ -141,10 +148,11 @@ EOF
         fmt_warning "chsh zsh unsuccessful. Change your default shell manually."
     else
         export SHELL="$zsh"
-        log_green "Shell successful changed to $zsh"
+        fmt_msg_green "Shell successful changed to $zsh"
     fi
 
 }
 
 append_step "setup_zsh"
+append_step "install_ohmyzsh"
 

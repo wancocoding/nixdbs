@@ -4,7 +4,7 @@ install_gvm()
 {
 	if [ ! -d $HOME/.gvm ] && [ ! -f $HOME/.gvm/scripts/gvm ]; then
 		local gvm_install_script="https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer"
-		curl -fsSL $gvm_install_script | bash
+		curl_wrapper -fsSL $gvm_install_script | bash
 	fi
 	[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 }
@@ -51,7 +51,7 @@ install_default_go()
 		fmt_info "the download url is ${go_download_url}"
 		mkdir -p $HOME/.cache/nixdbs/download
 		if [ ! -f $dl_file_full_path ]; then
-			curl -o "${dl_file_full_path}" -L $go_download_url 
+			curl_wrapper -o "${dl_file_full_path}" -L $go_download_url 
 		fi
 		# install go
 		if [ ! -d $install_full_path ]; then

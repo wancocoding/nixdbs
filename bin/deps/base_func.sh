@@ -115,6 +115,20 @@ append_rc()
 	fi
 }
 
+append_bashrc()
+{
+	if ! grep -q "$1" $HOME/.bashrc ;then
+		echo "$1" >> $HOME/.bashrc
+	fi
+}
+
+append_zshrc()
+{
+	if ! grep -q "$1" $HOME/.zshrc ;then
+		echo "$1" >> $HOME/.zshrc
+	fi
+}
+
 append_rc_by_file()
 {
 	if [ -f $HOME/.zshrc ]; then
@@ -123,6 +137,17 @@ append_rc_by_file()
 
 	if [ -f $HOME/.bashrc ]; then
 		cat "$1" >> $HOME/.bashrc
+	fi
+}
+
+
+curl_wrapper()
+{
+	local http_proxy=$(get_http_proxy)
+	if [ ! -z "${http_proxy:-}" ]; then
+		curl -x $http_proxy --connect-timeout 10 --retry-delay 2 --retry 3	"$@"
+	else
+		curl --connect-timeout 10 --retry-delay 2 --retry 3	"$@"
 	fi
 }
 
@@ -196,6 +221,12 @@ run_specified_steps()
 				;;
 			tools)
 				install_tools
+				;;
+			zsh)
+				setup_zsh
+				;;
+			ohmyzsh)
+				install_ohmyzsh
 				;;
 			vim)
 				setup_vim

@@ -2,20 +2,9 @@
 
 # ####################################################
 # nixdbs 
-# nixdbs is a bootstrap tools to setup a development env quickly
 # ####################################################
-# usage:
-# curl -L https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh | bash
-# or
-# /bin/bash -c "$(curl -fsSL https://gitee.com/rainytooo/dotfiles/raw/master/bin/install.sh)"
-# 
-# repository in ~/.cocodot/dotfiles
-# settings file in ~/.cocodot/settings
-# 
 
 set -Eeu -o pipefail
-
-
 
 USER=${USER:-$(id -u -n)}
 
@@ -47,6 +36,9 @@ source $NIXDBS_HOME/bin/deps/variables.sh
 
 # basic functions
 source $NIXDBS_HOME/bin/deps/base_func.sh
+
+# review nixdbs installation
+source $NIXDBS_HOME/bin/deps/review_ins.sh
 
 # init colors
 source $NIXDBS_HOME/bin/deps/colors.sh
