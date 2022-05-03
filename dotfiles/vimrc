@@ -387,8 +387,21 @@ let g:lightline = {
 "" fzf fuzzy finder {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>fp :Buffers<CR>
+nnoremap <silent> <Leader>fk :Marks<CR>
+" nnoremap <silent> <Leader>fm :Maps<CR>
+nnoremap <silent> <Leader>ft :Rg<CR>
+nnoremap <silent> <Leader>fh :History<CR>
+nnoremap <silent> <Leader>fc :Colors<CR>
+
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " Replace the default dictionary completion with fzf-based fuzzy completion
-" inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
+inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 
 " }}}
 

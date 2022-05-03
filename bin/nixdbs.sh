@@ -40,8 +40,7 @@ WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 source $NIXDBS_HOME/bin/deps/opts.sh
 
 # =========== These steps are required
-
-source $NIXDBS_HOME/bin/deps/install_nixdbs.sh
+# source $NIXDBS_HOME/bin/deps/install_nixdbs.sh
 
 # init variables
 source $NIXDBS_HOME/bin/deps/variables.sh

@@ -41,9 +41,31 @@ get_fzf_shell_tools()
 	curl -o "$fzf_shell_location/key-bindings.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
 }
 
+install_cheatsh()
+{
+	if [ ! -f $HOME/.local/bin/cht.sh ];then 
+		[ ! -f $HOME/.local/bin ] && rm -rf $HOME/.local/bin/cht.sh > /dev/null 2>&1
+		curl https://cht.sh/:cht.sh > $HOME/.local/bin/cht.sh
+		chmod +x $HOME/.local/bin/cht.sh
+	fi
+
+	# shell completion
+	local cht_shell_location="$HOME/.local/share/shell/cht"
+	[ -d $cht_shell_location ] && rm -rf $cht_shell_location > /dev/null 2>&1
+	mkdir -p "$cht_shell_location" > /dev/null 2>&1
+	curl -o "$cht_shell_location/completion.bash" -L \
+		https://cheat.sh/:bash_completion
+	append_rc "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
+}
+
 install_tools()
 {
 	echo_title "Install tools..."
+	# http_proxy
+	local script_http_proxy=$(get_http_proxy)
+	if [ ! -z "${script_http_proxy:-}" ]; then
+		export http_proxy="$script_http_proxy"
+	fi
 	local tools_to_install=(fzf fd ripgrep the_silver_searcher bat exa htop \
 		neofetch unrar zip unzip)
 	for ti in "${tools_to_install[@]}"
@@ -53,6 +75,10 @@ install_tools()
 	done
 	get_fzf_shell_tools
 	config_fzf
+
+	install_cheatsh
+
+	unset http_proxy
 	fmt_success "install tools finish."
 }
 

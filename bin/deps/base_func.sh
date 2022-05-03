@@ -100,6 +100,32 @@ get_http_proxy()
 	fi
 }
 
+append_rc()
+{
+	if [ -f $HOME/.zshrc ]; then
+		if ! grep -q "$1" $HOME/.zshrc ;then
+			echo "$1" >> $HOME/.zshrc
+		fi
+	fi
+
+	if [ -f $HOME/.bashrc ]; then
+		if ! grep -q "$1" $HOME/.bashrc ;then
+			echo "$1" >> $HOME/.bashrc
+		fi
+	fi
+}
+
+append_rc_by_file()
+{
+	if [ -f $HOME/.zshrc ]; then
+		cat "$1" >> $HOME/.zshrc
+	fi
+
+	if [ -f $HOME/.bashrc ]; then
+		cat "$1" >> $HOME/.bashrc
+	fi
+}
+
 append_step()
 {
 	SETUP_STEPS_ARRAY+=("$1")
