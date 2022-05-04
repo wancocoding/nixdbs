@@ -69,12 +69,26 @@ install_cheatsh()
 	append_bashrc "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
 
 	# zsh
+	mkdir -p $HOME/.zsh.d > /dev/null 2>&1
 	fmt_info "downloading cheat.sh zsh completion ..."
-	curl_wrapper -o "$cht_shell_location/completion.zsh" -l \
-		https://cheat.sh/:zsh
+	[ -f $HOME/.zsh.d/_cht ] && rm $HOME/.zsh.d/_cht 
+	curl_wrapper -o "$HOME/.zsh.d/_cht" -SL https://cheat.sh/:zsh
 	append_zshrc "# cheat.sh zsh completion"
-	append_zshrc "[ -f $cht_shell_location/completion.zsh ] && source $cht_shell_location/completion.zsh"
+	append_zshrc 'fpath=(~/.zsh.d/ $fpath)'
 
+}
+
+install_tldr()
+{
+	fmt_info "Install tldr ..."
+	# setup node first
+	fmt_info "setup node and nvm first ..."
+	setup_node_kits
+	fmt_info "install tldr by npm"
+	npm install -g tldr
+	fmt_info "install tldr finish!"
+	tldr -v
+	tldr -l
 }
 
 install_tools()
@@ -94,6 +108,8 @@ install_tools()
 	done
 	get_fzf_shell_tools
 	config_fzf
+	
+	install_tldr
 
 	install_cheatsh
 
