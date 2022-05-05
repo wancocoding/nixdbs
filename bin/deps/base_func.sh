@@ -20,11 +20,14 @@ else
   }
 fi
 
+
+
+
 get_setting_value()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
-	local config_file="$NIXDBS_HOME/configs/nixdbs.default.conf"
+	local config_file="$JOB_CONFIG_FILE"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
 	fi
@@ -71,7 +74,7 @@ is_set_true_in_settings()
 {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
-	local config_file="$NIXDBS_HOME/configs/nixdbs.default.conf"
+	local config_file="$JOB_CONFIG_FILE"
 	if [ ! -z "${CONFIG_FILE:-}" ]; then
 		config_file=$CONFIG_FILE
 	fi
@@ -213,6 +216,12 @@ run_specified_steps()
 			osmir)
 				setup_os_mirror
 				;;
+			sys)
+				init_system
+				;;
+			base)
+				setup_basic_dev_kits
+				;;
 			brew)
 				setup_homebrew
 				;;
@@ -263,9 +272,18 @@ run_specified_steps()
 
 main_step()
 {
-	if [ ${#specified_steps[@]} -gt 0 ]; then
-		run_specified_steps
-	else
+	if [ $JOB_NAME = "init" ];then
 		run_all_steps
+	elif [ $JOB_NAME = "install" ]; then
+		run_specified_steps
+	elif [ $JOB_NAME = "update" ]; then
+		echo "run update job"
+	elif [ $JOB_NAME = "remove" ]; then
+		echo "run remove job"
 	fi
+	# if [ ${#specified_steps[@]} -gt 0 ]; then
+	#     run_specified_steps
+	# else
+	#     run_all_steps
+	# fi
 }

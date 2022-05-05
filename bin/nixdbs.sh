@@ -25,6 +25,9 @@ mkdir -p $HOME/.cache/nixdbs >/dev/null 2>&1
 # get the real path of this script
 WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
+# current path
+CURRENT_WORK_PATH=`pwd`
+
 # parse options
 source $NIXDBS_HOME/bin/deps/opts.sh
 

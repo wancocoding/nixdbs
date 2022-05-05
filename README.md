@@ -11,31 +11,36 @@ Contains necessary utilities and development components.
     - locale
     - package manager repository mirrors
 * Develop Languages
-    - `Python` dev kits
-    - `Java` dev kits
-    - `C/C++` dev kits
+    - `Python` dev kits (pyenv pyenv-virtualenv and default python)
+    - `Java` dev kits (sdkman and default jdk)
+    - `C/C++` dev kits (clang ninja make cmake gcc gdb)
     - `Golang` dev kits
-    - `Node` dev kits
-    - `Ruby` dev kits
+    - `Node` dev kits (nvm and default node)
+    - `Ruby` dev kits (rbenv and default ruby)
 * Services
     - sshd
     - proxy
 * Common Tools
     - `zsh` and `ohmyzsh`
-    - `Vim`
+    - `Vim` and some plugin
     - `Homebrew`
+	- `tldr` and `cheat.sh`
     - base develop libraries
     - `git` and git settings
     - other useful softs
         + `/usr/share/dict/words` for dictionary
-        + standard-version (git commit tools)
+        + `standard-version`
         + `wget` `file` `zip` `unzip` `net-tools` `iputils-ping` `tree` `htop` `unrar` `less` `most`
           `bat` `neofetch` `lsd` `fzf` `ripgrep` `fd` `the_sliver_searcher` `netcat`
 
 ## Installation
 
 ```
+# install
 curl -fsSL https://raw.githubusercontent.com/wancocoding/nixdbs/master/tools/install.sh | bash
+
+# Initialize
+nixdbs
 ```
 
 ### http proxy
