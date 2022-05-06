@@ -75,15 +75,15 @@ is_set_true_in_settings()
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
 	local config_file="$JOB_CONFIG_FILE"
-	if [ ! -z "${CONFIG_FILE:-}" ]; then
-		config_file=$CONFIG_FILE
-	fi
+	# if [ ! -z "${CONFIG_FILE:-}" ]; then
+	#     config_file=$CONFIG_FILE
+	# fi
 	# local config_value=`awk '/^$1/$print_string' $config_file`
 	# local config_value=`awk -v cfkey="$1" '$0 ~ cfkey {print $NF}' $config_file`
 	local config_value="$(get_cfg_from_file_by_key $1 $config_file)"
 	echo "the config value of [$1] is $config_value"
 	case $config_value in
-		y*)
+		y*|Y*)
 			return 0
 			;;
 		*)
@@ -101,6 +101,38 @@ get_http_proxy()
 	else
 		get_setting_value "http_proxy"
 	fi
+}
+
+use_http_proxy()
+{
+	local script_http_proxy=$(get_http_proxy)
+	if [ ! -z "${script_http_proxy:-}" ]; then
+		export http_proxy="$script_http_proxy"
+		if [ -f $HOME/.curlrc ];then
+			mv $HOME/.curlrc $HOME/.curlrc.bak
+		fi
+		if [ -f $HOME/.wgetrc]; then
+			mv $HOME/.wgetrc $HOME/.wgetrc.bak
+		fi
+		echo "proxy=${script_http_proxy}" > $HOME/.curlrc
+		echo "http_proxy = ${script_http_proxy}" > $HOME/.wgetrc
+	fi
+}
+
+use_http_proxy_by_setting()
+{
+	if is_set_true_in_settings "$1"; then
+		use_http_proxy
+	fi
+}
+
+unset_http_proxy()
+{
+	unset http_proxy
+	[ -f $HOME/.curlrc ] && rm $HOME/.curlrc
+	[ -f $HOME/.curlrc.bak ] && mv $HOME/.curlrc.bak$HOME/.curlrc
+	[ -f $HOME/.wgetrc ] && rm $HOME/.wgetrc
+	[ -f $HOME/.wgetrc.bak ] && mv $HOME/.wgetrc.bak$HOME/.wgetrc
 }
 
 append_rc()
@@ -230,6 +262,12 @@ run_specified_steps()
 				;;
 			tools)
 				install_tools
+				;;
+			tldr)
+				install_tldr
+				;;
+			cheatsh)
+				install_cheatsh
 				;;
 			zsh)
 				setup_zsh

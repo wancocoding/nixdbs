@@ -23,16 +23,15 @@ install_jdk()
 {
 	set +eu
 	# set http proxy
-	local script_http_proxy=$(get_http_proxy)
-	if [ ! -z "${script_http_proxy:-}" ]; then
-		export http_proxy="$script_http_proxy"
-	fi
+	use_http_proxy_by_setting "install_jdk_use_proxy"
+
 	sdk install java "$JDK_DEFAULT_VERSION"
 	sdk default java "$JDK_DEFAULT_VERSION"
 	sdk install gradle "$GRADLE_DEFAULT_VERSION"
 	sdk default gradle "$GRADLE_DEFAULT_VERSION"
 	sdk current
-	unset http_proxy
+
+	unset_http_proxy
 	set -eu
 }
 

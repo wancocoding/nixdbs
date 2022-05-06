@@ -26,25 +26,29 @@ link_npmrc()
 
 setup_nvm_profile()
 {
-    # for zsh
-    if [ -a $HOME/.zshrc ]; then
-        if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.zshrc ; then
-            echo '' >> $HOME/.zshrc
-            echo '# ====== NVM ====== ' >> $HOME/.zshrc
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.zshrc
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.zshrc
-        fi
-		# source $HOME/.zshrc
-    fi
-    # for bash
-    if [ -a $HOME/.bashrc ]; then
-        if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bashrc ; then
-            echo '# ====== NVM ====== ' >> $HOME/.bashrc
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc
-            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bashrc
-        fi
-    fi
+	append_rc '# ====== NVM ====== '
+	append_rc 'export NVM_DIR="$HOME/.nvm"'
+	append_rc '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
+	append_bashrc '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
+    # # for zsh
+    # if [ -a $HOME/.zshrc ]; then
+    #     if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.zshrc ; then
+    #         echo '' >> $HOME/.zshrc
+    #         echo '# ====== NVM ====== ' >> $HOME/.zshrc
+    #         echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.zshrc
+    #         echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.zshrc
+    #     fi
+	#     # source $HOME/.zshrc
+    # fi
+    # # for bash
+    # if [ -a $HOME/.bashrc ]; then
+    #     if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bashrc ; then
+    #         echo '# ====== NVM ====== ' >> $HOME/.bashrc
+    #         echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
+    #         echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc
+    #         echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bashrc
+    #     fi
+    # fi
 }
 
 install_global_node()
@@ -57,9 +61,12 @@ install_global_node()
 	export NVM_DIR="$HOME/.nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+	use_http_proxy_by_setting "install_node_use_proxy"
 	nvm install --lts="$GLOBAL_NODE_VERSION"
 	nvm alias default "lts/$GLOBAL_NODE_VERSION"
 	nvm use default
+
+	unset_http_proxy
 }
 
 setup_node_kits()

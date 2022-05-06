@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-declare -a TASK_NAME_ARRAY=(osmir sys base git tools brew zsh ohmyzsh vim java python \
+declare -a TASK_NAME_ARRAY=(osmir sys base git tools \
+	brew zsh ohmyzsh vim java python \
+	tldr cheatsh \
 	clang ruby node go)
 
 print_help()
@@ -15,9 +17,9 @@ Options:
 Actions:
     info                Show nixdbs information on this machine
     init                Init system and install packages defined in configuration files
-    install [tasks]      Run the specified task
-    update [tasks]       Update all(when task is empty), or update specified task 
-    remove [tasks]       Remove specified task 
+    install [tasks]     Run the specified task
+    update [tasks]      Update all(when task is empty), or update specified task 
+    remove [tasks]      Remove specified task 
 
 Tasks;
     osmir               setup system package manager mirror

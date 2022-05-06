@@ -49,7 +49,7 @@ get_fzf_shell_tools()
 
 install_cheatsh()
 {
-	fmt_info "Installing cheat.sh ..."
+	echo_title "Installing cheat.sh ..."
 	if [ ! -f $HOME/.local/bin/cht.sh ];then 
 		[ ! -f $HOME/.local/bin ] && rm -rf $HOME/.local/bin/cht.sh > /dev/null 2>&1
 		fmt_info "downloading cht.sh ..."
@@ -80,7 +80,7 @@ install_cheatsh()
 
 install_tldr()
 {
-	fmt_info "Install tldr ..."
+	echo_title "Install tldr ..."
 	# setup node first
 	fmt_info "setup node and nvm first ..."
 	setup_node_kits
@@ -94,11 +94,6 @@ install_tldr()
 install_tools()
 {
 	echo_title "Install tools..."
-	# http_proxy
-	local script_http_proxy=$(get_http_proxy)
-	if [ ! -z "${script_http_proxy:-}" ]; then
-		export http_proxy="$script_http_proxy"
-	fi
 	local tools_to_install=(fzf fd ripgrep the_silver_searcher bat exa htop \
 		neofetch unrar zip unzip)
 	for ti in "${tools_to_install[@]}"
@@ -109,12 +104,9 @@ install_tools()
 	get_fzf_shell_tools
 	config_fzf
 	
-	install_tldr
-
-	install_cheatsh
-
-	unset http_proxy
 	fmt_success "install tools finish."
 }
 
 append_step "install_tools"
+append_step "install_tldr"
+append_step "install_cheatsh"

@@ -27,24 +27,27 @@ link_gemrc()
 
 setup_rbenv_profile()
 {
+	append_rc '# ====== rbenv ====== '
+	append_rc 'export PATH="$HOME/.rbenv/bin:$PATH"'
+	append_rc 'eval "$(rbenv init -)"'
     # for zsh
-    if [ -a $HOME/.zshrc ]; then
-        if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.zshrc ; then
-            echo '' >> $HOME/.zshrc
-
-            echo '# ====== rbenv ====== ' >> $HOME/.zshrc
-			echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
-			# echo 'eval "$(rbenv init - zsh)"' >> ~/.zshrc
-        fi
-    fi
-    # for bash
-    if [ -a $HOME/.bashrc ]; then
-        if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.bashrc ; then
-            echo '# ====== rbenv ====== ' >> $HOME/.bashrc
-			echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-			echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-        fi
-    fi
+    # if [ -a $HOME/.zshrc ]; then
+    #     if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.zshrc ; then
+    #         echo '' >> $HOME/.zshrc
+    #
+    #         echo '# ====== rbenv ====== ' >> $HOME/.zshrc
+	#         echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+	#         # echo 'eval "$(rbenv init - zsh)"' >> ~/.zshrc
+    #     fi
+    # fi
+    # # for bash
+    # if [ -a $HOME/.bashrc ]; then
+    #     if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.bashrc ; then
+    #         echo '# ====== rbenv ====== ' >> $HOME/.bashrc
+	#         echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+	#         echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+    #     fi
+    # fi
 	export PATH="$HOME/.rbenv/bin:$PATH"
 	eval "$(rbenv init -)"
 
