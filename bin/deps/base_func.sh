@@ -175,6 +175,20 @@ append_rc_by_file()
 	fi
 }
 
+append_bashrc_by_file()
+{
+	if [ -f $HOME/.bashrc ]; then
+		cat "$1" >> $HOME/.bashrc
+	fi
+}
+
+append_zshrc_by_file()
+{
+	if [ -f $HOME/.zshrc ]; then
+		cat "$1" >> $HOME/.zshrc
+	fi
+}
+
 
 curl_wrapper()
 {
@@ -185,6 +199,23 @@ curl_wrapper()
 		curl --connect-timeout 10 --retry-delay 2 --retry 3	"$@"
 	fi
 }
+
+
+# param 1: [os|pkg]
+# param 2: [pkgname] example: homebrew
+get_mirror_file()
+{
+	if [ ! -z ${1:-} ] && [ ! -z ${2:-} ]; then
+		local mirror_area="$(get_setting_value mirror_area)"
+		local mirror_type="$1"
+		local mirror_name="$2"
+		local mirror_file="$NIXDBS_HOME/misc/mirrors/${mirror_area}/${mirror_type}/${mirror_name}"
+		echo "$mirror_file"
+	else
+		error_exit "mirror settings not found! check settings and configs."
+	fi
+}
+
 
 append_step()
 {

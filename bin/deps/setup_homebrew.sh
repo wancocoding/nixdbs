@@ -4,6 +4,8 @@
 # Setup Homebrew
 # ==================================
 
+homebrew_rcfile_title="# ======== Homebrew ========"
+
 setup_homebrew()
 {
 	echo_title "Setup Homebrew"
@@ -31,9 +33,10 @@ install_homebrew()
     if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
         echo "You have installed Homebrew already! Skip this step."
     else
-        export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-        export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-        export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+		if is_set_true_in_settings "homebrew_use_mirror"; then
+			local mirror_file="$(get_mirror_file pkg homebrew)"
+			eval "$(<$mirror_file)"
+		fi
 		curl_wrapper -fsSL https://github.com/Homebrew/install/raw/HEAD/install.sh | bash
 		# local http_proxy=$(get_http_proxy)
 		# if [ ! -z "${http_proxy:-}" ]; then
@@ -48,39 +51,27 @@ install_homebrew()
 setup_rcfile_for_homebrew()
 {
 	fmt_info "setup rcfile for homebrew"
-    # not use any more
-    local brew_env_text=$(cat << VEOF
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
-# export HOMEBREW_AUTO_UPDATE_SECS=86400
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-VEOF
-    )
-    # for zsh
-    if [ -a $HOME/.zshrc ]; then
-        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.zshrc ; then
-            echo '' >> $HOME/.zshrc
-            echo '# ====== Homebrew ====== ' >> $HOME/.zshrc
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.zshrc
-            echo "$brew_env_text" >> $HOME/.zshrc
-		else
-			echo "homebrew env already exist."
-        fi
-    fi
-    # for bash
-    if [ -a $HOME/.bashrc ]; then
-        if ! grep -Fxq 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' $HOME/.bashrc ; then
-            echo '' >> $HOME/.bashrc
-            echo '# ====== Homebrew ====== ' >> $HOME/.bashrc
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bashrc
-            echo "$brew_env_text" >> $HOME/.bashrc
-		else
-			echo "homebrew env already exist."
-        fi
-    fi
-	eval "$HOMEBREW_SETTINGS"
+	if ! grep -q "$homebrew_rcfile_title" $HOME/.bashrc;then
+		append_bashrc "$homebrew_rcfile_title"
+		append_bashrc 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+		append_bashrc "export HOMEBREW_NO_AUTO_UPDATE=1"
+		# get the mirror file
+		if is_set_true_in_settings "homebrew_use_mirror"; then
+			local mirror_file="$(get_mirror_file pkg homebrew)"
+			append_bashrc_by_file $mirror_file
+		fi
+	fi
+	if ! grep -q "$homebrew_rcfile_title" $HOME/.zshrc;then
+		append_zshrc "$homebrew_rcfile_title"
+		append_zshrc 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+		append_zshrc "export HOMEBREW_NO_AUTO_UPDATE=1"
+		# get the mirror file
+		if is_set_true_in_settings "homebrew_use_mirror"; then
+			local mirror_file="$(get_mirror_file pkg homebrew)"
+			append_zshrc_by_file $mirror_file
+		fi
+	fi
+	# eval "$HOMEBREW_SETTINGS"
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 	fmt_info "checking installed homebrew"
 	brew -v
