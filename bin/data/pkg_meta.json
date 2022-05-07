@@ -33,7 +33,6 @@
 			"gentoo": { "name": "app-arch/bzip2 dev-libs/openssl app-arch/xz-utils sys-libs/readline dev-db/sqlite dev-libs/libffi sys-libs/zlib", 
 					"method": "system"
 			},
-			"alpine": { "name": "git bash build-base libffi-dev openssl-dev bzip2-dev zlib-dev readline-dev sqlite-dev", "method": "system" },
 			"arch": { "name": "openssl zlib xz", "method": "system" },
 			"manjaro": { "name": "openssl zlib xz", "method": "system" },
 			"ubuntu": { "name": "libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev", "method": "system" },

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+pyenv_rcfile_title="# ======== pyenv ========"
+
 # see: https://github.com/pyenv/pyenv#installation
 install_pyenv()
 {
@@ -25,18 +27,25 @@ link_pip_conf()
 	fmt_info "link dotfile pip conf"
 	rm -rf $HOME/.pip/pip.conf >/dev/null 2>&1
 	# ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
-	mkdir -p $HOME/.pip
-	echo "[global]" > $HOME/.pip/pip.conf
-	echo "url = https://pypi.tuna.tsinghua.edu.cn/simple" >> $HOME/.pip/pip.conf
+	# echo "[global]" > $HOME/.pip/pip.conf
+	# echo "url = https://pypi.tuna.tsinghua.edu.cn/simple" >> $HOME/.pip/pip.conf
+	if is_set_true_in_settings "pip_use_mirror"; then
+		local mirror_file="$(get_mirror_file pkg pip)"
+		mkdir -p $HOME/.pip >/dev/null 2>&1
+		cat "$mirror_file" > $HOME/.pip/pip.conf
+	fi
 }
 
 setup_pyenv_rcfile()
 {
-	append_rc 'export PYENV_ROOT="$HOME/.pyenv"'
-	append_rc 'export PATH="$PYENV_ROOT/bin:$PATH"'
-	append_rc 'eval "$(pyenv init --path)"'
-	append_rc 'eval "$(pyenv init -)"'
-	append_rc 'eval "$(pyenv virtualenv-init -)"'
+	if ! grep -q "$pyenv_rcfile_title" $HOME/.bashrc || ! grep -q "$pyenv_rcfile_title" $HOME/.zshrc; then
+		append_rc "$pyenv_rcfile_title"
+		append_rc 'export PYENV_ROOT="$HOME/.pyenv"'
+		append_rc 'export PATH="$PYENV_ROOT/bin:$PATH"'
+		append_rc 'eval "$(pyenv init --path)"'
+		append_rc 'eval "$(pyenv init -)"'
+		append_rc 'eval "$(pyenv virtualenv-init -)"'
+	fi
     # # for zsh
     # if [ -a $HOME/.zshrc ]; then
     #     if ! grep -Fxq 'eval "$(pyenv init -)"' $HOME/.zshrc ; then
