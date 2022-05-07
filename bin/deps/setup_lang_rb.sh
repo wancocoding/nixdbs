@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+rbenv_rcfile_title="# ======== rbenv settings ========"
+
 install_rbenv()
 {
 	fmt_info "checking rbenv..."
@@ -16,38 +18,28 @@ install_rbenv()
 	fi
 }
 
-link_gemrc()
+setup_gemrc()
 {
 	fmt_info "link gemrc file"
 	rm -rf $HOME/.gemrc >/dev/null 2>&1
-	echo "$GEMRC_SETTINGS" > $HOME/.gemrc
+	# echo "$GEMRC_SETTINGS" > $HOME/.gemrc
+	if is_set_true_in_settings "rubygem_use_mirror"; then
+		local mirror_file="$(get_mirror_file pkg gem)"
+		cat "$mirror_file" > $HOME/.gemrc
+	fi
 	# ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
 
 }
 
 setup_rbenv_profile()
 {
-	append_rc '# ====== rbenv ====== '
-	append_rc 'export PATH="$HOME/.rbenv/bin:$PATH"'
-	append_rc 'eval "$(rbenv init -)"'
-    # for zsh
-    # if [ -a $HOME/.zshrc ]; then
-    #     if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.zshrc ; then
-    #         echo '' >> $HOME/.zshrc
-    #
-    #         echo '# ====== rbenv ====== ' >> $HOME/.zshrc
-	#         echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
-	#         # echo 'eval "$(rbenv init - zsh)"' >> ~/.zshrc
-    #     fi
-    # fi
-    # # for bash
-    # if [ -a $HOME/.bashrc ]; then
-    #     if ! grep -Fxq 'export PATH="$HOME/.rbenv/bin:$PATH"' $HOME/.bashrc ; then
-    #         echo '# ====== rbenv ====== ' >> $HOME/.bashrc
-	#         echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-	#         echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    #     fi
-    # fi
+	if ! grep -q "$rbenv_rcfile_title" $HOME/.bashrc || ! grep -q "$rbenv_rcfile_title" $HOME/.zshrc; then
+		append_rc "$rbenv_rcfile_title"
+		append_rc 'export PATH="$HOME/.rbenv/bin:$PATH"'
+		append_rc 'eval "$(rbenv init -)"'
+	fi
+
+	# enable rbenv now
 	export PATH="$HOME/.rbenv/bin:$PATH"
 	eval "$(rbenv init -)"
 
@@ -88,6 +80,7 @@ install_default_ruby()
 setup_rb_kits()
 {
 	echo_title "Setup Ruby and rbenv"
+	use_http_proxy_by_setting "install_ruby_use_proxy"
 
 	install_rbenv
 
@@ -95,7 +88,9 @@ setup_rb_kits()
 
 	install_default_ruby
 
-	link_gemrc
+	setup_gemrc
+
+	unset_http_proxy
 
 	fmt_success "Setup Ruby and rbenv finish!"
 }

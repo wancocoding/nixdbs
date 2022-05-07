@@ -129,10 +129,18 @@ use_http_proxy_by_setting()
 unset_http_proxy()
 {
 	unset http_proxy
-	[ -f $HOME/.curlrc ] && rm $HOME/.curlrc
-	[ -f $HOME/.curlrc.bak ] && mv $HOME/.curlrc.bak$HOME/.curlrc
-	[ -f $HOME/.wgetrc ] && rm $HOME/.wgetrc
-	[ -f $HOME/.wgetrc.bak ] && mv $HOME/.wgetrc.bak$HOME/.wgetrc
+	if [ -f $HOME/.curlrc ];then
+		rm $HOME/.curlrc
+	fi
+	if [ -f $HOME/.curlrc.bak ]; then
+		mv $HOME/.curlrc.bak $HOME/.curlrc
+	fi
+	if [ -f $HOME/.wgetrc ];then
+		rm $HOME/.wgetrc
+	fi
+	if [ -f $HOME/.wgetrc.bak ]; then
+		mv $HOME/.wgetrc.bak $HOME/.wgetrc
+	fi
 }
 
 append_rc()

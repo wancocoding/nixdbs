@@ -30,31 +30,13 @@ link_npmrc()
 
 setup_nvm_profile()
 {
-	if ! grep -q "$nvm_rcfile_title" $HOME/.bashrc;then
+	if ! grep -q "$nvm_rcfile_title" $HOME/.bashrc || ! grep -q "$nvm_rcfile_title" $HOME/.zshrc; then
 		append_rc "$nvm_rcfile_title"
 		append_rc 'export NVM_DIR="$HOME/.nvm"'
 		append_rc '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
+		# add base completion
 		append_bashrc '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
 	fi
-    # # for zsh
-    # if [ -a $HOME/.zshrc ]; then
-    #     if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.zshrc ; then
-    #         echo '' >> $HOME/.zshrc
-    #         echo '# ====== NVM ====== ' >> $HOME/.zshrc
-    #         echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.zshrc
-    #         echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.zshrc
-    #     fi
-	#     # source $HOME/.zshrc
-    # fi
-    # # for bash
-    # if [ -a $HOME/.bashrc ]; then
-    #     if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.bashrc ; then
-    #         echo '# ====== NVM ====== ' >> $HOME/.bashrc
-    #         echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.bashrc
-    #         echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> $HOME/.bashrc
-    #         echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> $HOME/.bashrc
-    #     fi
-    # fi
 }
 
 install_global_node()

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+go_rcfile_title="# ======== Golang ========"
+
 # deprecated
 # install_gvm()
 # {
@@ -72,36 +74,23 @@ install_default_go()
 
 setup_go_proxy()
 {
-	mkdir -p $HOME/.config/go
+	mkdir -p $HOME/.config/go >/dev/null 2>&1
 	echo "GO111MODULE=on" > $HOME/.config/go/env
-	echo "GOPROXY=https://mirrors.aliyun.com/goproxy/,https://goproxy.cn,direct" >> $HOME/.config/go/env
+	if is_set_true_in_settings "goproxy_use_mirror"; then
+		local mirror_file="$(get_mirror_file pkg go)"
+		cat "$mirror_file" >> $HOME/.config/go/env
+	fi
+	# echo "GOPROXY=https://mirrors.aliyun.com/goproxy/,https://goproxy.cn,direct" >> $HOME/.config/go/env
 }
 
 setup_go_path()
 {
 	mkdir -p $HOME/.local/go > /dev/null 2>&1
-	append_rc "# ====== Golang ======"
-	append_rc 'export PATH=$HOME/.local/lib/go/current/bin:$PATH'
-	append_rc 'export GOPATH=$HOME/.local/go'
-	# if [ -f $HOME/.zshrc ]; then
-	#     if ! grep -q "GOPATH" $HOME/.zshrc ;then
-	#         echo "" >> $HOME/.zshrc
-	#         echo "# ====== Golang ======" >> $HOME/.zshrc
-	#         echo 'export PATH=$HOME/.local/lib/go/current/bin:$PATH' >> $HOME/.zshrc
-	#         echo '# global gopath' >> $HOME/.zshrc
-	#         echo 'export GOPATH=$HOME/.local/go' >> $HOME/.zshrc
-	#     fi
-	# fi
-    #
-	# if [ -f $HOME/.bashrc ]; then
-	#     if ! grep -q "GOPATH" $HOME/.bashrc ;then
-	#         echo "" >> $HOME/.bashrc
-	#         echo "# ====== Golang ======" >> $HOME/.bashrc
-	#         echo 'export PATH=$HOME/.local/lib/go/current/bin:$PATH' >> $HOME/.bashrc
-	#         echo '# global gopath' >> $HOME/.bashrc
-	#         echo 'export GOPATH=$HOME/.local/go' >> $HOME/.bashrc
-	#     fi
-	# fi
+	if ! grep -q "$go_rcfile_title" $HOME/.bashrc || ! grep -q "$go_rcfile_title" $HOME/.zshrc; then
+		append_rc "$go_rcfile_title"
+		append_rc 'export PATH=$HOME/.local/lib/go/current/bin:$PATH'
+		append_rc 'export GOPATH=$HOME/.local/go'
+	fi
 }
 
 setup_go_kits()

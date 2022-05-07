@@ -50,6 +50,7 @@ EOF
 
 TIMEZONE="Asia/shanghai"
 
+# deprecated, use mirror settings file in misc/mirrors/[area]/pkg/homebrew instead
 HOMEBREW_SETTINGS="$(cat << HBEOF
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
@@ -70,7 +71,7 @@ FZFEOF
 
 FZF_SETTINGS_CONS='export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"'
 
-
+# Deprecated, use mirror config file instead. 
 GEMRC_SETTINGS="$(cat << GREOF
 ---
 :backtrace: false
