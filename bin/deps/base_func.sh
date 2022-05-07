@@ -111,7 +111,7 @@ use_http_proxy()
 		if [ -f $HOME/.curlrc ];then
 			mv $HOME/.curlrc $HOME/.curlrc.bak
 		fi
-		if [ -f $HOME/.wgetrc]; then
+		if [ -f $HOME/.wgetrc ]; then
 			mv $HOME/.wgetrc $HOME/.wgetrc.bak
 		fi
 		echo "proxy=${script_http_proxy}" > $HOME/.curlrc

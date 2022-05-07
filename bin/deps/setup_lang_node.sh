@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+nvm_rcfile_title="# ======== Node and NVM ========"
 # setup node and nvm
 
 install_nvm()
@@ -20,16 +21,21 @@ link_npmrc()
 {
 	fmt_info "add dotfile npmrc"
 	rm -rf $HOME/.npmrc >/dev/null 2>&1
+	if is_set_true_in_settings "npm_use_mirror"; then
+		local mirror_file="$(get_mirror_file pkg npm)"
+		cat "$mirror_file" > $HOME/.npmrc
+	fi
 	# ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
-	echo "$NPMRC_SETTINGS" > $HOME/.npmrc
 }
 
 setup_nvm_profile()
 {
-	append_rc '# ====== NVM ====== '
-	append_rc 'export NVM_DIR="$HOME/.nvm"'
-	append_rc '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
-	append_bashrc '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
+	if ! grep -q "$nvm_rcfile_title" $HOME/.bashrc;then
+		append_rc "$nvm_rcfile_title"
+		append_rc 'export NVM_DIR="$HOME/.nvm"'
+		append_rc '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
+		append_bashrc '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
+	fi
     # # for zsh
     # if [ -a $HOME/.zshrc ]; then
     #     if ! grep -Fxq 'export NVM_DIR="$HOME/.nvm"' $HOME/.zshrc ; then
@@ -62,11 +68,13 @@ install_global_node()
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	use_http_proxy_by_setting "install_node_use_proxy"
+
 	nvm install --lts="$GLOBAL_NODE_VERSION"
 	nvm alias default "lts/$GLOBAL_NODE_VERSION"
 	nvm use default
 
 	unset_http_proxy
+	fmt_info "Install global node ${GLOBAL_NODE_VERSION} finish"
 }
 
 setup_node_kits()
