@@ -49,7 +49,7 @@ You can define a http proxy in two ways:
 
 add a `http_proxy` in a config file 
 ```
-http_proxy = http://tb.cocosrv.com:9081
+http_proxy = http://tb.example.com:9081
 ```
 
 or add a `NIXDBS_HTTP_PROXY` in your bashrc or zshrc(recommend)

@@ -23,19 +23,21 @@ Actions:
 
 Tasks;
     osmir               setup system package manager mirror
-    sys                 upgrade system
-    base                install necessary packages
-    git
-    tools
-    zsh
-    ohmyzsh
-    vim
-    ruby
-    java
-    node
-    clang
-    python
-    go
+    sys                 system setup
+    base                necessary packages
+    git                 and config git
+    tools               useful tools like fzf fd ripgrep unzip htop neofetch 
+	tldr                tldr
+	cheatsh             cheat.sh
+    zsh                 zsh
+    ohmyzsh             ohmyzsh
+    vim                 vim
+    ruby                rbenv and default ruby version
+    java                sdkman, default jdk and gradle
+    node                nvm and default node version
+    clang               llvm make cmake ninja etc.
+    python              pyenv, pyenv-virtualenv and default python3
+    go                  golang
 
 
 
