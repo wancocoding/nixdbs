@@ -9,7 +9,7 @@ install_base_tools()
 	fmt_info "Check and install some tools..."
 	echo "checking curl..."
 	if ! command_exists "curl"; then
-		pkg_install "curl"
+		pkg_install_wrapper "curl"
 	else
 		echo "curl already installed"
 	fi
@@ -37,3 +37,11 @@ install_base_tools()
 
 
 append_step "install_base_tools"
+
+exec_update_base()
+{
+	echo_title "Update Base packages."
+	fmt_info "update curl unzip awk python3"
+	pkg_update_wrapper "curl" "unzip" "awk" "sed" "python3"
+	fmt_success "update base packages finish"
+}

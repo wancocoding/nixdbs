@@ -156,3 +156,22 @@ EOF
 append_step "setup_zsh"
 append_step "install_ohmyzsh"
 
+exec_update_zsh()
+{
+	echo_title "update zsh"
+    if ! command_exists zsh; then
+		error_exit "you must install zsh first."
+	else
+		pkg_update_wrapper zsh
+		fmt_success "update zsh finish"
+	fi
+}
+
+exec_update_ohmyzsh()
+{
+	echo_title "update oh-my-zsh"
+	fmt_warning "Please update oh-my-zsh manually"
+	fmt_info "1. make sure you are in zsh"
+	fmt_info "2. run 'omz update'"
+}
+

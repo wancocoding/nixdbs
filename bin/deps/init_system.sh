@@ -6,8 +6,8 @@
 system_update()
 {
     fmt_info "Update your system"
-    if [ -v SYS_UPDATE_CMD[@] ]; then
-        exe_sudo "${SYS_UPDATE_CMD[@]}"
+    if [ -v SYS_SYNC_CMD[@] ]; then
+        exe_sudo "${SYS_SYNC_CMD[@]}"
     fi
     if [ -v SYS_UPGRADE_CMD[@] ]; then
         exe_sudo "${SYS_UPGRADE_CMD[@]}"
@@ -26,3 +26,10 @@ init_system()
 
 
 append_step "init_system"
+
+exec_update_sys()
+{
+	echo_title "Upgrade System!"
+	system_update
+	fmt_success "Update system finish!"
+}

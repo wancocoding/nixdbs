@@ -79,3 +79,16 @@ setup_rcfile_for_homebrew()
 
 
 append_step "setup_homebrew"
+
+
+exec_update_brew()
+{
+	echo_title "update homebrew"
+    if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+		brew update
+		fmt_success "finish update homebrew."
+	else
+		error_exit "You must install Homebrew first!"
+	fi
+
+}

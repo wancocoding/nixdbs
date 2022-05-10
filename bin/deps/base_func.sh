@@ -347,6 +347,20 @@ run_specified_steps()
 	done
 }
 
+run_job_and_tasks()
+{
+	local step_total="${#specified_steps[@]}"
+	let step_index=1
+	for si in "${!specified_steps[@]}"; do
+		echo
+		fmt_info ">>> run update task (${step_index} of ${step_total})"
+		local step_name_i="${specified_steps[si]}"
+		eval "exec_${JOB_NAME}_${step_name_i}"
+	done
+
+}
+
+
 main_step()
 {
 	if [ $JOB_NAME = "init" ];then
@@ -355,12 +369,11 @@ main_step()
 		run_specified_steps
 	elif [ $JOB_NAME = "update" ]; then
 		echo "run update job"
+		run_job_and_tasks
 	elif [ $JOB_NAME = "remove" ]; then
 		echo "run remove job"
+	else
+		echo "Error: Job not found!"
+		exit 1
 	fi
-	# if [ ${#specified_steps[@]} -gt 0 ]; then
-	#     run_specified_steps
-	# else
-	#     run_all_steps
-	# fi
 }

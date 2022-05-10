@@ -100,3 +100,14 @@ setup_git()
 }
 
 append_step "setup_git"
+
+exec_update_git()
+{
+	echo_title "Update git"
+	if ! command -v git 1>/dev/null 2>&1; then
+		error_exit "Git is not installed!" 
+	else
+		pkg_update_wrapper git
+		fmt_success "update git finish!"
+	fi
+}

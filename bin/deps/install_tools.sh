@@ -4,6 +4,8 @@
 # tmux fzf fd ripgrep the_sliver_searcher bat exa tree htop neofetch
 
 
+global_utility_tools=(fzf fd ripgrep the_silver_searcher bat exa htop \
+	neofetch unrar zip unzip)
 
 config_fzf()
 {
@@ -94,9 +96,7 @@ install_tldr()
 install_tools()
 {
 	echo_title "Install tools..."
-	local tools_to_install=(fzf fd ripgrep the_silver_searcher bat exa htop \
-		neofetch unrar zip unzip)
-	for ti in "${tools_to_install[@]}"
+	for ti in "${global_utility_tools[@]}"
 	do
 		fmt_info "install $ti"
 		pkg_install_wrapper "$ti"
@@ -110,3 +110,34 @@ install_tools()
 append_step "install_tools"
 append_step "install_tldr"
 append_step "install_cheatsh"
+
+exec_update_tools()
+{
+	echo_title "update tools"
+
+	for ti in "${global_utility_tools[@]}"
+	do
+		fmt_info "update $ti"
+		pkg_update_wrapper "$ti"
+	done
+	fmt_success "update utility tools finish!"
+}
+
+exec_update_tldr()
+{
+	echo_title "update tldr"
+
+	if ! command -v tldr;then
+		error_exit "tldr not installed yet!"
+	fi
+
+	npm update -g tldr
+
+	fmt_success "update utility tools finish!"
+
+}
+
+exec_update_cheatsh()
+{
+	fmt_warning "no need to upgrade cheat.sh"
+}

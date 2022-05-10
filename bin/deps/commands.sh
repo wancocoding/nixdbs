@@ -74,6 +74,42 @@ pkg_install_wrapper()
 		fi
 }
 
+pkg_update_wrapper()
+{
+		# get package meta from json file
+		# get teh package install meta
+		local osname=$OSNAME_LOWERCASE
+		fmt_info "upgrade $1 in $osname"
+		# local pkg_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname'])"
+		# local name_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['name'])"
+		# local method_query_text="import sys, json; print(json.load(sys.stdin)['$1']['$osname']['method'])"
+		# cat ./data/pkg_meta.json | python3 -c "$pkg_query_text" >/dev/null 2>&1
+		local query_result="$(python3 ${NIXDBS_HOME}/bin/jq.py --os=$osname --pkg=$1)"
+		if [[ "$query_result" = "none" ]]; then
+			fmt_warning "package meta not exist, now try use system package manager"
+			# try to install pkg by system package manager
+			pkg_update "$1"
+		else
+			fmt_info "find package meta: $query_result"
+			# get the packages
+			local pkg_name=`echo $query_result | awk '{$NF=""}1' | sed 's/[[:blank:]]*$//'`
+			local pkg_update_method=`echo $query_result | awk '{print $NF}'`
+			fmt_info "update $pkg_name by $pkg_update_method"
+			if [ "$pkg_update_method" = "system" ]; then
+				local pkg_arr_arg=($pkg_name)
+				pkg_update "${pkg_arr_arg[@]}"
+			elif [[ "$pkg_update_method" = "brew" ]]; then
+				local pkg_arr_arg=($pkg_name)
+				brew_upgrade "${pkg_arr_arg[@]}"	
+			elif [[ "$pkg_update_method" = "manual_compile" ]]; then
+				echo "update by manual not implement yet!"
+				error_exit "can not update $pkg_name manually"
+			else
+				error_exit "update method: ${pkg_update_method} not supported!"
+			fi
+		fi
+}
+
 pkg_install()
 {
     if [ -v $SYS_INSTALL_PKG_CMD ]; then
@@ -92,6 +128,26 @@ pkg_install()
         install_cmd+=("$install_arg")
     done
     exe_sudo "${install_cmd[@]}"
+}
+
+pkg_update()
+{
+    if [ -v $SYS_UPGRADE_PKG_CMD ]; then
+        error_exit "$OSNAME_LOWERCASE system update package command not set correctlly!"
+    fi
+
+    declare -a update_cmd=()
+
+    for sys_update_cmd_arg in "${SYS_UPGRADE_PKG_CMD[@]}"
+    do
+        update_cmd+=("$sys_update_cmd_arg")
+    done
+    
+    for update_arg in "$@"
+    do
+        update_cmd+=("$update_arg")
+    done
+    exe_sudo "${update_cmd[@]}"
 }
 
 brew_install()
@@ -115,12 +171,35 @@ brew_install()
     execute "${install_cmd[@]}"
 }
 
+brew_upgrade()
+{
+	if ! command_exists "brew"; then
+        # homebrew has already installed, but not run brew's settings
+        if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+            echo "homebrew already installed, loading..."
+            eval "$HOMEBREW_SETTINGS"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        else
+            error_exit "you must install Homebrew first!"
+        fi
+	fi
+    local -a update_cmd=(brew upgrade)
+    
+    for update_arg in "$@"
+    do
+        update_cmd+=("$update_arg")
+    done
+    execute "${update_cmd[@]}"
+}
+
 echo_commands()
 {
 	fmt_info "package install cmd: ${SYS_INSTALL_PKG_CMD[@]}"
-	fmt_info "package sync cmd: ${SYS_UPDATE_CMD[@]}"
-	fmt_info "package upgrade cmd: ${SYS_UPGRADE_CMD[@]}"
-	fmt_info "package clean cmd: ${SYS_CLEAN_CMD[@]}"
+	fmt_info "package upgrade cmd: ${SYS_UPGRADE_PKG_CMD[@]}"
+	fmt_info "package remote cmd: ${SYS_REMOVE_CMD[@]}"
+	fmt_info "system sync cmd: ${SYS_SYNC_CMD[@]}"
+	fmt_info "system update cmd: ${SYS_UPGRADE_CMD[@]}"
+	fmt_info "system clean cmd: ${SYS_CLEAN_CMD[@]}"
 }
 
 
@@ -142,9 +221,12 @@ gentoo_setup_portage_license()
 
 setup_gentoo()
 {
+	# package management commands
     SYS_INSTALL_PKG_CMD=("emerge" "-vn")
-    SYS_UPGRADE_PKG_CMD=("emerge" "--update" "--deep" "--change-use")
-    SYS_UPDATE_CMD=("emerge" "--sync")
+    SYS_UPGRADE_PKG_CMD=("emerge" "--update" "--deep" "--changed-use")
+    SYS_REMOVE_PKG_CMD=("emerge" "--unmerge")
+	# system commands
+    SYS_SYNC_CMD=("emerge" "--sync")
     SYS_UPGRADE_CMD=("emerge" "-avuND" "@world")
     SYS_CLEAN_CMD=("emerge" "-a" "--depclean")
     gentoo_setup_portage_license

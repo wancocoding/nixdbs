@@ -1,8 +1,12 @@
 {
-	"curl": {},
+	"curl": {
+			"gentoo": { "name": "net-misc/curl", "method": "system" }
+	},
 	"wget": {},
 	"unzip": {},
-	"git": {},
+	"git": {
+			"gentoo": { "name": "dev-vcs/git", "method": "system" }
+	},
 	"vim": {},
 	"neovim": {},
 	"ninja": {
