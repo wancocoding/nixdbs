@@ -65,3 +65,18 @@ setup_vim()
 }
 
 append_step "setup_vim"
+
+exec_update_vim()
+{
+	echo_title "update vim"
+
+	if ! command -v "vim";then
+		error_exit "vim not installed yet!"
+	fi
+
+	pkg_update_wrapper vim
+
+	fmt_success "update vim finish!"
+
+}
+

@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-declare -a TASK_NAME_ARRAY=(osmir sys base git tools \
+declare -a INSTALL_TASK_NAME_ARRAY=(osmir sys base git tools \
 	brew zsh ohmyzsh vim java python \
 	tldr cheatsh \
 	clang ruby node go)
+
+declare -a UPDATE_TASK_NAME_ARRAY=(sys base git tools \
+	brew zsh ohmyzsh vim \
+	tldr cheatsh)
 
 print_help()
 {
@@ -18,17 +22,17 @@ Actions:
     info                Show nixdbs information on this machine
     init                Init system and install packages defined in configuration files
     install [tasks]     Run the specified task
-    update [tasks]      Update all(when task is empty), or update specified task 
-    remove [tasks]      Remove specified task 
+    update  [tasks]     Update all(when task is empty), or update specified task 
+    remove  [tasks]     Remove specified task 
 
-Tasks;
+Install Tasks:
     osmir               setup system package manager mirror
     sys                 system setup
     base                necessary packages
-    git                 and config git
+    git                 git
     tools               useful tools like fzf fd ripgrep unzip htop neofetch 
-	tldr                tldr
-	cheatsh             cheat.sh
+    tldr                tldr
+    cheatsh             cheat.sh
     zsh                 zsh
     ohmyzsh             ohmyzsh
     vim                 vim
@@ -39,6 +43,16 @@ Tasks;
     python              pyenv, pyenv-virtualenv and default python3
     go                  golang
 
+Update Tasks:
+    sys                 system sync and update
+    base                necessary packages, curl wget ...
+    git                 git
+    tools               useful tools like fzf fd ripgrep unzip htop neofetch 
+    tldr                tldr
+    cheatsh             cheat.sh
+    zsh                 zsh
+    ohmyzsh             ohmyzsh
+    vim                 vim
 
 
 Example Usage:
@@ -69,7 +83,7 @@ declare -a specified_steps=()
 define_main_job()
 {
 	if [ -z ${JOB_NAME:-} ];then
-		echo "define job $1"
+		# echo "define job $1"
 		JOB_NAME="$1"
 	else
 		echo "Error: You can only run one job at a time!"
@@ -79,12 +93,22 @@ define_main_job()
 
 add_task()
 {
-	if [[ " ${TASK_NAME_ARRAY[*]} " =~ " ${1} " ]]; then
-		specified_steps+=("$1")
-		return 0
-	else
-		echo "Error: Task or argument [${1}] not found!"
-		return 1
+	if [ ${JOB_NAME} = "install" ];then
+		if [[ " ${INSTALL_TASK_NAME_ARRAY[*]} " =~ " ${1} " ]]; then
+			specified_steps+=("$1")
+			return 0
+		else
+			echo "Error: Installation task or argument [${1}] not found!"
+			return 1
+		fi
+	elif [ ${JOB_NAME} = "update" ]; then
+		if [[ " ${UPDATE_TASK_NAME_ARRAY[*]} " =~ " ${1} " ]]; then
+			specified_steps+=("$1")
+			return 0
+		else
+			echo "Error: Installation task or argument [${1}] not found!"
+			return 1
+		fi
 	fi
 }
 
