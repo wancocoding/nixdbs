@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-declare -a INSTALL_TASK_NAME_ARRAY=(osmir sys base git tools \
+declare -a INSTALL_TASK_NAME_ARRAY=(osmir sys proxy base git tools \
 	brew zsh ohmyzsh vim java python \
 	tldr cheatsh \
 	clang ruby node go)
@@ -15,6 +15,7 @@ print_help()
 Usage: nixdbs [-chv] info|update [task name]|run [task name]
 Options:
     -c, --config [file]             Define a cofiguration file
+    -f, --force                     Force install or update
     -h, --help                      Display this help
     -v, --version                   Display Nixdbs version
 
@@ -27,10 +28,12 @@ Actions:
 
 Install Tasks:
     osmir               setup system package manager mirror
-    sys                 system setup
-    base                necessary packages
+    proxy               setup http_proxy
+    sys                 sync system repository and update system
+    base                some necessary packages
     git                 git
-    tools               useful tools like fzf fd ripgrep unzip htop neofetch 
+    homebrew            setup Homebrew
+    dev_tools           useful tools like fzf fd ripgrep unzip htop neofetch 
     tldr                tldr
     cheatsh             cheat.sh
     zsh                 zsh
@@ -40,6 +43,7 @@ Install Tasks:
     java                sdkman, default jdk and gradle
     node                nvm and default node version
     clang               llvm make cmake ninja etc.
+    pydeps              install packages that depends on when compile python
     python              pyenv, pyenv-virtualenv and default python3
     go                  golang
 
@@ -77,6 +81,9 @@ EndOptionsHelp
 }
 
 declare -a specified_steps=()
+
+# run mode -  force: default 1
+NIXDBS_RUN_MODE_FORCE=0
 
 # USER_CONFIG_FILE="$NIXDBS_HOME/configs/nixdbs.default.conf"
 
@@ -123,37 +130,18 @@ do
 		up|update)
 			define_main_job "update"
 			shift
-			# JOB_NAME="update"
-			# if [ ! -z "$2"]; then
-			#     TASK_NAME="$2"
-			#     shift 2
-			# else
-			#     TASK_NAME="all"
-			#     shift
-			# fi
 			;;
 		ins|install)
 			define_main_job "install"
 			shift
-			# JOB_NAME="install"
-			# [ -z ${2:-} ] && \
-			#     echo "Abort. Your must add a task name argument." && \
-			#     exit 1
-			# shift
 			;;
 		rm|remove)
 			define_main_job "remove"
 			shift
-			# JOB_NAME="remove"
-			# [ -z ${2:-} ] && \
-			#     echo "Abort. Your must add a task name argument." && \
-			#     exit 1
-			# TASK_NAME="$2"
-			# shift 2
 			;;
 		info|information)
-			print_info
-			exit 0
+			define_main_job "info"
+			shift
 			;;
 		-c|--config)
 			[ -z ${2:-} ] && \
@@ -161,6 +149,11 @@ do
 				exit 1
 			USER_CONFIG_FILE="$2"
 			shift 2
+			;;
+		-f|--force)
+			# force mode enable
+			NIXDBS_RUN_MODE_FORCE=0
+			shift
 			;;
 		-h|--help)
 			print_help

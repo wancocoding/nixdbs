@@ -77,7 +77,7 @@ install_default_ruby()
 	# fi
 }
 
-setup_rb_kits()
+exec_install_ruby()
 {
 	echo_title "Setup Ruby and rbenv"
 	use_http_proxy_by_setting "install_ruby_use_proxy"
@@ -96,5 +96,5 @@ setup_rb_kits()
 }
 
 
-append_step "setup_rb_kits"
+append_task_to_init "ruby"
 

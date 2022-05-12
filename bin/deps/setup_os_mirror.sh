@@ -62,7 +62,7 @@ setup_ubuntu_mirror()
 	exe_sudo_string "echo" "'$UBUNTU_MIRROR'" ">" "/etc/apt/sources.list"
 }
 
-setup_os_mirror()
+exec_install_osmir()
 {
     echo_title "Setup system mirror"
 	if is_set_true_in_settings "os_package_manager_use_mirror"; then
@@ -93,4 +93,6 @@ setup_os_mirror()
 	fmt_success "Setup system mirror finish!"
 }
 
-append_step "setup_os_mirror"
+
+append_task_to_init "osmir"
+

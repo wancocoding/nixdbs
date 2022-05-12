@@ -3,7 +3,7 @@
 
 # install some dev tools like gcc make ninja cmake clangd llvm
 
-setup_c_kits()
+exec_install_clang()
 {
 	echo_title "Setup C and Cpp language development kits"
 	fmt_info "checking clang..."
@@ -41,4 +41,4 @@ setup_c_kits()
 }
 
 
-append_step "setup_c_kits"
+append_task_to_init "clang"

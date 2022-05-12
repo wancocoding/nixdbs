@@ -66,7 +66,7 @@ save_http_proxy()
     export NIXDBS_HTTP_PROXY="$NIXDBS_HTTP_PROXY"
 }
 
-setup_http_proxy()
+exec_install_proxy()
 {
 	echo_title "Setup a http proxy"
 	fmt_info "this http proxy will used to setup git http.proxy or download something"
@@ -87,7 +87,7 @@ setup_http_proxy()
 	# 		echo "Ignore..."
 	# 		;;
 	# esac
-	local http_proxy=$(get_setting_value set_http_proxy)
+	local http_proxy=$(get_setting_value http_proxy)
 	if [ ! -z "$http_proxy" ] ;then
 		NIXDBS_HTTP_PROXY="$http_proxy"
 		fmt_info "your http proxy is: $NIXDBS_HTTP_PROXY"
@@ -97,5 +97,4 @@ setup_http_proxy()
 
 }
 
-append_step "setup_http_proxy"
-
+append_task_to_init "proxy"

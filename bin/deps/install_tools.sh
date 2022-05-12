@@ -49,9 +49,10 @@ get_fzf_shell_tools()
 	curl_wrapper -o "$fzf_shell_location/key-bindings.zsh" -L https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh
 }
 
-install_cheatsh()
+exec_install_cheatsh()
 {
 	echo_title "Installing cheat.sh ..."
+	use_http_proxy_by_setting "install_dev_tools"
 	if [ ! -f $HOME/.local/bin/cht.sh ];then 
 		[ ! -f $HOME/.local/bin ] && rm -rf $HOME/.local/bin/cht.sh > /dev/null 2>&1
 		fmt_info "downloading cht.sh ..."
@@ -77,15 +78,16 @@ install_cheatsh()
 	curl_wrapper -o "$HOME/.zsh.d/_cht" -SL https://cheat.sh/:zsh
 	append_zshrc "# cheat.sh zsh completion"
 	append_zshrc 'fpath=(~/.zsh.d/ $fpath)'
-
+	unset_http_proxy
+	fmt_success "install cheat.sh finish!"
 }
 
-install_tldr()
+exec_install_tldr()
 {
 	echo_title "Install tldr ..."
 	# setup node first
 	fmt_info "setup node and nvm first ..."
-	setup_node_kits
+	dependent_tasks "node"
 	fmt_info "install tldr by npm"
 	npm install -g tldr
 	fmt_info "install tldr finish!"
@@ -93,7 +95,7 @@ install_tldr()
 	tldr -l
 }
 
-install_tools()
+exec_install_dev_tools()
 {
 	echo_title "Install tools..."
 	for ti in "${global_utility_tools[@]}"
@@ -107,9 +109,9 @@ install_tools()
 	fmt_success "install tools finish."
 }
 
-append_step "install_tools"
-append_step "install_tldr"
-append_step "install_cheatsh"
+append_task_to_init "dev_tools"
+append_task_to_init "tldr"
+append_task_to_init "cheatsh"
 
 exec_update_tools()
 {

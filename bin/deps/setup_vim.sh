@@ -40,7 +40,7 @@ copy_dictionary()
 	fi
 }
 
-setup_vim()
+exec_install_vim()
 {
 	echo_title "Setup Vim"
 	if ! command_exists vim; then
@@ -64,7 +64,7 @@ setup_vim()
 	fmt_success "Setup vim finish!"
 }
 
-append_step "setup_vim"
+append_task_to_init "vim"
 
 exec_update_vim()
 {

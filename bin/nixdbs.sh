@@ -17,10 +17,10 @@ NIXDBS_HOME=$HOME/.nixdbs
 # create a temp directory
 TMP_FILE="$(mktemp -d)" || exit 1
 
-NIXDBS_CACHE_STEP_FILE=$HOME/.cache/nixdbs/run_steps
+NIXDBS_CACHE_SETUP_TASKS_FILE=$HOME/.cache/nixdbs/setup_tasks
 
 mkdir -p $HOME/.cache/nixdbs >/dev/null 2>&1
-[ -f $NIXDBS_CACHE_STEP_FILE ] || touch $NIXDBS_CACHE_STEP_FILE 
+[ -f $NIXDBS_CACHE_SETUP_TASKS_FILE ] || touch $NIXDBS_CACHE_SETUP_TASKS_FILE 
 
 # get the real path of this script
 WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
@@ -58,6 +58,9 @@ source $NIXDBS_HOME/bin/deps/detect_os.sh
 # setup os commands
 source $NIXDBS_HOME/bin/deps/commands.sh
 
+# information
+source $NIXDBS_HOME/bin/deps/info.sh
+
 #=========== These steps are optional
 
 # setup os package mirror
@@ -92,6 +95,10 @@ source $NIXDBS_HOME/bin/deps/setup_dev_base_kits.sh
 
 # install tools
 source $NIXDBS_HOME/bin/deps/install_tools.sh
+
+# ==============================
+# ====== Tasks Start Here ======
+# ==============================
 
 # =========== Develop Languages and Tools
 # setup vim

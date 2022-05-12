@@ -3,7 +3,7 @@
 # check and install some tools
 # curl unzip python3 awk
 
-install_base_tools()
+exec_install_base()
 {
 	echo_title "Install Base Tools (curl,unzip......)"
 	fmt_info "Check and install some tools..."
@@ -35,9 +35,6 @@ install_base_tools()
 	fmt_success "all base tools pkg has installed"
 }
 
-
-append_step "install_base_tools"
-
 exec_update_base()
 {
 	echo_title "Update Base packages."
@@ -45,3 +42,6 @@ exec_update_base()
 	pkg_update_wrapper "curl" "unzip" "awk" "sed" "python3"
 	fmt_success "update base packages finish"
 }
+
+append_task_to_init "base"
+

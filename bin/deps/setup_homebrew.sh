@@ -6,30 +6,10 @@
 
 homebrew_rcfile_title="# ======== Homebrew ========"
 
-setup_homebrew()
+
+exec_install_homebrew()
 {
 	echo_title "Setup Homebrew"
-    # read -p "Would you like to install Homebrew? [y|n]: > " user_opts
-    # case $user_opts in
-    #     y*|Y*)
-    #        install_homebrew 
-    #        ;;
-    #     n*|N*)
-    #         echo "Skip..."
-    #         return ;;
-    #     *)
-    #         fmt_warning "Invalid choice. Skip this step..."
-    #         return ;;
-    # esac
-	install_homebrew 
-
-    setup_rcfile_for_homebrew
-
-	fmt_success "finish setup homebrew."
-}
-
-install_homebrew()
-{
     if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
         echo "You have installed Homebrew already! Skip this step."
     else
@@ -46,6 +26,8 @@ install_homebrew()
 		#     /bin/bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/HEAD/install.sh)"
 		# fi
     fi
+    setup_rcfile_for_homebrew
+	fmt_success "finish setup homebrew."
 }
 
 setup_rcfile_for_homebrew()
@@ -78,7 +60,7 @@ setup_rcfile_for_homebrew()
 }
 
 
-append_step "setup_homebrew"
+append_task_to_init "homebrew"
 
 
 exec_update_brew()

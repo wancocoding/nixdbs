@@ -93,7 +93,7 @@ setup_go_path()
 	fi
 }
 
-setup_go_kits()
+exec_install_golang()
 {
 	echo_title "Setup Golang"
 	
@@ -111,4 +111,4 @@ setup_go_kits()
 }
 
 
-append_step "setup_go_kits"
+append_task_to_init "golang"

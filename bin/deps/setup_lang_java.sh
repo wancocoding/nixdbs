@@ -35,7 +35,7 @@ install_jdk()
 	set -eu
 }
 
-setup_java_kits()
+exec_install_java()
 {
 	echo_title "Setup JDK and Gradle"
 	install_sdkman
@@ -43,4 +43,4 @@ setup_java_kits()
 	fmt_success "Setup JDK and Gradle finish!"
 }
 
-append_step "setup_java_kits"
+append_task_to_init "java"

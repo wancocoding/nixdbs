@@ -59,7 +59,7 @@ install_global_node()
 	fmt_info "Install global node ${GLOBAL_NODE_VERSION} finish"
 }
 
-setup_node_kits()
+exec_install_node()
 {
 	echo_title "Setup Node and NVM"
 	fmt_info "checking nvm..."
@@ -73,4 +73,4 @@ setup_node_kits()
 }
 
 
-append_step "setup_node_kits"
+append_task_to_init "node"

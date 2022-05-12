@@ -4,35 +4,6 @@
 # ==================================
 # Setup zsh
 # ==================================
-setup_zsh()
-{
-	echo_title "Setup zsh"
-    # echo "Install zsh standalone or setup ohmyzsh?"
-    # echo " (1) zsh with ohmyzsh[recommend]"
-    # echo " (2) zsh standalone"
-    # echo " (0) setup zsh manually later!"
-    # read -p "your choice: > " input_opts
-    # case $input_opts in
-    #     1)
-    #         install_ohmyzsh
-    #         runzsh
-    #         ;;
-    #     2)
-    #         install_zsh
-    #         runzsh
-    #         ;;
-    #     0)
-    #         echo "Skip zsh setup."
-    #         return
-    #         ;;
-    #     *)
-    #         fmr_warning "Invalid choice, you could setup zsh manually later."
-    #         return
-    #         ;;
-    # esac
-	install_zsh
-	fmt_success "finish zsh setup."
-}
 
 runzsh()
 {
@@ -51,29 +22,10 @@ runzsh()
     exec zsh -l
 }
 
-install_ohmyzsh()
+exec_install_ohmyzsh()
 {
     # see https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
-    # if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    # then
-    #     if [ -n "${REMOTE_PROXY-}" ]; then
-    #         echo "use remote proxy you just set!...${REMOTE_PROXY}"
-    #         sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    #     elif [ -n "${GITHUB_PROXY-}" ]; then
-    #         echo "use github mirror...${GITHUB_PROXY}"
-    #         sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    #     fi
-    # fi
-    # if [ -n "${REMOTE_PROXY-}" ]; then
-    #     echo "use remote proxy you just set!...${REMOTE_PROXY}"
-    #     sh -c "$(curl -x ${REMOTE_PROXY} -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    # elif [ -n "${GITHUB_PROXY-}" ]; then
-    #     echo "use github mirror...${GITHUB_PROXY}"
-    #     sh -c "$(curl -fsSL ${GITHUB_PROXY}/https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    # else
-    #     error_exit "install ohmyzsh failed, and no available http proxy or github mirror"
-    # fi
-	install_zsh
+	dependent_tasks "zsh"
 	if [ ! -d $HOME/.oh-my-zsh ]; then
 		curl_wrapper "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
 	else
@@ -82,8 +34,9 @@ install_ohmyzsh()
 }
 
 
-install_zsh()
+exec_install_zsh()
 {
+	echo_title "Setup zsh"
     if ! command_exists zsh; then
         # read -p "Do you want to install zsh now: (y|n) [y] >" input_text
         # if [ x"$input_text" == x'y' ]; then
@@ -97,6 +50,7 @@ install_zsh()
         echo "zsh already installed!"
     fi
     chsh_zsh
+	fmt_success "finish zsh setup."
 }
 
 chsh_zsh()
@@ -153,8 +107,6 @@ EOF
 
 }
 
-append_step "setup_zsh"
-append_step "install_ohmyzsh"
 
 exec_update_zsh()
 {
@@ -175,3 +127,5 @@ exec_update_ohmyzsh()
 	fmt_info "2. run 'omz update'"
 }
 
+append_task_to_init "zsh"
+append_task_to_init "ohmyzsh"

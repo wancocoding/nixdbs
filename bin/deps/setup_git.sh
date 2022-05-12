@@ -6,7 +6,7 @@
 # ==================================
 
 # check git installed
-setup_git()
+exec_install_git()
 {
 	echo_title "Setup git"
 	if ! command -v git 1>/dev/null 2>&1; then
@@ -99,7 +99,7 @@ setup_git()
 	fmt_success "setup git finish!"
 }
 
-append_step "setup_git"
+append_task_to_init "git"
 
 exec_update_git()
 {

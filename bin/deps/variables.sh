@@ -106,5 +106,5 @@ GRADLE_DEFAULT_VERSION="7.4.2"
 
 GOLANG_DEFAULT_VERSION="go1.18.1"
 
-# setup steps
-declare -a SETUP_STEPS_ARRAY
+# setup all tasks
+declare -a SETUP_TASKS_ARRAY

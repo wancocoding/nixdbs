@@ -86,7 +86,11 @@ is_set_true_in_settings()
 		y*|Y*)
 			return 0
 			;;
+		n*|N*)
+			return 1
+			;;
 		*)
+			echo "Warning: The config of [${1}] is missing! Skip this task."
 			return 1
 			;;
 	esac
@@ -225,155 +229,90 @@ get_mirror_file()
 }
 
 
-append_step()
+append_task_to_init()
 {
-	SETUP_STEPS_ARRAY+=("$1")
-}
-
-run_step()
-{
-	# local encode_title=`echo "$1" | base64`
-	local encode_title="$1"
-	if is_set_true_in_settings "$1"; then
-		if grep -Fxq "$encode_title" "$NIXDBS_CACHE_STEP_FILE"; then
-			# step already executed, skip this step
-			echo "Skip $1, it has already finished"
-			return
-		else
-			"$1"
-			echo "$encode_title" >> "$NIXDBS_CACHE_STEP_FILE"
-		fi
-	else
-		# skip this step by config
-		echo "Skip $1, according to configuration file"
-		return
-	fi
-}
-
-run_all_steps()
-{
-	local step_total="${#SETUP_STEPS_ARRAY[@]}"
-	let step_index=1
-	for si in "${!SETUP_STEPS_ARRAY[@]}"; do
-		echo
-		fmt_info ">>> run setup step (${step_index} of ${step_total})"
-		run_step "${SETUP_STEPS_ARRAY[si]}"
-		let step_index+=1
-	done
-}
-
-run_sub_step()
-{
-	local encode_title="$1"
-	if grep -Fxq "SUB-${encode_title}" "$NIXDBS_CACHE_STEP_FILE"; then
-		# step already executed, skip this step
-		echo "Skip $1, it has already finished"
-		return
-	else
-		"$1"
-		echo "SUB-${encode_title}" >> "$NIXDBS_CACHE_STEP_FILE"
-	fi
-}
-
-run_specified_steps()
-{
-	local step_total="${#specified_steps[@]}"
-	let step_index=1
-	for si in "${!specified_steps[@]}"; do
-		echo
-		fmt_info ">>> run step (${step_index} of ${step_total})"
-		local step_name_i="${specified_steps[si]}"
-		case $step_name_i in
-			osmir)
-				setup_os_mirror
-				;;
-			sys)
-				init_system
-				;;
-			base)
-				setup_basic_dev_kits
-				;;
-			brew)
-				setup_homebrew
-				;;
-			git)
-				setup_git
-				;;
-			tools)
-				install_tools
-				;;
-			tldr)
-				install_tldr
-				;;
-			cheatsh)
-				install_cheatsh
-				;;
-			zsh)
-				setup_zsh
-				;;
-			ohmyzsh)
-				install_ohmyzsh
-				;;
-			vim)
-				setup_vim
-				;;
-			clang)
-				setup_c_kits
-				;;
-			ruby)
-				setup_rb_kits
-				;;
-			node)
-				setup_node_kits
-				;;
-			java)
-				setup_java_kits
-				;;
-			go)
-				setup_go_kits
-				;;
-			python)
-				setup_py_kits
-				;;
-			python-deps)
-				install_python_build_dependencies			
-				;;
-			*)
-				error_exit "the setup step [$step_name_i] does not exist."
-				;;
-		esac
-
-		let step_index+=1
-	done
+	SETUP_TASKS_ARRAY+=("$1")
 }
 
 run_job_and_tasks()
 {
+	if [ "$JOB_NAME" = "init" ];then
+		# copy array to specified_steps
+		specified_steps=( "${SETUP_TASKS_ARRAY[@]}" )
+	fi
 	local step_total="${#specified_steps[@]}"
 	let step_index=1
 	for si in "${!specified_steps[@]}"; do
 		echo
-		fmt_info ">>> run update task (${step_index} of ${step_total})"
-		local step_name_i="${specified_steps[si]}"
-		eval "exec_${JOB_NAME}_${step_name_i}"
+		fmt_info ">>> run ${JOB_NAME} task (${step_index} of ${step_total})"
+		local task_name_i="${specified_steps[si]}"
+		# if [ "$JOB_NAME" = "install" ] || [ "$JOB_NAME" = "init" ];then
+		#     install_task_wrapper "$task_name_i"
+		# fi
+		run_job_task "$JOB_NAME" "$task_name_i"
+		let step_index+=1
 	done
+}
 
+run_job_task()
+{
+	# record setup tasks
+	local job_name="$1"
+	local task_name_arg="$2"
+	if [ "${job_name}" = "init" ];then
+		if is_set_true_in_settings "$task_name_arg"; then
+			if grep -Fxq "$task_name_arg" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
+				# step already executed, skip this step
+				echo "Skip $task_name_arg, it has already finished"
+				return
+			else
+				eval "exec_install_${task_name_arg}"	
+				echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+			fi
+		else
+			# skip this step by config
+			echo "Skip $task_name_arg, according to configuration file"
+			return
+		fi
+	elif [ "$job_name" = install ]; then
+		if grep -Fxq "$task_name_arg" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
+			if [ $NIXDBS_RUN_MODE_FORCE == 0 ]; then
+				eval "exec_install_${task_name_arg}"	
+				echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+			else
+				# step already executed, skip this step
+				echo "Skip $task_name_arg, it has already finished"
+				return
+			fi
+		else
+			eval "exec_install_${task_name_arg}"	
+			echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+		fi
+	else
+		eval "exec_${job_name}_${task_name_arg}"
+	fi
+}
+
+dependent_tasks()
+{
+	for task_name_i in "$@"
+	do
+		run_job_task "install" "${task_name_i}"
+	done
 }
 
 
 main_step()
 {
-	if [ $JOB_NAME = "init" ];then
-		run_all_steps
-	elif [ $JOB_NAME = "install" ]; then
-		run_specified_steps
-	elif [ $JOB_NAME = "update" ]; then
-		echo "run update job"
-		run_job_and_tasks
-	elif [ $JOB_NAME = "remove" ]; then
-		echo "run remove job"
-	else
-		echo "Error: Job not found!"
-		exit 1
-	fi
+	case $JOB_NAME in
+		info)
+			show_nixdbs_infomation
+			;;
+		init|install|update|remove)
+			run_job_and_tasks
+			;;
+		*)
+			echo "Error: Job not exist."
+			exit 1
+	esac
 }

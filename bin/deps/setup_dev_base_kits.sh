@@ -4,7 +4,7 @@
 # Setup Development kits
 # ==================================
 
-setup_basic_dev_kits()
+exec_install_dev_basic()
 {
     echo_title "Install base develop packages"    
     if [ "${OS}" = "Linux" ] ; then
@@ -40,4 +40,4 @@ setup_basic_dev_kits()
 	fmt_success "Setup base dev kits finish!"
 }
 
-append_step "setup_basic_dev_kits"
+append_task_to_init "dev_basic"

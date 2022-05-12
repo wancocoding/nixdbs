@@ -78,7 +78,7 @@ setup_pyenv_rcfile()
 }
 
 # see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-install_python_build_dependencies()
+exec_install_pydeps()
 {
 	fmt_info "checking python dependencies"
 	pkg_install_wrapper "group-py-deps"
@@ -96,13 +96,16 @@ install_default_python3()
 
 }
 
-setup_py_kits()
+exec_install_python()
 {
 	echo_title "Setup Python and pyenv"
 
 	install_pyenv
 	setup_pyenv_rcfile
-	run_sub_step "install_python_build_dependencies"
+
+	# run dependent tasks
+	dependent_tasks "pydeps"
+
 	install_default_python3
 	link_pip_conf
 
@@ -110,4 +113,5 @@ setup_py_kits()
 }
 
 
-append_step "setup_py_kits"
+append_task_to_init "pydeps"
+append_task_to_init "python"

@@ -18,14 +18,15 @@ system_update()
 }
 
 
-init_system()
+exec_install_sys()
 {
 	echo_title "Update your system!"
 	system_update
+	fmt_success "Update system finish!"
 }
 
 
-append_step "init_system"
+append_task_to_init "sys"
 
 exec_update_sys()
 {
