@@ -40,6 +40,9 @@ source $NIXDBS_HOME/bin/deps/variables.sh
 # basic functions
 source $NIXDBS_HOME/bin/deps/base_func.sh
 
+# record functions
+source $NIXDBS_HOME/bin/deps/record_func.sh
+
 # review nixdbs installation
 source $NIXDBS_HOME/bin/deps/review_ins.sh
 

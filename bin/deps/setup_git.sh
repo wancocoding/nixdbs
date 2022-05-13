@@ -92,8 +92,13 @@ exec_install_git()
     execute git config --global alias.undo 'reset HEAD~1 --mixed'
 
     # git template 
-	cat $NIXDBS_HOME/dotfiles/config/git_commit_template > ~/.config/git_commit_template
+	cat $NIXDBS_HOME/dotfiles/config/git_commit_template > "$HOME/.config/git_commit_template"
 	git config --global commit.template ~/.config/git_commit_template
+
+	record_task "git" "user"  "$HOME/.config/git_commit_template"
+	record_task "git" "user"  "$HOME/.gitconfig"
+	record_task "git" "ins" "$(pkg_install_info git)"
+	record_task "git" "ver" "$(git --version)"
 
     # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
 	fmt_success "setup git finish!"

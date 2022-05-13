@@ -74,6 +74,28 @@ pkg_install_wrapper()
 		fi
 }
 
+# get install type
+pkg_install_info()
+{
+		local osname=$OSNAME_LOWERCASE
+		local query_result="$(python3 ${NIXDBS_HOME}/bin/jq.py --os=$osname --pkg=$1)"
+		if [[ "$query_result" = "none" ]]; then
+			echo "sys_pkgm"
+		else
+			local pkg_name=`echo $query_result | awk '{$NF=""}1' | sed 's/[[:blank:]]*$//'`
+			local pkg_install_method=`echo $query_result | awk '{print $NF}'`
+			if [ "$pkg_install_method" = "system" ]; then
+				echo "sys_pkgm"
+			elif [[ "$pkg_install_method" = "brew" ]]; then
+				local pkg_arr_arg=($pkg_name)
+			elif [[ "$pkg_install_method" = "manual_compile" ]]; then
+				echo "manual"
+			else
+				echo  "error"
+			fi
+		fi
+}
+
 pkg_update_wrapper()
 {
 		# get package meta from json file
