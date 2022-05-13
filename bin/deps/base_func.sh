@@ -254,6 +254,14 @@ run_job_and_tasks()
 	done
 }
 
+cache_task()
+{
+	local task_name_to_cache="$1"
+	if ! grep -Fxq "$task_name_to_cache" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
+		echo "$task_name_to_cache" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+	fi
+}
+
 run_job_task()
 {
 	# record setup tasks
@@ -267,7 +275,8 @@ run_job_task()
 				return
 			else
 				eval "exec_install_${task_name_arg}"	
-				echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+				# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+				cache_task "$task_name_arg"
 			fi
 		else
 			# skip this step by config
@@ -278,7 +287,8 @@ run_job_task()
 		if grep -Fxq "$task_name_arg" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
 			if [ $NIXDBS_RUN_MODE_FORCE == 0 ]; then
 				eval "exec_install_${task_name_arg}"	
-				echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+				# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+				cache_task "$task_name_arg"
 			else
 				# step already executed, skip this step
 				echo "Skip $task_name_arg, it has already finished"
@@ -286,7 +296,8 @@ run_job_task()
 			fi
 		else
 			eval "exec_install_${task_name_arg}"	
-			echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+			# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+			cache_task "$task_name_arg"
 		fi
 	else
 		eval "exec_${job_name}_${task_name_arg}"
