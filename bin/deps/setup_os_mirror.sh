@@ -8,11 +8,13 @@ replace_gentoo_mirror()
     if [ -f /etc/portage/repos.conf/gentoo.conf ]; then
         local replace_cmd=("sed" "-i" "/^sync-uri /s/=.*/= ${1}/" "/etc/portage/repos.conf/gentoo.conf")
         exe_sudo "${replace_cmd[@]}"
+		record_task "osmir" "mod"  "/etc/portage/repos.conf/gentoo.conf"
     fi
     # change the gentoo mirror
     fmt_info "Change portage make conf"
     local replace_cmd=("sed" "-i" "/^GENTOO_MIRRORS/s/=.*$/=\"${2}\"/" "/etc/portage/make.conf")
     exe_sudo "${replace_cmd[@]}"
+	record_task "osmir" "mod"  "/etc/portage/make.conf"
 }
 
 setup_gentoo_mirror()

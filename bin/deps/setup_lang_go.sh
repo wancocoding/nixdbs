@@ -61,6 +61,7 @@ install_default_go()
 			fmt_info "install golang to $HOME/.local/lib/go"
 			mkdir -p $install_full_path
 			tar -C $install_full_path -xzf "${dl_file_full_path}"
+			record_task "golang" "dir" "$HOME/.local/lib/go"
 		else
 			fmt_info "golang version ${GOLANG_DEFAULT_VERSION} already installed"
 		fi
@@ -79,6 +80,7 @@ setup_go_proxy()
 	if is_set_true_in_settings "goproxy_use_mirror"; then
 		local mirror_file="$(get_mirror_file pkg go)"
 		cat "$mirror_file" >> $HOME/.config/go/env
+		record_task "golang" "file" "$HOME/.config/go/env"
 	fi
 	# echo "GOPROXY=https://mirrors.aliyun.com/goproxy/,https://goproxy.cn,direct" >> $HOME/.config/go/env
 }
@@ -90,6 +92,9 @@ setup_go_path()
 		append_rc "$go_rcfile_title"
 		append_rc 'export PATH=$HOME/.local/lib/go/current/bin:$PATH'
 		append_rc 'export GOPATH=$HOME/.local/go'
+		record_task "golang" "rc" "$go_rcfile_title"
+		record_task "golang" "rc" 'export PATH=$HOME/.local/lib/go/current/bin:$PATH'
+		record_task "golang" "rc" 'export GOPATH=$HOME/.local/go'
 	fi
 }
 

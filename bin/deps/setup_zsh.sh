@@ -27,7 +27,10 @@ exec_install_ohmyzsh()
     # see https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
 	dependent_tasks "zsh"
 	if [ ! -d $HOME/.oh-my-zsh ]; then
+		use_http_proxy_by_setting "install_ohmyzsh_use_proxy"
 		curl_wrapper "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
+		record_task "ohmyzsh" "dir" "$HOME/.oh-my-zsh"
+		unset_http_proxy
 	else
 		echo "oh-my-zsh already installed"
 	fi
@@ -46,6 +49,7 @@ exec_install_zsh()
         #     return
         # fi
 		pkg_install_wrapper zsh
+		record_task "zsh" "ins" "zsh"
     else
         echo "zsh already installed!"
     fi

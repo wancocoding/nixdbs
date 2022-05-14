@@ -14,6 +14,7 @@ install_rbenv()
 
 		git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 		
+		record_task "ruby" "dir" "$HOME/.rbenv"
 		
 	fi
 }
@@ -26,6 +27,7 @@ setup_gemrc()
 	if is_set_true_in_settings "rubygem_use_mirror"; then
 		local mirror_file="$(get_mirror_file pkg gem)"
 		cat "$mirror_file" > $HOME/.gemrc
+		record_task "ruby" "file" "$HOME/.gemrc"
 	fi
 	# ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
 
@@ -37,6 +39,9 @@ setup_rbenv_profile()
 		append_rc "$rbenv_rcfile_title"
 		append_rc 'export PATH="$HOME/.rbenv/bin:$PATH"'
 		append_rc 'eval "$(rbenv init -)"'
+		record_task "ruby" "rc" "$rbenv_rcfile_title"
+		record_task "ruby" "rc" 'export PATH="$HOME/.rbenv/bin:$PATH"'
+		record_task "ruby" "rc" 'eval "$(rbenv init -)"'
 	fi
 
 	# enable rbenv now

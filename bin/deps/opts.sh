@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-declare -a INSTALL_TASK_NAME_ARRAY=(osmir sys proxy base git tools \
-	brew zsh ohmyzsh vim java python \
+declare -a INSTALL_TASK_NAME_ARRAY=(osmir sys proxy base git dev_tools \
+	brew zsh ohmyzsh vim dev_basic \
 	tldr cheatsh \
-	clang ruby node go)
+	java python clang ruby node go)
 
-declare -a UPDATE_TASK_NAME_ARRAY=(sys base git tools \
+declare -a UPDATE_TASK_NAME_ARRAY=(sys base git dev_tools \
 	brew zsh ohmyzsh vim \
 	tldr cheatsh)
 
@@ -219,41 +219,3 @@ echo "tasks:              ${specified_steps[@]}"
 echo "config file:        ${JOB_CONFIG_FILE}"
 echo "================================================================================="
 
-
-# # ============ options
-# while getopts "hs:c:" cmd_opts
-# do
-#     case $cmd_opts in
-#         h)
-#             # print help
-#             print_help
-#             exit 0
-#             ;;
-#         c)
-#             USER_CONFIG_FILE=$OPTARG
-#             echo "====== Run with user config file: $OPTARG ======"
-#             ;;
-#         s)
-#             arg_step_name=$OPTARG
-#             echo "====== Run task [$arg_step_name] ======"
-#             specified_steps+=("$arg_step_name")
-#             ;;
-#     esac
-# done
-#
-# # reset option index that '$1' will be the main argument
-# shift $((OPTIND - 1))
-#
-# for i in "$@"
-# do
-# case $i in
-#     init|initialize|in*)
-#         echo "------ init ------"
-#         ;;
-#     update|up*)
-#         echo "----- update ------"
-#         ;;
-#     *)
-#         echo "unknow argument"
-# esac
-# done

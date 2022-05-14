@@ -80,18 +80,19 @@ pkg_install_info()
 		local osname=$OSNAME_LOWERCASE
 		local query_result="$(python3 ${NIXDBS_HOME}/bin/jq.py --os=$osname --pkg=$1)"
 		if [[ "$query_result" = "none" ]]; then
-			echo "sys_pkgm"
+			echo "${1},sys,$(get_pkg_install_cmd_text) $1"
 		else
 			local pkg_name=`echo $query_result | awk '{$NF=""}1' | sed 's/[[:blank:]]*$//'`
 			local pkg_install_method=`echo $query_result | awk '{print $NF}'`
 			if [ "$pkg_install_method" = "system" ]; then
-				echo "sys_pkgm"
+				echo "${1},sys,$(get_pkg_install_cmd_text) $1"
 			elif [[ "$pkg_install_method" = "brew" ]]; then
-				local pkg_arr_arg=($pkg_name)
+				echo "${1},homebrew,$(get_brew_install_info) $1"
 			elif [[ "$pkg_install_method" = "manual_compile" ]]; then
-				echo "manual"
+				echo "${1},manual"
 			else
 				echo  "error"
+				exit 1
 			fi
 		fi
 }
@@ -132,6 +133,26 @@ pkg_update_wrapper()
 		fi
 }
 
+get_pkg_install_cmd_text()
+{
+    if [ -v $SYS_INSTALL_PKG_CMD ]; then
+        error_exit "$OSNAME_LOWERCASE system install command not set correctlly!"
+    fi
+
+    declare -a install_cmd=()
+
+    for sys_install_cmd_arg in "${SYS_INSTALL_PKG_CMD[@]}"
+    do
+        install_cmd+=("$sys_install_cmd_arg")
+    done
+    
+    for install_arg in "$@"
+    do
+        install_cmd+=("$install_arg")
+    done
+    echo "${install_cmd[@]}"
+}
+
 pkg_install()
 {
     if [ -v $SYS_INSTALL_PKG_CMD ]; then
@@ -170,6 +191,27 @@ pkg_update()
         update_cmd+=("$update_arg")
     done
     exe_sudo "${update_cmd[@]}"
+}
+
+get_brew_install_info()
+{
+	if ! command_exists "brew"; then
+        # homebrew has already installed, but not run brew's settings
+        if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+            echo "homebrew already installed, loading..."
+            eval "$HOMEBREW_SETTINGS"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        else
+            error_exit "you must install Homebrew first!"
+        fi
+	fi
+    local -a install_cmd=(brew install)
+    
+    for install_arg in "$@"
+    do
+        install_cmd+=("$install_arg")
+    done
+    echo "${install_cmd[@]}"
 }
 
 brew_install()

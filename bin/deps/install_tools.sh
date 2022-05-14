@@ -17,6 +17,10 @@ config_fzf()
 			echo "$FZF_SETTINGS" >> $HOME/.zshrc
 			echo "$FZF_SETTINGS_CONS" >> $HOME/.zshrc
 			cat $NIXDBS_HOME/dotfiles/fzf.zsh >> $HOME/.zshrc
+			record_task "dev_tools" "rc" "# ====== fzf settings ======"
+			record_task "dev_tools" "rc" "$FZF_SETTINGS"
+			record_task "dev_tools" "rc" "$FZF_SETTINGS_CONS"
+			record_task "dev_tools" "rc" "$(cat $NIXDBS_HOME/dotfiles/fzf.zsh)"
 		fi
 	fi
 
@@ -27,8 +31,13 @@ config_fzf()
 			echo "$FZF_SETTINGS" >> $HOME/.bashrc
 			echo "$FZF_SETTINGS_CONS" >> $HOME/.bashrc
 			cat $NIXDBS_HOME/dotfiles/fzf.bash >> $HOME/.bashrc
+			record_task "dev_tools" "rc" "# ====== fzf settings ======"
+			record_task "dev_tools" "rc" "$FZF_SETTINGS"
+			record_task "dev_tools" "rc" "$FZF_SETTINGS_CONS"
+			record_task "dev_tools" "rc" "$(cat $NIXDBS_HOME/dotfiles/fzf.bash)"
 		fi
 	fi
+
 }
 
 
@@ -58,6 +67,7 @@ exec_install_cheatsh()
 		fmt_info "downloading cht.sh ..."
 		curl_wrapper https://cht.sh/:cht.sh > $HOME/.local/bin/cht.sh
 		chmod +x $HOME/.local/bin/cht.sh
+		record_task "cheatsh" "file" "$HOME/.local/bin/cht.sh"
 	fi
 
 	# shell completion
@@ -68,16 +78,22 @@ exec_install_cheatsh()
 	fmt_info "downloading cheat.sh bash completion ..."
 	curl_wrapper -o "$cht_shell_location/completion.bash" -l \
 		https://cheat.sh/:bash_completion
+	record_task "cheatsh" "file" "$cht_shell_location/completion.bash"
 	append_bashrc "# cheat.sh bash completion"
 	append_bashrc "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
+	record_task "cheatsh" "rc" "# cheat.sh bash completion"
+	record_task "cheatsh" "rc" "[ -f $cht_shell_location/completion.bash ] && source $cht_shell_location/completion.bash"
 
 	# zsh
 	mkdir -p $HOME/.zsh.d > /dev/null 2>&1
 	fmt_info "downloading cheat.sh zsh completion ..."
 	[ -f $HOME/.zsh.d/_cht ] && rm $HOME/.zsh.d/_cht 
 	curl_wrapper -o "$HOME/.zsh.d/_cht" -SL https://cheat.sh/:zsh
+	record_task "cheatsh" "file" "$HOME/.zsh.d/_cht"
 	append_zshrc "# cheat.sh zsh completion"
 	append_zshrc 'fpath=(~/.zsh.d/ $fpath)'
+	record_task "cheatsh" "rc" "# cheat.sh zsh completion"
+	record_task "cheatsh" "rc"  'fpath=(~/.zsh.d/ $fpath)'
 	unset_http_proxy
 	fmt_success "install cheat.sh finish!"
 }
@@ -90,6 +106,8 @@ exec_install_tldr()
 	dependent_tasks "node"
 	fmt_info "install tldr by npm"
 	npm install -g tldr
+	record_task "tldr" "ins" "tldr,npm,npm install -g tldr"
+	record_task "tldr" "file" "$(get_bin_path tldr)"
 	fmt_info "install tldr finish!"
 	tldr -v
 	tldr -l
@@ -102,6 +120,7 @@ exec_install_dev_tools()
 	do
 		fmt_info "install $ti"
 		pkg_install_wrapper "$ti"
+		record_task "dev_tools" "ins" "$(get_pkg_install_cmd_text $ti)"
 	done
 	get_fzf_shell_tools
 	config_fzf

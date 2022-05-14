@@ -69,6 +69,11 @@ get_cfg_from_file_by_key()
 		$2
 }
 
+get_bin_path()
+{
+	type -p "tldr" | sed -n 's/\([^\/]*\)//p'
+}
+
 
 is_set_true_in_settings()
 {

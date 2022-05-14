@@ -14,6 +14,7 @@ install_pyenv()
 		rm -rf $HOME/.pyenv >/dev/null 2>&1
 
 		git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
+		record_task "python" "dir" "$HOME/.pyenv"
 	fi
 	if [ ! -d $HOME/.pyenv/plugins/pyenv-virtualenv ]; then
 	    git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv	
@@ -33,6 +34,7 @@ link_pip_conf()
 		local mirror_file="$(get_mirror_file pkg pip)"
 		mkdir -p $HOME/.pip >/dev/null 2>&1
 		cat "$mirror_file" > $HOME/.pip/pip.conf
+		record_task "python" "file" "$HOME/.pip/pip.conf"
 	fi
 }
 
@@ -45,31 +47,13 @@ setup_pyenv_rcfile()
 		append_rc 'eval "$(pyenv init --path)"'
 		append_rc 'eval "$(pyenv init -)"'
 		append_rc 'eval "$(pyenv virtualenv-init -)"'
+		record_task "python" "rc" "$pyenv_rcfile_title"
+		record_task "python" "rc" 'export PYENV_ROOT="$HOME/.pyenv"'
+		record_task "python" "rc" 'export PATH="$PYENV_ROOT/bin:$PATH"'
+		record_task "python" "rc" 'eval "$(pyenv init --path)"'
+		record_task "python" "rc" 'eval "$(pyenv init -)"'
+		record_task "python" "rc" 'eval "$(pyenv virtualenv-init -)"'
 	fi
-    # # for zsh
-    # if [ -a $HOME/.zshrc ]; then
-    #     if ! grep -Fxq 'eval "$(pyenv init -)"' $HOME/.zshrc ; then
-    #         echo '' >> $HOME/.zshrc
-    #
-    #         echo '# ====== pyenv ====== ' >> $HOME/.zprofile
-	#         echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zprofile
-	#         echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zprofile
-	#         echo 'eval "$(pyenv init --path)"' >> ~/.zprofile
-	#         echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-	#         echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
-    #     fi
-    # fi
-    # # for bash
-    # if [ -a $HOME/.bashrc ]; then
-    #     if ! grep -Fxq 'export PYENV_ROOT="$HOME/.pyenv"' $HOME/.bashrc ; then
-    #         echo '# ====== pyenv ====== ' >> $HOME/.bashrc
-	#         echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-	#         echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-	#         echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
-	#         echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-	#         echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-    #     fi
-    # fi
 	fmt_info "enable pyenv environments"
 	export PYENV_ROOT="$HOME/.pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"

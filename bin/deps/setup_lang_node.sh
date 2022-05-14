@@ -12,6 +12,7 @@ install_nvm()
 			cd "$NVM_DIR"
 			git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
 		) && \. "$NVM_DIR/nvm.sh"
+		record_task "node" "dir" "$HOME/.nvm"
 	fi
 	fmt_info "[ok] nvm already installed"
 
@@ -24,6 +25,7 @@ link_npmrc()
 	if is_set_true_in_settings "npm_use_mirror"; then
 		local mirror_file="$(get_mirror_file pkg npm)"
 		cat "$mirror_file" > $HOME/.npmrc
+		record_task "node" "file" "$HOME/.npmrc"
 	fi
 	# ln -s $NIXDBS_HOME/dotfiles/npmrc $HOME/.npmrc
 }
@@ -36,6 +38,10 @@ setup_nvm_profile()
 		append_rc '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
 		# add base completion
 		append_bashrc '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
+		record_task "node" "rc" "$nvm_rcfile_title"
+		record_task "node" "rc" 'export NVM_DIR="$HOME/.nvm"'
+		record_task "node" "rc" '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
+		record_task "node" "rc" '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'
 	fi
 }
 

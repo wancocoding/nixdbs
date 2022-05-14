@@ -4,6 +4,7 @@ install_sdkman()
 {
 	if [ ! -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
 		curl_wrapper -s "https://get.sdkman.io" | bash
+		record_task "java" "dir" "$HOME/.sdkman"
 		# local http_proxy=$(get_http_proxy)
 		# if [ ! -z "${http_proxy:-}" ]; then
 		#     curl --proxy $http_proxy -s "https://get.sdkman.io" | bash

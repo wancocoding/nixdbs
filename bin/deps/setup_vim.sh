@@ -5,6 +5,7 @@ link_vimrc()
 	fmt_info "link vimrc ......"
 	rm -rf $HOME/.vimrc >/dev/null 2>&1
 	cp -rv $NIXDBS_HOME/dotfiles/vimrc $HOME/.vimrc
+	record_task "vim" "file" "$HOME/.vimrc"
 	# ln -s $NIXDBS_HOME/dotfiles/vimrc $HOME/.vimrc
 }
 
@@ -16,17 +17,12 @@ install_vim_plug()
 		fmt_info "install vim-plug"
 		curl_wrapper -fLo ~/.vim/autoload/plug.vim --create-dirs \
 			$VIM_PLUG_VIMFILE_URL
-		# local http_proxy=$(get_http_proxy)
-		# if [ ! -z "${http_proxy:-}" ]; then
-		#     curl --proxy "$http_proxy" -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		#         $VIM_PLUG_VIMFILE_URL
-		# else
-		#     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		#         $VIM_PLUG_VIMFILE_URL
-		# fi
+		record_task "vim" "dir" "$HOME/.vim/autoload"
+		record_task "vim" "file" "$HOME/.vim/autoload/plug.vim"
 	fi
 	fmt_info "install plugin"
 	vim +PlugInstall +qall
+	record_task "vim" "dir" "$HOME/.vim/plugged"
 }
 
 copy_dictionary()
@@ -37,6 +33,7 @@ copy_dictionary()
 	fi
 	if [ ! -f "/usr/share/dict/words" ]; then
 		exe_sudo "cp" "$NIXDBS_HOME/misc/commons/words.txt" "/usr/share/dict/words"
+		record_task "vim" "file" "/usr/share/dict/words"
 	fi
 }
 
@@ -56,6 +53,7 @@ exec_install_vim()
 			fi
 		fi
 		pkg_install "vim"
+		record_task "vim" "ins" "$(get_pkg_install_cmd_text vim)"
 	fi
 	link_vimrc
 	install_vim_plug
