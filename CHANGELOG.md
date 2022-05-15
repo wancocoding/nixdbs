@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/wancocoding/dotfiles/compare/v2.1.0...v2.2.0) (2022-05-15)
+
+
+### 🐛 Bug Fixes
+
+* install nixdbs script issue ([fdeacf9](https://github.com/wancocoding/dotfiles/commit/fdeacf9d1edbb9d265185e045d3e48e7b8da7751))
+
+
+### ✏️ Documentation
+
+* update README ([6e86a10](https://github.com/wancocoding/dotfiles/commit/6e86a10a579f746551fbd518c0431b66178189b8)), closes [#76](https://github.com/wancocoding/dotfiles/issues/76)
+
+
+### ♻️ Code Refactoring
+
+* config git proxy by settings file ([fa20719](https://github.com/wancocoding/dotfiles/commit/fa207190d1fca2da45b9969515c8d3c9db0423cd))
+* refactor cache task step function ([2317f6d](https://github.com/wancocoding/dotfiles/commit/2317f6d1c734576d6170178b80b554c4e70121ae)), closes [#84](https://github.com/wancocoding/dotfiles/issues/84)
+* refactor homebrew rcfile setup function ([fec6cd2](https://github.com/wancocoding/dotfiles/commit/fec6cd23eaea1881931a2d5fc90fe0fbf2ef53af))
+* refactor install and int job ([a4dbe8d](https://github.com/wancocoding/dotfiles/commit/a4dbe8d4385e8e384e09c6e0d657c8c4c7b5c276)), closes [#89](https://github.com/wancocoding/dotfiles/issues/89) [#83](https://github.com/wancocoding/dotfiles/issues/83) [#85](https://github.com/wancocoding/dotfiles/issues/85) [#88](https://github.com/wancocoding/dotfiles/issues/88) [#86](https://github.com/wancocoding/dotfiles/issues/86)
+* refactor node rcfile setup and npm mirror setup ([c62abe5](https://github.com/wancocoding/dotfiles/commit/c62abe57ae9f18cfa20bc7997603fb60b2c47279))
+* refactor pyenv rcfile setup and pip mirorr setup ([619469c](https://github.com/wancocoding/dotfiles/commit/619469c88ed318db6f1b1153cca785f6a102e010))
+* refactor ruby, go, node rcfile and repository setup_lang_go ([838040e](https://github.com/wancocoding/dotfiles/commit/838040ee49efdb73f06c8daf88cd5e5bd7898e31))
+
+
+### ✨ Features
+
+* add cheat.sh ([92744ce](https://github.com/wancocoding/dotfiles/commit/92744cef748d573dd48929456632a61577154240)), closes [#43](https://github.com/wancocoding/dotfiles/issues/43) [#54](https://github.com/wancocoding/dotfiles/issues/54) [#68](https://github.com/wancocoding/dotfiles/issues/68)
+* add curl wrapper function ([83ebe62](https://github.com/wancocoding/dotfiles/commit/83ebe624027e453ff7968fa42cc1f50e8d3fe024))
+* add fzf settings and bash completion, key bindings ([1da111f](https://github.com/wancocoding/dotfiles/commit/1da111f6f214f953a6d8353465925af8fbcd4261))
+* add golang sdk install manually ([0007667](https://github.com/wancocoding/dotfiles/commit/0007667ea0aee0ad49e687e4475782fde34a429a)), closes [#66](https://github.com/wancocoding/dotfiles/issues/66) [#69](https://github.com/wancocoding/dotfiles/issues/69)
+* add info command for show all information about tasks ([56b9f72](https://github.com/wancocoding/dotfiles/commit/56b9f7207f5190063643d980dd317884473c2624)), closes [#82](https://github.com/wancocoding/dotfiles/issues/82)
+* add install nixdbs step ([39f27a8](https://github.com/wancocoding/dotfiles/commit/39f27a885136a6b0737a8dd493a1f3fdb8911d7f))
+* add java develop kits , sdkman and gradle default version ([be806bd](https://github.com/wancocoding/dotfiles/commit/be806bdcf01f354d0517878b34c60432cbd1d701)), closes [#65](https://github.com/wancocoding/dotfiles/issues/65)
+* add record functions for install information ([1a2ef15](https://github.com/wancocoding/dotfiles/commit/1a2ef15831b486643217522eaca2ad8962c408b0)), closes [#87](https://github.com/wancocoding/dotfiles/issues/87)
+* add remove job for tasks ([b9bb6bb](https://github.com/wancocoding/dotfiles/commit/b9bb6bb93d5b2fc104a88d2f0e297f398bc5cf74)), closes [#81](https://github.com/wancocoding/dotfiles/issues/81)
+* add some update task ([87abb80](https://github.com/wancocoding/dotfiles/commit/87abb803efa614f5b1faa3c53baea0344a2f18a2)), closes [#24](https://github.com/wancocoding/dotfiles/issues/24) [#25](https://github.com/wancocoding/dotfiles/issues/25) [#64](https://github.com/wancocoding/dotfiles/issues/64)
+* add tldr ([ac0a8e8](https://github.com/wancocoding/dotfiles/commit/ac0a8e80c53c69eba0a91cbd9114081bd86fa20e))
+* add update job ([d82d3b0](https://github.com/wancocoding/dotfiles/commit/d82d3b016c376333ed98523045efcee0e75621c8)), closes [#23](https://github.com/wancocoding/dotfiles/issues/23) [#24](https://github.com/wancocoding/dotfiles/issues/24) [#64](https://github.com/wancocoding/dotfiles/issues/64)
+* record all task to file ([f02d9d6](https://github.com/wancocoding/dotfiles/commit/f02d9d6c25cd0b0b150f7993521d12b1aa86c24e))
+* refactor rcfile and proxy settings ([c5a38cb](https://github.com/wancocoding/dotfiles/commit/c5a38cb7a26836715eb00b7a6478712b77d9d424)), closes [#77](https://github.com/wancocoding/dotfiles/issues/77) [#80](https://github.com/wancocoding/dotfiles/issues/80)
+* refactor script argument build function ([f98b149](https://github.com/wancocoding/dotfiles/commit/f98b149e68a72390c336fa010649bc423387009c)), closes [#79](https://github.com/wancocoding/dotfiles/issues/79) [#78](https://github.com/wancocoding/dotfiles/issues/78)
+* refactor script path settings ([8b7d1fe](https://github.com/wancocoding/dotfiles/commit/8b7d1feb4a434769867bc68d6b190df4c6508667))
+* setup golang sdk by gvm, and install default go 1.17 ([2031661](https://github.com/wancocoding/dotfiles/commit/203166133c07fd66f45619a60b7171180e6574a3)), closes [#66](https://github.com/wancocoding/dotfiles/issues/66)
+
 ## [2.1.0](https://github.com/wancocoding/dotfiles/compare/v2.0.0...v2.1.0) (2022-04-30)
 
 
