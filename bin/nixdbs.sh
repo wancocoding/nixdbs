@@ -64,6 +64,9 @@ source $NIXDBS_HOME/bin/deps/commands.sh
 # information
 source $NIXDBS_HOME/bin/deps/info.sh
 
+# remove task
+source $NIXDBS_HOME/bin/deps/remove.sh
+
 #=========== These steps are optional
 
 # setup os package mirror

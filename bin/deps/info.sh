@@ -23,6 +23,8 @@ show_task_info()
 	local info_task_name="$1"
 	echo
 	fmt_info "Infomation of [${info_task_name}]"
+
+	echo
 	task_info_installation "$info_task_name"
 	echo
 	task_info_directories "$info_task_name"

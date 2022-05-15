@@ -133,6 +133,38 @@ pkg_update_wrapper()
 		fi
 }
 
+pkg_remove_wrapper()
+{
+		# get package meta from json file
+		# get teh package install meta
+		local osname=$OSNAME_LOWERCASE
+		fmt_info "remove $1 in $osname"
+		local query_result="$(python3 ${NIXDBS_HOME}/bin/jq.py --os=$osname --pkg=$1)"
+		if [[ "$query_result" = "none" ]]; then
+			fmt_warning "package meta not exist, now try use system package manager"
+			# try to install pkg by system package manager
+			pkg_remove "$1"
+		else
+			fmt_info "find package meta: $query_result"
+			# get the packages
+			local pkg_name=`echo $query_result | awk '{$NF=""}1' | sed 's/[[:blank:]]*$//'`
+			local pkg_update_method=`echo $query_result | awk '{print $NF}'`
+			fmt_info "update $pkg_name by $pkg_update_method"
+			if [ "$pkg_update_method" = "system" ]; then
+				local pkg_arr_arg=($pkg_name)
+				pkg_remove "${pkg_arr_arg[@]}"
+			elif [[ "$pkg_update_method" = "brew" ]]; then
+				local pkg_arr_arg=($pkg_name)
+				brew_remove "${pkg_arr_arg[@]}"	
+			elif [[ "$pkg_update_method" = "manual_compile" ]]; then
+				echo "update by manual not implement yet!"
+				error_exit "can not update $pkg_name manually"
+			else
+				error_exit "update method: ${pkg_update_method} not supported!"
+			fi
+		fi
+}
+
 get_pkg_install_cmd_text()
 {
     if [ -v $SYS_INSTALL_PKG_CMD ]; then
@@ -191,6 +223,26 @@ pkg_update()
         update_cmd+=("$update_arg")
     done
     exe_sudo "${update_cmd[@]}"
+}
+
+pkg_remove()
+{
+    if [ -v $SYS_REMOVE_PKG_CMD ]; then
+        error_exit "$OSNAME_LOWERCASE system remove command not set correctlly!"
+    fi
+
+    declare -a remove_cmd=()
+
+    for sys_remove_cmd_arg in "${SYS_REMOVE_PKG_CMD[@]}"
+    do
+        remove_cmd+=("$sys_remove_cmd_arg")
+    done
+    
+    for remove_arg in "$@"
+    do
+        remove_cmd+=("$remove_arg")
+    done
+    exe_sudo "${remove_cmd[@]}"
 }
 
 get_brew_install_info()
@@ -254,6 +306,27 @@ brew_upgrade()
         update_cmd+=("$update_arg")
     done
     execute "${update_cmd[@]}"
+}
+
+brew_remove()
+{
+	if ! command_exists "brew"; then
+        # homebrew has already installed, but not run brew's settings
+        if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+            echo "homebrew already installed, loading..."
+            eval "$HOMEBREW_SETTINGS"
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        else
+            error_exit "you must install Homebrew first!"
+        fi
+	fi
+    local -a remove_cmd=(brew uninstall)
+    
+    for remove_arg in "$@"
+    do
+        remove_cmd+=("$remove_arg")
+    done
+    execute "${remove_cmd[@]}"
 }
 
 echo_commands()

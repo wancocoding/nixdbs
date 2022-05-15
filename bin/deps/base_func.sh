@@ -257,6 +257,9 @@ run_job_and_tasks()
 		run_job_task "$JOB_NAME" "$task_name_i"
 		let step_index+=1
 	done
+	if [ "$JOB_NAME" = "remove" ];then
+		run_job_task "$JOB_NAME" "$REMOVE_TASK_NAME"
+	fi
 }
 
 cache_task()
@@ -304,7 +307,10 @@ run_job_task()
 			# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
 			cache_task "$task_name_arg"
 		fi
+	elif [ "$job_name" = "remove" ]; then
+		remove_by_task_name "$task_name_arg"
 	else
+		# update
 		eval "exec_${job_name}_${task_name_arg}"
 	fi
 }

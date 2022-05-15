@@ -90,7 +90,6 @@ NIXDBS_RUN_MODE_FORCE=0
 define_main_job()
 {
 	if [ -z ${JOB_NAME:-} ];then
-		# echo "define job $1"
 		JOB_NAME="$1"
 	else
 		echo "Error: You can only run one job at a time!"
@@ -116,6 +115,8 @@ add_task()
 			echo "Error: Installation task or argument [${1}] not found!"
 			return 1
 		fi
+	elif [ ${JOB_NAME} = "remove" ]; then
+		REMOVE_TASK_NAME="$1"
 	fi
 }
 

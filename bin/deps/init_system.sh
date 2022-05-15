@@ -17,6 +17,12 @@ system_update()
     fi
 }
 
+system_clean()
+{
+    if [ -v SYS_CLEAN_CMD[@] ]; then
+        exe_sudo "${SYS_CLEAN_CMD[@]}"
+    fi
+}
 
 exec_install_sys()
 {
