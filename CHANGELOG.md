@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.5](https://github.com/wancocoding/dotfiles/compare/v2.2.4...v2.2.5) (2023-08-29)
+
+
+### 🐛 Bug Fixes
+
+* Update default jdk version, gradle version and ruby version. ([d8f8942](https://github.com/wancocoding/dotfiles/commit/d8f8942b8658298b0c17642d970df38533ddf395))
+
 ### [2.2.4](https://github.com/wancocoding/dotfiles/compare/v2.2.3...v2.2.4) (2023-08-29)
 
 
