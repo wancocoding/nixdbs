@@ -94,10 +94,10 @@ NPMRC_SETTINGS="registry=https://registry.npm.taobao.org/"
 VIM_PLUG_VIMFILE_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 # VIM_PLUG_VIMFILE_URL_PROXY="${GITHUB_PROXY}/$VIM_PLUG_VIMFILE_URL"
 
-GLOBAL_NODE_VERSION="gallium"
+GLOBAL_NODE_VERSION="Hydrogen"
 
 # default python version to install by pyenv
-PYENV_DEFAULT_PY_VERSION="3.9.12"
+PYENV_DEFAULT_PY_VERSION="3.11.4"
 
 # default ruby version by rbenv install
 RBENV_DEFALUT_RUBY_VERSION="3.1.1"
@@ -106,7 +106,7 @@ RBENV_DEFALUT_RUBY_VERSION="3.1.1"
 JDK_DEFAULT_VERSION="17.0.3-tem"
 GRADLE_DEFAULT_VERSION="7.4.2"
 
-GOLANG_DEFAULT_VERSION="go1.18.1"
+GOLANG_DEFAULT_VERSION="go1.21.1"
 
 # setup all tasks
 declare -a SETUP_TASKS_ARRAY
