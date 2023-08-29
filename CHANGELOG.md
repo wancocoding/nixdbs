@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.3](https://github.com/wancocoding/dotfiles/compare/v2.2.2...v2.2.3) (2023-08-29)
+
+
+### 🐛 Bug Fixes
+
+* Fix parameter initialization errors ([7af9901](https://github.com/wancocoding/dotfiles/commit/7af990191ad5f906e89c21c606d295bb4977d51a))
+
 ### [2.2.2](https://github.com/wancocoding/dotfiles/compare/v2.2.1...v2.2.2) (2023-08-29)
 
 ### [2.2.1](https://github.com/wancocoding/dotfiles/compare/v2.2.0...v2.2.1) (2023-08-29)
