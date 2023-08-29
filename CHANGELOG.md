@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.4](https://github.com/wancocoding/dotfiles/compare/v2.2.3...v2.2.4) (2023-08-29)
+
+
+### 🐛 Bug Fixes
+
+* fix logging color issue ([aba29e7](https://github.com/wancocoding/dotfiles/commit/aba29e7f0483be113bb414fb7f57cc5401ec3afc))
+* format all shell file, add ubuntu source list mirror file for ([940f15d](https://github.com/wancocoding/dotfiles/commit/940f15d4c7304134878e4af6177f1ca03bf10a41))
+* Upddate the language of Golang, Node, Python version to latest. ([2ed70ad](https://github.com/wancocoding/dotfiles/commit/2ed70ad6b0b794d5166487633a868aecfbce550a))
+
 ### [2.2.3](https://github.com/wancocoding/dotfiles/compare/v2.2.2...v2.2.3) (2023-08-29)
 
 
