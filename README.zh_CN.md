@@ -26,7 +26,7 @@ Linux Development Bootstrap
 * [x] 终端颜色问题
 * [x] 精简默认任务
 * [x] 更新语言的最新版本 golang node python
-* [ ] 更新语言的最新版本 java gradle ruby
+* [x] 更新语言的最新版本 java gradle ruby
 * [x] 格式化所有脚本
 * [x] 修复安装dev kits的时候的需要确认的问题
 * [ ] 字体安装

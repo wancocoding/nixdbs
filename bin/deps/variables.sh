@@ -23,7 +23,7 @@ NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 # GITHUB_PROXY="https://ghproxy.com"
 
 # v2fly/v2ray
-V2RAY_VERSION="v4.44.0" # this will be update when proxy install success
+V2RAY_VERSION="v5.7.0" # this will be update when proxy install success
 V2RAY_RELEASE="https://github.com/v2fly/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip"
 # V2RAY_RELEASE_PROXY="${GITHUB_PROXY}/${V2RAY_RELEASE}"
 V2RAY_INSTALL_SCRIPT="https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh"
@@ -100,11 +100,11 @@ GLOBAL_NODE_VERSION="Hydrogen"
 PYENV_DEFAULT_PY_VERSION="3.11.4"
 
 # default ruby version by rbenv install
-RBENV_DEFALUT_RUBY_VERSION="3.1.1"
+RBENV_DEFALUT_RUBY_VERSION="3.2.2"
 
-# default jdk version 17.0.3 - AdoptOpenJDK(Eclipse Adoptium Temurin)
-JDK_DEFAULT_VERSION="17.0.3-tem"
-GRADLE_DEFAULT_VERSION="7.4.2"
+# default jdk version 17.0.8 - AdoptOpenJDK(Eclipse Adoptium Temurin)
+JDK_DEFAULT_VERSION="17.0.8-tem"
+GRADLE_DEFAULT_VERSION="8.3"
 
 GOLANG_DEFAULT_VERSION="go1.21.1"
 

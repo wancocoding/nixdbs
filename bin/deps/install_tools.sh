@@ -93,6 +93,7 @@ exec_install_cheatsh() {
 	fmt_success "install cheat.sh finish!"
 }
 
+# !!deprecated!! - use cht.sh instead
 exec_install_tldr() {
 	echo_title "Install tldr ..."
 	# setup node first
