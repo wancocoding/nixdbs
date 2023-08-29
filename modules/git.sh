@@ -14,11 +14,12 @@ sudo -u git /bin/bash -c "mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys &>/dev
 
 
 # config git
-sudo -u git /bin/bash -c "git config --global init.defaultBranch master"
+sudo -u git /bin/bash -c "git config --global init.defaultBranch main"
 
 
 # create repository
 read -p "Do you want to create git repository? [y|n]" user_input
+
 case $user_input in
     Y*|y*)
 	read -p "enter repository name: " user_input

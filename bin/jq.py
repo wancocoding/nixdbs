@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""对json进行解析"""
 
 import os
 import argparse
@@ -7,8 +8,9 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+# 是
 def get_args():
+    '''获取参数'''
     parser = argparse.ArgumentParser(
         description='Process OS and command information or arguments!')
     parser.add_argument('--action',
