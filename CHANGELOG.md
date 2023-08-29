@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/wancocoding/dotfiles/compare/v2.2.0...v2.2.1) (2023-08-29)
+
+
+### 🐛 Bug Fixes
+
+* You can choose different repository for installation ([795ab47](https://github.com/wancocoding/dotfiles/commit/795ab47d4f630ce1acf7d29e23ca3194bf6a33d8))
+
 ## [2.2.0](https://github.com/wancocoding/dotfiles/compare/v2.1.0...v2.2.0) (2022-05-15)
 
 
