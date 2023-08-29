@@ -1,45 +1,42 @@
 #!/usr/bin/env bash
 
-
 # ==================================
 # Setup zsh
 # ==================================
 
-runzsh()
-{
+runzsh() {
     fmt_warning "Important!!! You may run this script again if you run zsh right now!!!"
     read -p "Do you want to run zsh now? [y|n]: > " user_opts
     case $user_opts in
-        y*|Y*) ;;
-        n*|N*)
-            echo "Not run zsh now..."
-            fmt_warning "You can run zsh after this script!!"
-            return ;;
-        *)
-            echo "Invalid choice."
-            return ;;
+    y* | Y*) ;;
+    n* | N*)
+        echo "Not run zsh now..."
+        fmt_warning "You can run zsh after this script!!"
+        return
+        ;;
+    *)
+        echo "Invalid choice."
+        return
+        ;;
     esac
     exec zsh -l
 }
 
-exec_install_ohmyzsh()
-{
+exec_install_ohmyzsh() {
     # see https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
-	dependent_tasks "zsh"
-	if [ ! -d $HOME/.oh-my-zsh ]; then
-		use_http_proxy_by_setting "install_ohmyzsh_use_proxy"
-		curl_wrapper "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
-		record_task "ohmyzsh" "dir" "$HOME/.oh-my-zsh"
-		unset_http_proxy
-	else
-		echo "oh-my-zsh already installed"
-	fi
+    dependent_tasks "zsh"
+    if [ ! -d $HOME/.oh-my-zsh ]; then
+        use_http_proxy_by_setting "install_ohmyzsh_use_proxy"
+        curl_wrapper "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
+        record_task "ohmyzsh" "dir" "$HOME/.oh-my-zsh"
+        unset_http_proxy
+    else
+        echo "oh-my-zsh already installed"
+    fi
 }
 
-
-exec_install_zsh()
-{
-	echo_title "Setup zsh"
+exec_install_zsh() {
+    echo_title "Setup zsh"
     if ! command_exists zsh; then
         # read -p "Do you want to install zsh now: (y|n) [y] >" input_text
         # if [ x"$input_text" == x'y' ]; then
@@ -48,17 +45,16 @@ exec_install_zsh()
         #     fmt_warning "Skip install zsh"
         #     return
         # fi
-		pkg_install_wrapper zsh
-		record_task "zsh" "ins" "zsh"
+        pkg_install_wrapper zsh
+        record_task "zsh" "ins" "zsh"
     else
         echo "zsh already installed!"
     fi
     chsh_zsh
-	fmt_success "finish zsh setup."
+    fmt_success "finish zsh setup."
 }
 
-chsh_zsh()
-{
+chsh_zsh() {
     # If this user's login shell is already "zsh", do not attempt to switch.
     if [ "$(basename -- "$SHELL")" = "zsh" ]; then
         echo "your already in zsh shell."
@@ -111,24 +107,21 @@ EOF
 
 }
 
-
-exec_update_zsh()
-{
-	echo_title "update zsh"
+exec_update_zsh() {
+    echo_title "update zsh"
     if ! command_exists zsh; then
-		error_exit "you must install zsh first."
-	else
-		pkg_update_wrapper zsh
-		fmt_success "update zsh finish"
-	fi
+        error_exit "you must install zsh first."
+    else
+        pkg_update_wrapper zsh
+        fmt_success "update zsh finish"
+    fi
 }
 
-exec_update_ohmyzsh()
-{
-	echo_title "update oh-my-zsh"
-	fmt_warning "Please update oh-my-zsh manually"
-	fmt_info "1. make sure you are in zsh"
-	fmt_info "2. run 'omz update'"
+exec_update_ohmyzsh() {
+    echo_title "update oh-my-zsh"
+    fmt_warning "Please update oh-my-zsh manually"
+    fmt_info "1. make sure you are in zsh"
+    fmt_info "2. run 'omz update'"
 }
 
 append_task_to_init "zsh"

@@ -22,7 +22,7 @@ NIXDBS_REPO=https://github.com/wancocoding/nixdbs.git
 
 # GITHUB_PROXY="https://ghproxy.com"
 
-# v2fly/v2ray 
+# v2fly/v2ray
 V2RAY_VERSION="v4.44.0" # this will be update when proxy install success
 V2RAY_RELEASE="https://github.com/v2fly/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-64.zip"
 # V2RAY_RELEASE_PROXY="${GITHUB_PROXY}/${V2RAY_RELEASE}"
@@ -32,7 +32,8 @@ V2RAY_INSTALL_SCRIPT="https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/
 MANJARO_MIRROR='Server = https://mirrors.tuna.tsinghua.edu.cn/manjaro/stable/$repo/$arch'
 ARCH_MIRROR='Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch'
 
-UBUNTU_MIRROR="$(cat << EOF
+UBUNTU_MIRROR="$(
+    cat <<EOF
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
 # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
@@ -47,11 +48,11 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted 
 EOF
 )"
 
-
 TIMEZONE="Asia/shanghai"
 
 # deprecated, use mirror settings file in misc/mirrors/[area]/pkg/homebrew instead
-HOMEBREW_SETTINGS="$(cat << HBEOF
+HOMEBREW_SETTINGS="$(
+    cat <<HBEOF
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
@@ -59,8 +60,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 HBEOF
 )"
 
-
-FZF_SETTINGS="$(cat << FZFEOF
+FZF_SETTINGS="$(
+    cat <<FZFEOF
 # fd
 export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
 # export FZF_DEFAULT_OPTS="--no-mouse --border --height 50% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -300' --preview-window='right:hidden:wrap' --bind='f3:execute(bat --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-a:select-all+accept,ctrl-y:execute-silent(echo {+} | xclip -i -sel clip)'"
@@ -71,8 +72,9 @@ FZFEOF
 
 FZF_SETTINGS_CONS='export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"'
 
-# Deprecated, use mirror config file instead. 
-GEMRC_SETTINGS="$(cat << GREOF
+# Deprecated, use mirror config file instead.
+GEMRC_SETTINGS="$(
+    cat <<GREOF
 ---
 :backtrace: false
 :bulk_threshold: 1000

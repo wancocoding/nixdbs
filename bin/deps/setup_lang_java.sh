@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-install_sdkman()
-{
+install_sdkman() {
 	if [ ! -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
 		curl_wrapper -s "https://get.sdkman.io" | bash
 		record_task "java" "dir" "$HOME/.sdkman"
@@ -20,8 +19,7 @@ install_sdkman()
 	set -eu
 }
 
-install_jdk()
-{
+install_jdk() {
 	set +eu
 	# set http proxy
 	use_http_proxy_by_setting "install_jdk_use_proxy"
@@ -36,8 +34,7 @@ install_jdk()
 	set -eu
 }
 
-exec_install_java()
-{
+exec_install_java() {
 	echo_title "Setup JDK and Gradle"
 	install_sdkman
 	install_jdk

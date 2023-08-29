@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-
 # install some dev tools like gcc make ninja cmake clangd llvm
 
-exec_install_clang()
-{
+exec_install_clang() {
 	echo_title "Setup C and Cpp language development kits"
 	fmt_info "checking clang..."
 	if ! command_exists clang; then
@@ -45,6 +43,5 @@ exec_install_clang()
 
 	fmt_success "Setup C and Cpp language development kits finish!"
 }
-
 
 append_task_to_init "clang"

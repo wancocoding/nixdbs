@@ -2,10 +2,9 @@
 
 rbenv_rcfile_title="# ======== rbenv settings ========"
 
-install_rbenv()
-{
+install_rbenv() {
 	fmt_info "checking rbenv..."
-	if [ -d $HOME/.rbenv ];then
+	if [ -d $HOME/.rbenv ]; then
 		echo "rbenv exist!"
 	else
 		fmt_info "install rbenv"
@@ -13,28 +12,26 @@ install_rbenv()
 		rm -rf $HOME/.rbenv >/dev/null 2>&1
 
 		git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-		
+
 		record_task "ruby" "dir" "$HOME/.rbenv"
-		
+
 	fi
 }
 
-setup_gemrc()
-{
+setup_gemrc() {
 	fmt_info "link gemrc file"
 	rm -rf $HOME/.gemrc >/dev/null 2>&1
 	# echo "$GEMRC_SETTINGS" > $HOME/.gemrc
 	if is_set_true_in_settings "rubygem_use_mirror"; then
 		local mirror_file="$(get_mirror_file pkg gem)"
-		cat "$mirror_file" > $HOME/.gemrc
+		cat "$mirror_file" >$HOME/.gemrc
 		record_task "ruby" "file" "$HOME/.gemrc"
 	fi
 	# ln -s $NIXDBS_HOME/dotfiles/gemrc $HOME/.gemrc
 
 }
 
-setup_rbenv_profile()
-{
+setup_rbenv_profile() {
 	if ! grep -q "$rbenv_rcfile_title" $HOME/.bashrc || ! grep -q "$rbenv_rcfile_title" $HOME/.zshrc; then
 		append_rc "$rbenv_rcfile_title"
 		append_rc 'export PATH="$HOME/.rbenv/bin:$PATH"'
@@ -57,15 +54,13 @@ setup_rbenv_profile()
 
 }
 
-
-install_default_ruby()
-{
+install_default_ruby() {
 	echo "install defalut Ruby version"
 	export PATH="$HOME/.rbenv/bin:$PATH"
 
 	# list versions
 	rbenv install --list
-	if ! rbenv versions | grep -q "$RBENV_DEFALUT_RUBY_VERSION" ; then
+	if ! rbenv versions | grep -q "$RBENV_DEFALUT_RUBY_VERSION"; then
 		rbenv install "$RBENV_DEFALUT_RUBY_VERSION"
 		rbenv versions
 	else
@@ -82,8 +77,7 @@ install_default_ruby()
 	# fi
 }
 
-exec_install_ruby()
-{
+exec_install_ruby() {
 	echo_title "Setup Ruby and rbenv"
 	use_http_proxy_by_setting "install_ruby_use_proxy"
 
@@ -100,6 +94,4 @@ exec_install_ruby()
 	fmt_success "Setup Ruby and rbenv finish!"
 }
 
-
 append_task_to_init "ruby"
-

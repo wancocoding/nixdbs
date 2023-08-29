@@ -6,14 +6,12 @@
 
 homebrew_rcfile_title="# ======== Homebrew ========"
 
-
-exec_install_brew()
-{
+exec_install_brew() {
 	echo_title "Setup Homebrew"
 	use_http_proxy_by_setting "install_homebrew_use_proxy"
-    if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-        echo "You have installed Homebrew already! Skip this step."
-    else
+	if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+		echo "You have installed Homebrew already! Skip this step."
+	else
 		if is_set_true_in_settings "homebrew_use_mirror"; then
 			local mirror_file="$(get_mirror_file pkg homebrew)"
 			eval "$(<$mirror_file)"
@@ -26,24 +24,23 @@ exec_install_brew()
 		# else
 		#     /bin/bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/HEAD/install.sh)"
 		# fi
-    fi
-    setup_rcfile_for_homebrew
+	fi
+	setup_rcfile_for_homebrew
 	unset_http_proxy
 
 	record_task "homebrew" "dir" "/home/linuxbrew"
 	fmt_success "finish setup homebrew."
 }
 
-setup_rcfile_for_homebrew()
-{
+setup_rcfile_for_homebrew() {
 	fmt_info "setup rcfile for homebrew"
-	if ! grep -q "$homebrew_rcfile_title" $HOME/.bashrc;then
+	if ! grep -q "$homebrew_rcfile_title" $HOME/.bashrc; then
 		append_bashrc "$homebrew_rcfile_title"
 		append_bashrc 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
 		append_bashrc "export HOMEBREW_NO_AUTO_UPDATE=1"
 		record_task "homebrew" "rc" "$homebrew_rcfile_title"
-		record_task "homebrew" "rc"  'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-		record_task "homebrew" "rc"  "export HOMEBREW_NO_AUTO_UPDATE=1"
+		record_task "homebrew" "rc" 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+		record_task "homebrew" "rc" "export HOMEBREW_NO_AUTO_UPDATE=1"
 		# get the mirror file
 		if is_set_true_in_settings "homebrew_use_mirror"; then
 			local mirror_file="$(get_mirror_file pkg homebrew)"
@@ -51,13 +48,13 @@ setup_rcfile_for_homebrew()
 			record_task "homebrew" "rc" "$(cat $mirror_file)"
 		fi
 	fi
-	if ! grep -q "$homebrew_rcfile_title" $HOME/.zshrc;then
+	if ! grep -q "$homebrew_rcfile_title" $HOME/.zshrc; then
 		append_zshrc "$homebrew_rcfile_title"
 		append_zshrc 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
 		append_zshrc "export HOMEBREW_NO_AUTO_UPDATE=1"
 		record_task "homebrew" "rc" "$homebrew_rcfile_title"
-		record_task "homebrew" "rc"  'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-		record_task "homebrew" "rc"  "export HOMEBREW_NO_AUTO_UPDATE=1"
+		record_task "homebrew" "rc" 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+		record_task "homebrew" "rc" "export HOMEBREW_NO_AUTO_UPDATE=1"
 		# get the mirror file
 		if is_set_true_in_settings "homebrew_use_mirror"; then
 			local mirror_file="$(get_mirror_file pkg homebrew)"
@@ -71,14 +68,11 @@ setup_rcfile_for_homebrew()
 	brew -v
 }
 
-
 append_task_to_init "brew"
 
-
-exec_update_brew()
-{
+exec_update_brew() {
 	echo_title "update homebrew"
-    if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+	if command_exists brew || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
 		brew update
 		fmt_success "finish update homebrew."
 	else

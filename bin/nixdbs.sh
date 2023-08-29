@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ####################################################
-# nixdbs 
+# nixdbs
 # ####################################################
 
 set -Eeu -o pipefail
@@ -20,13 +20,19 @@ TMP_FILE="$(mktemp -d)" || exit 1
 NIXDBS_CACHE_SETUP_TASKS_FILE=$HOME/.cache/nixdbs/setup_tasks
 
 mkdir -p $HOME/.cache/nixdbs >/dev/null 2>&1
-[ -f $NIXDBS_CACHE_SETUP_TASKS_FILE ] || touch $NIXDBS_CACHE_SETUP_TASKS_FILE 
+[ -f $NIXDBS_CACHE_SETUP_TASKS_FILE ] || touch $NIXDBS_CACHE_SETUP_TASKS_FILE
+
+# user files
+mkdir -p $HOME/.config/nixdbs >/dev/null 2>&1
 
 # get the real path of this script
-WORKPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+WORKPATH="$(
+    cd -- "$(dirname "$0")" >/dev/null 2>&1
+    pwd -P
+)"
 
 # current path
-CURRENT_WORK_PATH=`pwd`
+CURRENT_WORK_PATH=$(pwd)
 
 # parse options
 source $NIXDBS_HOME/bin/deps/opts.sh

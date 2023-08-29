@@ -3,10 +3,9 @@
 pyenv_rcfile_title="# ======== pyenv ========"
 
 # see: https://github.com/pyenv/pyenv#installation
-install_pyenv()
-{
+install_pyenv() {
 	fmt_info "checking pyenv..."
-	if [ -d $HOME/.pyenv ];then
+	if [ -d $HOME/.pyenv ]; then
 		echo "Pyenv exist! skip..."
 	else
 		fmt_info "install pyenv"
@@ -17,14 +16,13 @@ install_pyenv()
 		record_task "python" "dir" "$HOME/.pyenv"
 	fi
 	if [ ! -d $HOME/.pyenv/plugins/pyenv-virtualenv ]; then
-	    git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv	
+		git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
 	else
 		echo "pyenv-virtualenv already installed, skip..."
 	fi
 }
 
-link_pip_conf()
-{
+link_pip_conf() {
 	fmt_info "link dotfile pip conf"
 	rm -rf $HOME/.pip/pip.conf >/dev/null 2>&1
 	# ln -s $NIXDBS_HOME/dotfiles/pip $HOME/.pip
@@ -33,13 +31,12 @@ link_pip_conf()
 	if is_set_true_in_settings "pip_use_mirror"; then
 		local mirror_file="$(get_mirror_file pkg pip)"
 		mkdir -p $HOME/.pip >/dev/null 2>&1
-		cat "$mirror_file" > $HOME/.pip/pip.conf
+		cat "$mirror_file" >$HOME/.pip/pip.conf
 		record_task "python" "file" "$HOME/.pip/pip.conf"
 	fi
 }
 
-setup_pyenv_rcfile()
-{
+setup_pyenv_rcfile() {
 	if ! grep -q "$pyenv_rcfile_title" $HOME/.bashrc || ! grep -q "$pyenv_rcfile_title" $HOME/.zshrc; then
 		append_rc "$pyenv_rcfile_title"
 		append_rc 'export PYENV_ROOT="$HOME/.pyenv"'
@@ -62,26 +59,23 @@ setup_pyenv_rcfile()
 }
 
 # see: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-exec_install_pydeps()
-{
+exec_install_pydeps() {
 	fmt_info "checking python dependencies"
 	pkg_install_wrapper "group-py-deps"
 }
 
-install_default_python3()
-{
+install_default_python3() {
 	echo "install defalut python3"
 
 	# list versions
-	if ! pyenv versions | grep -q "$PYENV_DEFAULT_PY_VERSION" ; then
+	if ! pyenv versions | grep -q "$PYENV_DEFAULT_PY_VERSION"; then
 		pyenv install $PYENV_DEFAULT_PY_VERSION
 	fi
 	pyenv versions
 
 }
 
-exec_install_python()
-{
+exec_install_python() {
 	echo_title "Setup Python and pyenv"
 
 	install_pyenv
@@ -95,7 +89,6 @@ exec_install_python()
 
 	fmt_success "Setup Python and pyenv finish!"
 }
-
 
 append_task_to_init "pydeps"
 append_task_to_init "python"

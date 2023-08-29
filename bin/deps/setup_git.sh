@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-
 # ==================================
 # Setup Git
 # ==================================
 
 # check git installed
-exec_install_git()
-{
+exec_install_git() {
 	echo_title "Setup git"
 	if ! command -v git 1>/dev/null 2>&1; then
 		fmt_warning "Git is not installed, now install git " >&2
@@ -15,35 +13,35 @@ exec_install_git()
 	else
 		fmt_info "git already installed"
 	fi
-    fmt_info "now setup git and config"
-		if [ ! "$(git config --global user.name)" ]; then
-				read -p "enter your name[coco]: > " input_text
-				if [ ! -z $input_text ] && [ $input_text != " " ]; then
-						git config --global user.name "$input_text"
-				else
-						fmt_warning "you should setup your git config [user.name] later!"
-				fi
+	fmt_info "now setup git and config"
+	if [ ! "$(git config --global user.name)" ]; then
+		read -p "enter your name[coco]: > " input_text
+		if [ ! -z $input_text ] && [ $input_text != " " ]; then
+			git config --global user.name "$input_text"
+		else
+			fmt_warning "you should setup your git config [user.name] later!"
 		fi
-		if [ ! "$(git config --global user.email)" ]; then
-				read -p "enter your email[username@gmail.com]: > " input_text
-				if [ ! -z $input_text ] && [ $input_text != " " ]; then
-						git config --global user.email "$input_text"
-				else
-						fmt_warning "you should setup your git config [user.email] later!"
-				fi
+	fi
+	if [ ! "$(git config --global user.email)" ]; then
+		read -p "enter your email[username@gmail.com]: > " input_text
+		if [ ! -z $input_text ] && [ $input_text != " " ]; then
+			git config --global user.email "$input_text"
+		else
+			fmt_warning "you should setup your git config [user.email] later!"
 		fi
-    # git config --global user.name
-    # git config --global user.email
-    # git config --global http.proxy
+	fi
+	# git config --global user.name
+	# git config --global user.email
+	# git config --global http.proxy
 
-	if is_set_true_in_settings "git_use_proxy";then
+	if is_set_true_in_settings "git_use_proxy"; then
 		local http_proxy=$(get_http_proxy)
 		if [ ! -z "${http_proxy:-}" ]; then
 			fmt_info "set git global config http.proxy"
 			git config --global http.proxy $http_proxy
 		fi
 	fi
-        # common git settings
+	# common git settings
 	execute git config --global core.autocrlf false
 	execute git config --global core.eol lf
 	execute git config --global pull.rebase true
@@ -53,64 +51,62 @@ exec_install_git()
 	execute git config --global mergetool.prompt false
 	execute git config --global mergetool.keepbackup false
 
+	# git alias settings
+	# git push
+	execute git config --global alias.p 'push'
 
-    # git alias settings
-    # git push
-    execute git config --global alias.p 'push'
+	# git status
+	execute git config --global alias.st 'status -sb'
 
-    # git status
-    execute git config --global alias.st 'status -sb'
+	# git log
+	execute git config --global alias.ll 'log --oneline'
+	execute git config --global alias.lla 'log --oneline --decorate --graph --all'
 
-    # git log
-    execute git config --global alias.ll 'log --oneline'
-    execute git config --global alias.lla 'log --oneline --decorate --graph --all'
+	# last commit
+	execute git config --global alias.last 'log -1 HEAD --stat'
 
-    # last commit
-    execute git config --global alias.last 'log -1 HEAD --stat'
+	# git commit
+	execute git config --global alias.cm 'commit'
+	execute git config --global alias.cmm 'commit -m'
 
-    # git commit
-    execute git config --global alias.cm 'commit'
-    execute git config --global alias.cmm 'commit -m'
+	# git checkout
+	execute git config --global alias.co 'checkout'
 
-    # git checkout
-    execute git config --global alias.co 'checkout'
+	# git remote
+	execute git config --global alias.rv 'remote -v'
 
-    # git remote
-    execute git config --global alias.rv 'remote -v'
+	# git diff
+	execute git config --global alias.d 'diff'
+	execute git config --global alias.dv 'difftool -t vimdiff -y'
 
-    # git diff 
-    execute git config --global alias.d 'diff'
-    execute git config --global alias.dv 'difftool -t vimdiff -y'
+	# list git global config
+	execute git config --global alias.gl 'config --global -l'
 
-    # list git global config
-    execute git config --global alias.gl 'config --global -l'
+	# git branch
+	execute git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
 
-    # git branch
-    execute git config --global alias.br "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+	# reset last
+	execute git config --global alias.undo 'reset HEAD~1 --mixed'
 
-    # reset last 
-    execute git config --global alias.undo 'reset HEAD~1 --mixed'
-
-    # git template 
-	cat $NIXDBS_HOME/dotfiles/config/git_commit_template > "$HOME/.config/git_commit_template"
+	# git template
+	cat $NIXDBS_HOME/dotfiles/config/git_commit_template >"$HOME/.config/git_commit_template"
 	git config --global commit.template ~/.config/git_commit_template
 
-	record_task "git" "user"  "$HOME/.config/git_commit_template"
-	record_task "git" "user"  "$HOME/.gitconfig"
+	record_task "git" "user" "$HOME/.config/git_commit_template"
+	record_task "git" "user" "$HOME/.gitconfig"
 	record_task "git" "ins" "$(pkg_install_info git)"
 	record_task "git" "ver" "$(git --version)"
 
-    # if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
+	# if necessary set you LANG to en_US.UTF-8 or add : alias git='LANG=en_US.UTF-8 git'
 	fmt_success "setup git finish!"
 }
 
 append_task_to_init "git"
 
-exec_update_git()
-{
+exec_update_git() {
 	echo_title "Update git"
 	if ! command -v git 1>/dev/null 2>&1; then
-		error_exit "Git is not installed!" 
+		error_exit "Git is not installed!"
 	else
 		pkg_update_wrapper git
 		fmt_success "update git finish!"

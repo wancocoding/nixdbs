@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-
 # ==================================
 # Setup locale
 # ==================================
 
-setup_locale()
-{
+setup_locale() {
 	echo_title "Setup locale"
 	exe_sudo_string "echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen"
 	exe_sudo_string "echo 'en_US ISO-8859-1' >> /etc/locale.gen"
@@ -31,4 +29,3 @@ setup_locale()
 	localectl
 	fmt_success "Setup locale"
 }
-

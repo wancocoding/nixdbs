@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-
 # ==================================
 # Setup timezone
 # ==================================
 
-set_tz_systemd()
-{
+set_tz_systemd() {
 	if command_exists "timedatectl"; then
 		exe_sudo "timedatectl set-timezone Asia/Shanghai"
 		exe_sudo "timedatectl"
@@ -14,16 +12,14 @@ set_tz_systemd()
 	fi
 }
 
-
-setup_timezone()
-{
+setup_timezone() {
 	echo_title "Setup Timezone"
 	# if command_exists "tzselect"; then
 	#	    exe_sudo tzselect
 	if command_exists timedatectl; then
 		exe_sudo_string "timedatectl set-timezone Asia/Shanghai"
 		exe_sudo_string "timedatectl"
-	elif [ -a /usr/share/zoneinfo/Asia/Shanghai  ]; then
+	elif [ -a /usr/share/zoneinfo/Asia/Shanghai ]; then
 		exe_sudo_string "ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime"
 		exe_sudo_string "echo ${TIMEZONE} > /etc/timezone"
 	else
@@ -33,6 +29,3 @@ setup_timezone()
 	fmt_success "Setup timezone"
 
 }
-
-
-
