@@ -23,4 +23,5 @@ Linux Development Bootstrap
 ## TODO
 
 * [x] 根据提示选择安装线路,`github`和`gitee`切换
+* [ ] 增加`~/.config/nixdbs/`文件夹,用于保存配置信息,环境变量,临时脚本等等
 * [ ] 将所有环境变量写到一个可以配置删除的文件夹里,方便在移除的时候一起删除

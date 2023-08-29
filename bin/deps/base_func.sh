@@ -4,27 +4,22 @@
 # utility functions
 # ==================================
 
-
 command_exists() {
-  command -v "$@" >/dev/null 2>&1
+	command -v "$@" >/dev/null 2>&1
 }
 
 # check not call from subshell
 if [ -t 1 ]; then
-  is_tty() {
-    true
-  }
+	is_tty() {
+		true
+	}
 else
-  is_tty() {
-    false
-  }
+	is_tty() {
+		false
+	}
 fi
 
-
-
-
-get_setting_value()
-{
+get_setting_value() {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
 	local config_file="$JOB_CONFIG_FILE"
@@ -42,7 +37,7 @@ get_setting_value()
 	fi
 }
 
-# Deprecate , use 
+# Deprecate , use
 # get_config_str_from_file()
 # {
 #     # local print_string='{print $NF}'
@@ -62,21 +57,17 @@ get_setting_value()
 # }
 
 # get value from a file , eg: mirror = http://mirrors.example.com
-get_cfg_from_file_by_key()
-{
+get_cfg_from_file_by_key() {
 	sed -n \
 		"/^${1}\s\+\=\s\+/s/^${1}\s\+=\s\+//p" \
 		$2
 }
 
-get_bin_path()
-{
+get_bin_path() {
 	type -p "tldr" | sed -n 's/\([^\/]*\)//p'
 }
 
-
-is_set_true_in_settings()
-{
+is_set_true_in_settings() {
 	# local print_string='{print $NF}'
 	# local pattern_string="/^$1/${print_string}"
 	local config_file="$JOB_CONFIG_FILE"
@@ -88,23 +79,22 @@ is_set_true_in_settings()
 	local config_value="$(get_cfg_from_file_by_key $1 $config_file)"
 	echo "the config value of [$1] is $config_value"
 	case $config_value in
-		y*|Y*)
-			return 0
-			;;
-		n*|N*)
-			return 1
-			;;
-		*)
-			echo "Warning: The config of [${1}] is missing! Skip this task."
-			return 1
-			;;
+	y* | Y*)
+		return 0
+		;;
+	n* | N*)
+		return 1
+		;;
+	*)
+		echo "Warning: The config of [${1}] is missing! Skip this task."
+		return 1
+		;;
 	esac
 	# set as no, if not found in config file
 	return 1
 }
 
-get_http_proxy()
-{
+get_http_proxy() {
 	if [ ! -z "${NIXDBS_HTTP_PROXY:-}" ]; then
 		echo "$NIXDBS_HTTP_PROXY"
 	else
@@ -112,39 +102,36 @@ get_http_proxy()
 	fi
 }
 
-use_http_proxy()
-{
+use_http_proxy() {
 	local script_http_proxy=$(get_http_proxy)
 	if [ ! -z "${script_http_proxy:-}" ]; then
 		export http_proxy="$script_http_proxy"
-		if [ -f $HOME/.curlrc ];then
+		if [ -f $HOME/.curlrc ]; then
 			mv $HOME/.curlrc $HOME/.curlrc.bak
 		fi
 		if [ -f $HOME/.wgetrc ]; then
 			mv $HOME/.wgetrc $HOME/.wgetrc.bak
 		fi
-		echo "proxy=${script_http_proxy}" > $HOME/.curlrc
-		echo "http_proxy = ${script_http_proxy}" > $HOME/.wgetrc
+		echo "proxy=${script_http_proxy}" >$HOME/.curlrc
+		echo "http_proxy = ${script_http_proxy}" >$HOME/.wgetrc
 	fi
 }
 
-use_http_proxy_by_setting()
-{
+use_http_proxy_by_setting() {
 	if is_set_true_in_settings "$1"; then
 		use_http_proxy
 	fi
 }
 
-unset_http_proxy()
-{
+unset_http_proxy() {
 	unset http_proxy
-	if [ -f $HOME/.curlrc ];then
+	if [ -f $HOME/.curlrc ]; then
 		rm $HOME/.curlrc
 	fi
 	if [ -f $HOME/.curlrc.bak ]; then
 		mv $HOME/.curlrc.bak $HOME/.curlrc
 	fi
-	if [ -f $HOME/.wgetrc ];then
+	if [ -f $HOME/.wgetrc ]; then
 		rm $HOME/.wgetrc
 	fi
 	if [ -f $HOME/.wgetrc.bak ]; then
@@ -152,76 +139,66 @@ unset_http_proxy()
 	fi
 }
 
-append_rc()
-{
+append_rc() {
 	if [ -f $HOME/.zshrc ]; then
-		if ! grep -q "$1" $HOME/.zshrc ;then
-			echo "$1" >> $HOME/.zshrc
+		if ! grep -q "$1" $HOME/.zshrc; then
+			echo "$1" >>$HOME/.zshrc
 		fi
 	fi
 
 	if [ -f $HOME/.bashrc ]; then
-		if ! grep -q "$1" $HOME/.bashrc ;then
-			echo "$1" >> $HOME/.bashrc
+		if ! grep -q "$1" $HOME/.bashrc; then
+			echo "$1" >>$HOME/.bashrc
 		fi
 	fi
 }
 
-append_bashrc()
-{
-	if ! grep -q "$1" $HOME/.bashrc ;then
-		echo "$1" >> $HOME/.bashrc
+append_bashrc() {
+	if ! grep -q "$1" $HOME/.bashrc; then
+		echo "$1" >>$HOME/.bashrc
 	fi
 }
 
-append_zshrc()
-{
-	if ! grep -q "$1" $HOME/.zshrc ;then
-		echo "$1" >> $HOME/.zshrc
+append_zshrc() {
+	if ! grep -q "$1" $HOME/.zshrc; then
+		echo "$1" >>$HOME/.zshrc
 	fi
 }
 
-append_rc_by_file()
-{
+append_rc_by_file() {
 	if [ -f $HOME/.zshrc ]; then
-		cat "$1" >> $HOME/.zshrc
+		cat "$1" >>$HOME/.zshrc
 	fi
 
 	if [ -f $HOME/.bashrc ]; then
-		cat "$1" >> $HOME/.bashrc
+		cat "$1" >>$HOME/.bashrc
 	fi
 }
 
-append_bashrc_by_file()
-{
+append_bashrc_by_file() {
 	if [ -f $HOME/.bashrc ]; then
-		cat "$1" >> $HOME/.bashrc
+		cat "$1" >>$HOME/.bashrc
 	fi
 }
 
-append_zshrc_by_file()
-{
+append_zshrc_by_file() {
 	if [ -f $HOME/.zshrc ]; then
-		cat "$1" >> $HOME/.zshrc
+		cat "$1" >>$HOME/.zshrc
 	fi
 }
 
-
-curl_wrapper()
-{
+curl_wrapper() {
 	local http_proxy=$(get_http_proxy)
 	if [ ! -z "${http_proxy:-}" ]; then
-		curl -x $http_proxy --connect-timeout 10 --retry-delay 2 --retry 3	"$@"
+		curl -x $http_proxy --connect-timeout 10 --retry-delay 2 --retry 3 "$@"
 	else
-		curl --connect-timeout 10 --retry-delay 2 --retry 3	"$@"
+		curl --connect-timeout 10 --retry-delay 2 --retry 3 "$@"
 	fi
 }
-
 
 # param 1: [os|pkg]
 # param 2: [pkgname] example: homebrew
-get_mirror_file()
-{
+get_mirror_file() {
 	if [ ! -z ${1:-} ] && [ ! -z ${2:-} ]; then
 		local mirror_area="$(get_setting_value mirror_area)"
 		local mirror_type="$1"
@@ -233,17 +210,14 @@ get_mirror_file()
 	fi
 }
 
-
-append_task_to_init()
-{
+append_task_to_init() {
 	SETUP_TASKS_ARRAY+=("$1")
 }
 
-run_job_and_tasks()
-{
-	if [ "$JOB_NAME" = "init" ];then
+run_job_and_tasks() {
+	if [ "$JOB_NAME" = "init" ]; then
 		# copy array to specified_steps
-		specified_steps=( "${SETUP_TASKS_ARRAY[@]}" )
+		specified_steps=("${SETUP_TASKS_ARRAY[@]}")
 	fi
 	local step_total="${#specified_steps[@]}"
 	let step_index=1
@@ -257,32 +231,30 @@ run_job_and_tasks()
 		run_job_task "$JOB_NAME" "$task_name_i"
 		let step_index+=1
 	done
-	if [ "$JOB_NAME" = "remove" ];then
+	if [ "$JOB_NAME" = "remove" ]; then
 		run_job_task "$JOB_NAME" "$REMOVE_TASK_NAME"
 	fi
 }
 
-cache_task()
-{
+cache_task() {
 	local task_name_to_cache="$1"
 	if ! grep -Fxq "$task_name_to_cache" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
-		echo "$task_name_to_cache" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
+		echo "$task_name_to_cache" >>"$NIXDBS_CACHE_SETUP_TASKS_FILE"
 	fi
 }
 
-run_job_task()
-{
+run_job_task() {
 	# record setup tasks
 	local job_name="$1"
 	local task_name_arg="$2"
-	if [ "${job_name}" = "init" ];then
+	if [ "${job_name}" = "init" ]; then
 		if is_set_true_in_settings "$task_name_arg"; then
 			if grep -Fxq "$task_name_arg" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
 				# step already executed, skip this step
 				echo "Skip $task_name_arg, it has already finished"
 				return
 			else
-				eval "exec_install_${task_name_arg}"	
+				eval "exec_install_${task_name_arg}"
 				# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
 				cache_task "$task_name_arg"
 			fi
@@ -294,7 +266,7 @@ run_job_task()
 	elif [ "$job_name" = install ]; then
 		if grep -Fxq "$task_name_arg" "$NIXDBS_CACHE_SETUP_TASKS_FILE"; then
 			if [ $NIXDBS_RUN_MODE_FORCE == 0 ]; then
-				eval "exec_install_${task_name_arg}"	
+				eval "exec_install_${task_name_arg}"
 				# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
 				cache_task "$task_name_arg"
 			else
@@ -303,7 +275,7 @@ run_job_task()
 				return
 			fi
 		else
-			eval "exec_install_${task_name_arg}"	
+			eval "exec_install_${task_name_arg}"
 			# echo "$task_name_arg" >> "$NIXDBS_CACHE_SETUP_TASKS_FILE"
 			cache_task "$task_name_arg"
 		fi
@@ -315,26 +287,29 @@ run_job_task()
 	fi
 }
 
-dependent_tasks()
-{
-	for task_name_i in "$@"
-	do
+dependent_tasks() {
+	for task_name_i in "$@"; do
 		run_job_task "install" "${task_name_i}"
 	done
 }
 
-
-main_step()
-{
-	case $JOB_NAME in
+main_step() {
+	if [ -z ${JOB_NAME:-} ]; then
+		echo "No Job will run, now exit."
+		exit 0
+	else
+		case $JOB_NAME in
 		info)
 			show_nixdbs_infomation
 			;;
-		init|install|update|remove)
+		init | install | update | remove)
 			run_job_and_tasks
 			;;
 		*)
 			echo "Error: Job not exist."
 			exit 1
-	esac
+			;;
+		esac
+	fi
+
 }
