@@ -104,6 +104,7 @@ setup_color() {
     FMT_BOLD=$(printf '\033[1m')
     FMT_UNDERLINE=$(printf '\033[4m')
     if [ ! -t 1 ]; then
+        echo "-- Setup logging format with no color, because not a terminal."
         # not tty, no color set
         FMT_RED=""
         FMT_BLUE=""
@@ -112,19 +113,22 @@ setup_color() {
         FMT_BOLD=""
         FMT_RESET=""
         FMT_UNDERLINE=""
-    elif [ $TERM_COLOR_TYPE == 1 ]; then
+    elif [ $TERM_COLOR_TYPE == 2 ]; then
+        echo "-- Setup true color logging format..."
         # ture color
         FMT_RED=$(printf '\033[38;2;229;28;35m')
         FMT_BLUE=$(printf '\033[38;2;77;208;225m')
         FMT_GREEN=$(printf '\033[38;2;66;189;65m')
         FMT_YELLOW=$(printf '\033[38;2;255;193;7m')
-    elif [ $TERM_COLOR_TYPE == 2 ]; then
+    elif [ $TERM_COLOR_TYPE == 1 ]; then
+        echo "-- Setup 256 color logging format..."
         # 256 color
         FMT_RED=$(printf '\033[38;5;198m')
         FMT_BLUE=$(printf '\033[38;5;69m')
         FMT_GREEN=$(printf '\033[38;5;82m')
         FMT_YELLOW=$(printf '\033[38;5;191m')
     else
+        echo "-- Setup default logging format..."
         # default
         FMT_RED=$(printf '\033[31m')
         FMT_BLUE=$(printf '\033[34m')
