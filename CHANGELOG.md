@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.6](https://github.com/wancocoding/dotfiles/compare/v2.2.5...v2.2.6) (2023-08-30)
+
+
+### 🐛 Bug Fixes
+
+* update vim default config and remove some plugins ([68a9f77](https://github.com/wancocoding/dotfiles/commit/68a9f77ff965f07ae4fc3674d9a7c7f4b65cced8))
+
 ### [2.2.5](https://github.com/wancocoding/dotfiles/compare/v2.2.4...v2.2.5) (2023-08-29)
 
 
