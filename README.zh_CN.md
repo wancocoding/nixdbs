@@ -17,6 +17,12 @@ Linux Development Bootstrap
 * 大量常用的操作简化,比如git新建仓库
 
 
+## 安装
+
+```shell
+curl -fsSL https://gitee.com/nexco/nixdbs/raw/master/tools/install.sh | bash
+```
+
 
 
 
@@ -29,6 +35,8 @@ Linux Development Bootstrap
 * [x] 更新语言的最新版本 java gradle ruby
 * [x] 格式化所有脚本
 * [x] 修复安装dev kits的时候的需要确认的问题
+* [x] 简化vim的安装配置,减少非必要插件,比如coc.nvim
+* [ ] 将所有环境变量写到一个可以配置删除的文件夹里,方便在移除的时候一起删除
 * [ ] 字体安装
 * [x] 增加`~/.config/nixdbs/`文件夹,用于保存配置信息,环境变量,临时脚本等等
-* [ ] 将所有环境变量写到一个可以配置删除的文件夹里,方便在移除的时候一起删除
+
